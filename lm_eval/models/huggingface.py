@@ -4,6 +4,8 @@ from datetime import timedelta
 from pathlib import Path
 from typing import Dict, List, Literal, Optional, Tuple, Union
 
+from open_lm.hf import *
+
 import jinja2
 import torch
 import torch.nn.functional as F
