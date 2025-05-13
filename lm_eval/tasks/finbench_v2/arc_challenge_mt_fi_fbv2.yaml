@@ -1,0 +1,24 @@
+tag:
+  - finbench_v2
+task: arc_challenge_mt_fi_fbv2
+dataset_path: LumiOpen/arc_challenge_mt
+dataset_name: fi
+output_type: multiple_choice
+training_split: train
+validation_split: validation
+test_split: test
+num_fewshot: 10
+doc_to_text: "Kysymys: {{question}}\nVastaus:"
+doc_to_target: "{{choices.label.index(answerKey)}}"
+doc_to_choice: "{{choices.text}}"
+should_decontaminate: true
+doc_to_decontamination_query: "Kysymys: {{question}}\nVastaus:"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
