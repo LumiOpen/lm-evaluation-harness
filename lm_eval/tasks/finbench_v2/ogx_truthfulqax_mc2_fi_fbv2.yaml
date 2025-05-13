@@ -1,4 +1,4 @@
-include: ogx_truthfulqax_mc1_fi.yaml
+include: ogx_truthfulqax_mc1_fi_fbv2.yaml
 task: ogx_truthfulqax_mc2_fi_fbv2
 dataset_name: mc_FI
 doc_to_target: 0
