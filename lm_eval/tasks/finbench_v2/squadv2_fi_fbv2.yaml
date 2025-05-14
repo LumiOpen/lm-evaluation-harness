@@ -1,0 +1,4 @@
+task: squadv2_fi_fbv2
+class: !function squadv2_utils.SQuAD2
+tag:
+  - finbench_v2

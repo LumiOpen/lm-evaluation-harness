@@ -5,6 +5,7 @@ test_split: default
 doc_to_text: inputs
 doc_to_target: "{{multiple_choice_targets.index(targets[0])}}"
 doc_to_choice: "{{multiple_choice_targets}}"
+num_fewshot: 10
 metric_list:
   - metric: acc
 metadata:
