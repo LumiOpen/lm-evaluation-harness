@@ -1,11 +1,9 @@
 tag:
   - finbench_v2
-task: arc_challenge_mt_fi_fbv2
-dataset_path: LumiOpen/arc_challenge_mt
-dataset_name: fi
+task: arc_challenge_fi_fbv2
+dataset_path: silogen/ARC-C-fi-HT
+dataset_name: ARC-C-fi-HT
 output_type: multiple_choice
-training_split: train
-validation_split: validation
 test_split: test
 num_fewshot: 10
 doc_to_text: "Kysymys: {{question}}\nVastaus:"
