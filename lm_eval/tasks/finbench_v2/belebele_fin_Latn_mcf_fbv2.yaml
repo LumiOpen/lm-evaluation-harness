@@ -19,7 +19,7 @@ metadata:
 dataset_name: fin_Latn
 num_fewshot: 5
 fewshot_split: test
-task: belebele_fin_Latn_fbv2
+task: belebele_fin_Latn_mcf_fbv2
 test_split: test
 tag:
   - finbench_v2
