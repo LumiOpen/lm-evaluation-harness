@@ -3,7 +3,7 @@ tag:
   - finbench_v2
 output_type: multiple_choice
 dataset_path: spyysalo/sib-200-fin_Latn
-num_fewshot: 3
+num_fewshot: 0
 test_split: test
 fewshot_split: test
 doc_to_text: "Mihin aihealueeseen seuraava uutinen kuuluu? Teksti: {{text}}\nAihealue:"

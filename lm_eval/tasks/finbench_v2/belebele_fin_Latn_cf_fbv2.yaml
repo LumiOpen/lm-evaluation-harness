@@ -1,7 +1,7 @@
 dataset_path: facebook/belebele
 fewshot_config:
   sampler: first_n
-output_type: multiple_choice
+output_type: generate_until
 should_decontaminate: true
 doc_to_decontamination_query: "{{question}}"
 doc_to_text: "Teksti: {{flores_passage}}\nKysymys: {{question.strip()}}\nVastaus:"
