@@ -4,7 +4,7 @@ fewshot_config:
 output_type: multiple_choice
 should_decontaminate: true
 doc_to_decontamination_query: "{{question}}"
-doc_to_text: "Teksti: {{flores_passage}}\nKysymys: {{question.strip()}}\nVastaus:"
+doc_to_text: "{{flores_passage}}\nKysymys: {{question.strip()}}\nVastaus:"
 doc_to_choice: "{{[mc_answer1, mc_answer2, mc_answer3, mc_answer4]}}"
 doc_to_target: "{{['1', '2', '3', '4'].index(correct_answer_num)}}"
 metric_list:
@@ -17,7 +17,6 @@ metric_list:
 metadata:
   version: 0.0
 dataset_name: fin_Latn
-num_fewshot: 5
 fewshot_split: test
 task: belebele_fin_Latn_cf_fbv2
 test_split: test
