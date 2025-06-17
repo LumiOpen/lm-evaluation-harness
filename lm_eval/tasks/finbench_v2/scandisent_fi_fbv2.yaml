@@ -1,13 +1,13 @@
 tag:
   - finbench_v2
-task: scala_fi_fbv2
-dataset_path: kjoona/finbenchv2-scala-fi
+task: scandisent_fi_fbv2
+dataset_path: kjoona/finbenchv2-scandisent-fi-mini
 output_type: multiple_choice
 training_split: train
 test_split: test
 validation_split: val
 num_fewshot: 3
-description: "Kerro, ovatko seuraavat lauseet kieliopillisesti oikein.\n\n"
+description: "Kerro seuraavien arvostelujen tunnesävy, joka voi olla 'positiivinen' tai 'negatiivinen'.\n\n"
 doc_to_text: "{{query}}"
 doc_to_target: "{{gold}}"
 doc_to_choice: "choices"
