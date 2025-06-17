@@ -7,6 +7,7 @@ training_split: train
 test_split: test
 validation_split: val
 num_fewshot: 3
+process_docs: !function scandisent_fi_utils.process_docs
 description: "Kerro seuraavien arvostelujen tunnesävy, joka voi olla 'positiivinen' tai 'negatiivinen'.\n\n"
 doc_to_text: "{{query}}"
 doc_to_target: "{{gold}}"
