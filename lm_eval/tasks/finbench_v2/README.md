@@ -27,7 +27,7 @@ Our main evaluation principles are:
 | | `ogx_truthfulqax_mc2_fi_fbv2` | ❌ | Multiple-choice question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
 | | `ogx_truthfulqax_gen_fi_fbv2`| ❌ | Generative question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
 | [SQuAD v2](https://huggingface.co/datasets/squad_v2) | `squadv2_fi_fbv2` | ✅ | Generative question answering | Machine reading comprehension | [finbenchv2-squad_v2-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-squad_v2-fi-mt) |
-| [SIB-200](https://huggingface.co/datasets/Helsinki-NLP/sib-200) | `sib200_fi_fbv2` | ✅ | Multiple-choice classification | Text classification | [finbenchv2-sib-200-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-sib-200-fi-og) |
+| [SIB-200](https://huggingface.co/datasets/Davlan/sib200) | `sib200_fi_fbv2` | ✅ | Multiple-choice classification | Text classification | [finbenchv2-sib-200-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-sib-200-fi-og) |
 | [FIN-Bench](https://github.com/TurkuNLP/FIN-bench) | `analogies_fbv2` | ❌ | Multiple-choice | Relational reasoning | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
 | | `emotions_fbv2` | ❌ | Multiple-choice | Sentiment analysis | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
 | | `empirical_judgments_fbv2` | ❌ | Multiple-choice | Causal reasoning | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
