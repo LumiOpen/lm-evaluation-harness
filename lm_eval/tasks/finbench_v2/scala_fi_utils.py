@@ -8,9 +8,9 @@ def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
         }
 
         out_doc = {
-            "query": f"Lause: {doc["text"]}\nKieliopillisesti oikein: ",
-            "choices": [label_map["correct"], label_map["incorrect"]],
-            "gold": label_map[doc["label"]]
+            "query": f"Lause: {doc['text']}\nKieliopillisesti oikein: ",
+            "choices": [label_map['correct'], label_map['incorrect']],
+            "gold": label_map[doc['label']]
         }
         return out_doc
 
