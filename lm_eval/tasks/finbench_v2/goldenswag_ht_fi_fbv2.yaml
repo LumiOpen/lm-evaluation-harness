@@ -1,12 +1,11 @@
-task: ogx_goldenswagx_fi_fbv2
+task: goldenswag_ht_fi_fbv2
 tag:
   - finbench_v2
-dataset_path: LumiOpen/opengpt-x_goldenswagx
-dataset_name: "FI"
+dataset_path: TurkuNLP/finbenchv2-goldenswag-fi-ht
 output_type: multiple_choice
 num_fewshot: 0
 training_split: train
-validation_split: validation
+validation_split: null
 test_split: null
 process_docs: !function ogx_goldenswagx_utils.process_docs
 doc_to_text: "{{query}}"

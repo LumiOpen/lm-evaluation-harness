@@ -1,5 +1,6 @@
-tag:
-  - finbench_v2
+# ScaLA is currently in testing, hence it's not included in the finbench_v2 task group.
+# tag:
+#   - finbench_v2
 task: scandisent_fi_fbv2
 dataset_path: kjoona/finbenchv2-scandisent-fi-mini
 output_type: multiple_choice

@@ -17,23 +17,23 @@ Our main evaluation principles are:
 
 ### Tasks
 
-| Name | Finnish task name | *k*-shot | Task type | Task category | Our dataset version |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| [ARC-challenge-fi](https://huggingface.co/datasets/silogen/ARC-C-fi-HT) | `arc_challenge_fi_fbv2` | ✅ | Multiple-choice question answering | World knowledge | [finbenchv2-arc-c-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-arc-c-fi-ht) |
-| [Belebele](https://huggingface.co/datasets/facebook/belebele) | `belebele_fin_Latn_cf_fbv2` | ❌ | Multiple-choice question answering | Machine reading comprehension | [finbenchv2-belebele-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-belebele-fi-og) |
-| | `belebele_fin_Latn_mcf_fbv2` | ❌ | Multiple-choice question answering | Machine reading comprehension | [finbenchv2-belebele-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-belebele-fi-og) |
-| [GoldenSwag](https://huggingface.co/datasets/PleIAs/GoldenSwag) | `finbenchv2-goldenswag-fi-ht` | ✅ | Sentence completion | Commonsense reasoning | [finbenchv2-goldenswag-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-goldenswag-fi-ht) |
-| [TruthfulQA](https://huggingface.co/datasets/Eurolingua/truthfulqax) | `ogx_truthfulqax_mc1_fi_fbv2` | ❌ | Multiple-choice question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
-| | `ogx_truthfulqax_mc2_fi_fbv2` | ❌ | Multiple-choice question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
-| | `ogx_truthfulqax_gen_fi_fbv2`| ❌ | Generative question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
-| [SQuAD v2](https://huggingface.co/datasets/squad_v2) | `squadv2_fi_fbv2` | ✅ | Generative question answering | Machine reading comprehension | [finbenchv2-squad_v2-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-squad_v2-fi-mt) |
-| [SIB-200](https://huggingface.co/datasets/Davlan/sib200) | `sib200_fi_fbv2` | ✅ | Multiple-choice classification | Text classification | [finbenchv2-sib-200-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-sib-200-fi-og) |
-| [FIN-Bench](https://github.com/TurkuNLP/FIN-bench) | `analogies_fbv2` | ❌ | Multiple-choice | Relational reasoning | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
-| | `emotions_fbv2` | ❌ | Multiple-choice | Sentiment analysis | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
-| | `empirical_judgments_fbv2` | ❌ | Multiple-choice | Causal reasoning | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
-| | `general_knowledge_fbv2` | ❌ | Multiple-choice | World knowledge | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
-| | `hhh_alignment_fbv2` | ❌ | Multiple-choice | Alignment and safety | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
-| | `paraphrase_fbv2` | ❌ | Multiple-choice | Paraphrase identification | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
+| Name | Finnish task name              | *k*-shot | Task type | Task category | Our dataset version |
+| :--- |:-------------------------------| :--- | :--- | :--- | :--- |
+| [ARC-challenge-fi](https://huggingface.co/datasets/silogen/ARC-C-fi-HT) | `arc_challenge_fi_fbv2`        | ✅ | Multiple-choice question answering | World knowledge | [finbenchv2-arc-c-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-arc-c-fi-ht) |
+| [Belebele](https://huggingface.co/datasets/facebook/belebele) | `belebele_fin_Latn_cf_fbv2`    | ❌ | Multiple-choice question answering | Machine reading comprehension | [finbenchv2-belebele-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-belebele-fi-og) |
+| | `belebele_fin_Latn_mcf_fbv2`   | ❌ | Multiple-choice question answering | Machine reading comprehension | [finbenchv2-belebele-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-belebele-fi-og) |
+| [GoldenSwag](https://huggingface.co/datasets/PleIAs/GoldenSwag) | `goldenswag_ht_fi_fbv2`        | ✅ | Sentence completion | Commonsense reasoning | [finbenchv2-goldenswag-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-goldenswag-fi-ht) |
+| [TruthfulQA](https://huggingface.co/datasets/Eurolingua/truthfulqax) | `ogx_truthfulqax_mc1_fi_fbv2`  | ❌ | Multiple-choice question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
+| | `ogx_truthfulqax_mc2_fi_fbv2`  | ❌ | Multiple-choice question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
+| | `ogx_truthfulqax_gen_fi_fbv2`  | ❌ | Generative question answering | Truthfulness | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
+| [SQuAD v2](https://huggingface.co/datasets/squad_v2) | `squadv2_fi_fbv2`              | ✅ | Generative question answering | Machine reading comprehension | [finbenchv2-squad_v2-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-squad_v2-fi-mt) |
+| [SIB-200](https://huggingface.co/datasets/Davlan/sib200) | `sib200_fi_fbv2`               | ✅ | Multiple-choice classification | Text classification | [finbenchv2-sib-200-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-sib-200-fi-og) |
+| [FIN-Bench](https://github.com/TurkuNLP/FIN-bench) | `analogies_fbv2`               | ❌ | Multiple-choice | Relational reasoning | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
+| | `emotions_fbv2`                | ❌ | Multiple-choice | Sentiment analysis | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
+| | `empirical_judgments_fbv2`     | ❌ | Multiple-choice | Causal reasoning | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
+| | `general_knowledge_fbv2`       | ❌ | Multiple-choice | World knowledge | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
+| | `hhh_alignment_fbv2`           | ❌ | Multiple-choice | Alignment and safety | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
+| | `paraphrase_fbv2`              | ❌ | Multiple-choice | Paraphrase identification | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
 | | `similarities_abstraction_fbv2`| ❌ | Multiple-choice | Commonsense reasoning | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench) |
 
 <details open>

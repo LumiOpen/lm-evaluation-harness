@@ -1,5 +1,6 @@
-tag:
-  - finbench_v2
+# ScandiSent is currently in testing, hence it's not included in the finbench_v2 task roup.
+# tag:
+#  - finbench_v2
 task: scala_fi_fbv2
 dataset_path: kjoona/finbenchv2-scala-fi
 output_type: multiple_choice
