@@ -1,0 +1,21 @@
+# This subset of the English GoldenSwag is kept here temporarily for testing purposes.
+task: goldenswag_og_en_fbv2
+dataset_path: poesia/finbenchv2-goldenswag-en-og
+output_type: multiple_choice
+num_fewshot: 0
+training_split: train
+validation_split: null
+test_split: null
+process_docs: !function ogx_goldenswagx_utils.process_docs
+doc_to_text: "{{query}}"
+doc_to_target: "{{label}}"
+doc_to_choice: "choices"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1
