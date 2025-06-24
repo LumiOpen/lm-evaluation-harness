@@ -1,7 +1,7 @@
 tag:
   - finbench_v2
 task: scandisent_fi_fbv2
-dataset_path: kjoona/finbenchv2-scandisent-fi-mini
+dataset_path: TurkuNLP/finbenchv2-scandisent-fi-mini
 output_type: multiple_choice
 training_split: train
 test_split: test
