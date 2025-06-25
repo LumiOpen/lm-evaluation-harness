@@ -1,0 +1,5 @@
+dataset_name: empirical_judgments_zero_shot
+include: multiple_choice_template_yaml
+task: empirical_judgments_multiple_choice_multi_fbv2
+tag:
+  - finbench_multi_test

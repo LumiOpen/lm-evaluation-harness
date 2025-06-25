@@ -1,0 +1,5 @@
+dataset_name: similarities_abstraction_zero_shot
+include: multiple_choice_template_yaml
+task: similarities_abstraction_multiple_choice_multi_fbv2
+tag:
+  - finbench_multi_test
