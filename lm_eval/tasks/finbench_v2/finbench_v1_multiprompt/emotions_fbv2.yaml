@@ -1,8 +1,6 @@
 dataset_name: emotions_zero_shot
 include: multiple_choice_template_yaml
-doc_to_text: >
-  {{ input_prefix }} {{ query }}\n
-  {{ output_prefix }}
+doc_to_text: "{{ input_prefix }} {{ query }}\n{{ output_prefix }}"
 task: emotions_multiple_choice_multi_fbv2
 tag:
   - finbench_multi_test

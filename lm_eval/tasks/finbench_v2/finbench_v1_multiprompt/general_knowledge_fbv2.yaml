@@ -1,11 +1,6 @@
 dataset_name: general_knowledge_zero_shot
 include: multiple_choice_template_yaml
-doc_to_text: >
-  {{ input_prefix }} {{ query }}
-  {% for s in multiple_choice_targets %}
-  {{ choice_prefix }} {{ s }}\n
-  {% endfor %}
-  {{ output_prefix }}
+doc_to_text: "{{ input_prefix }} {{ query }} {% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}{{ output_prefix }}"
 task: general_knowledge_multiple_choice_multi_fbv2
 tag:
   - finbench_multi_test
