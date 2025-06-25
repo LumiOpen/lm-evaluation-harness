@@ -1,5 +1,6 @@
 dataset_name: emotions_zero_shot
 include: multiple_choice_template_yaml
+description: "Perustunteet ovat hämmästys, ilo, inho, luottamus, odotus, pelko, suru ja suuttumus. Nimeä perustunne seuraavista teksteistä."
 doc_to_text: "{{ input_prefix }} {{ query }}\n{{ output_prefix }}"
 task: emotions_multiple_choice_multi_fbv2
 tag:
