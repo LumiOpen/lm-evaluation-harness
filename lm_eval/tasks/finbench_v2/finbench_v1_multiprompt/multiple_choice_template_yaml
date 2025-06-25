@@ -1,4 +1,4 @@
-dataset_path: TurkuNLP/FIN-bench
+dataset_path: TurkuNLP/finbenchv2-fbv1-stripped-fi-ht
 output_type: multiple_choice
 test_split: default
 doc_to_text: >
