@@ -1,6 +1,11 @@
 dataset_name: analogies_zero_shot
 include: multiple_choice_template_yaml
-doc_to_text: "{{input_prefix}} Mille sanalle {{known_target}} on kuin {{reference_1}} sanalle {{reference_2}}?\n{{'\n'.join(f'{choice_prefix} {s}' for s in multiple_choice_targets)}}\n{{output_prefix}} "
+doc_to_text: >
+  {{ input_prefix }} Mille sanalle {{known_target}} on kuin {{reference_1}} sanalle {{reference_2}}?
+  {% for s in multiple_choice_targets %}
+  {{ choice_prefix }} {{ s }}
+  {% endfor %}
+  {{ output_prefix }}
 task: analogies_multiple_choice_multi_fbv2
 tag:
   - finbench_multi_test

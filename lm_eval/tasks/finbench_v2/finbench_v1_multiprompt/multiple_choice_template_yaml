@@ -1,7 +1,12 @@
 dataset_path: TurkuNLP/FIN-bench
 output_type: multiple_choice
 test_split: default
-doc_to_text: "{{input_prefix}} {{query}}\n{{'\n'.join(f'{choice_prefix} {s}' for s in multiple_choice_targets)}}\n{{output_prefix}} "
+doc_to_text: >
+  {{ input_prefix }} {{ query }}
+  {% for s in multiple_choice_targets %}
+  {{ choice_prefix }} {{ s }}
+  {% endfor %}
+  {{ output_prefix }}
 doc_to_target: "{{multiple_choice_targets.index(targets[0])}}"
 doc_to_choice: "{{multiple_choice_targets}}"
 num_fewshot: 10
