@@ -3,4 +3,4 @@ dataset_name: general_knowledge_zero_shot
 include: multiple_choice_template_yaml
 task: general_knowledge_multiple_choice_fbv2
 tag:
-  - finbench_v2
+  - finbench_multiple_choice_fbv2
