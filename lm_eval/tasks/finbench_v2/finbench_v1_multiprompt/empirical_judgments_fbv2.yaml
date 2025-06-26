@@ -1,6 +1,6 @@
 dataset_name: empirical_judgments_zero_shot
 include: multiple_choice_template_yaml
-description: "Määritä, onko jokin tietty lause kausaalinen, korrelatiivinen vai neutraali suhde kahden tapahtuman välillä. Jos lause väittää kausaalista suhdetta, vastaa kausaalinen, jos lause väittää korrelatiivista suhdetta, vastaa korrelatiivinen, jos lause ei väitä kausaalista eikä korrelatiivista suhdetta kahden tapahtuman välillä, vastaa neutraali."
+description: "Määritä, onko jokin tietty lause kausaalinen, korrelatiivinen vai neutraali suhde kahden tapahtuman välillä. Jos lause väittää kausaalista suhdetta, vastaa kausaalinen, jos lause väittää korrelatiivista suhdetta, vastaa korrelatiivinen, jos lause ei väitä kausaalista eikä korrelatiivista suhdetta kahden tapahtuman välillä, vastaa neutraali.\n"
 doc_to_text: "{{ input_prefix }} {{ query }}\n{{ output_prefix }}"
 task: empirical_judgments_multiple_choice_multi_fbv2
 tag:
