@@ -3,4 +3,4 @@ dataset_name: paraphrase_zero_shot
 include: multiple_choice_template_yaml
 task: paraphrase_multiple_choice_fbv2
 tag:
-  - finbench_v2
+  - finbench_multiple_choice_fbv2

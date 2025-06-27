@@ -122,7 +122,7 @@ class SQuAD2(ConfigurableTask):
             Instance(
                 request_type="generate_until",
                 doc=doc,
-                arguments=(ctx, {"until": ["\n"]}),
+                arguments=(ctx, {"until": ["\n"], "max_new_tokens":32}),
                 idx=0,
                 **kwargs,
             ),

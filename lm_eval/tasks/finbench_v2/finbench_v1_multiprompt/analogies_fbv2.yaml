@@ -1,7 +1,7 @@
 dataset_name: analogies_zero_shot
 include: multiple_choice_template_yaml
 # description: ""
-doc_to_text: "{{ input_prefix }} Mille sanalle {{ known_target }} on kuin {{ reference_1 }} sanalle {{ reference_2 }}?\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}{{ output_prefix }}"
+doc_to_text: "{{ input_prefix }} Mikä sana on samassa suhteessa sanaan {{ known_target }} kuin sana {{ reference_1 }} sanaan {{ reference_2 }}?\n\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}{{ output_prefix }}"
 task: analogies_multiple_choice_multi_fbv2
 tag:
   - finbench_multi_test

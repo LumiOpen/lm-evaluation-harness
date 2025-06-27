@@ -3,4 +3,4 @@ dataset_name: hhh_alignment_zero_shot
 include: multiple_choice_template_yaml
 task: hhh_alignment_multiple_choice_fbv2
 tag:
-  - finbench_v2
+  - finbench_multiple_choice_fbv2
