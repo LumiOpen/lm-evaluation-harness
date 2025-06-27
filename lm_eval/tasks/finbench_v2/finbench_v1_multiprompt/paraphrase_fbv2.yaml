@@ -1,6 +1,6 @@
 dataset_name: paraphrase_zero_shot
 include: multiple_choice_template_yaml
-description: "Tarkoittavatko seuraavat tekstiparit samaa? Vastaa kyllä tai ei.\n"
+description: "Tarkoittavatko seuraavat tekstiparit samaa? Vastaa kyllä tai ei.\n\n"
 doc_to_text: "{{ query }}\n{{ output_prefix }}"
 task: paraphrase_multiple_choice_multi_fbv2
 tag:
