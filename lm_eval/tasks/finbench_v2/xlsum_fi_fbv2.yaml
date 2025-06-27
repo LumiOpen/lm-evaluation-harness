@@ -1,0 +1,64 @@
+# FILE: xlsum_fi_fbv2.yaml
+#
+# Configuration for the Finnish XLSum summarization task.
+# This task evaluates a model's ability to summarize a Finnish news article.
+#
+# To run this task, place this file and its corresponding utils file in a task directory, e.g.:
+# lm_eval/tasks/xlsum_fi_fbv2/
+#
+# Then run the evaluation with:
+# lm-eval --model ... --tasks xlsum_fi_fbv2 --device ...
+#
+
+# Task name should be unique
+task: xlsum_fi_fbv2
+
+# Dataset path on the Hugging Face Hub
+dataset_path: poesia/finbench_v2-xlsum-fi-mt
+
+# A short description of the task, which will be part of the prompt
+description: "Tee tiivistelmä seuraavasta uutisartikkelista.\n\n" # English: "Summarize the following news article.\n\n"
+
+# The type of output expected from the model
+output_type: generate_until
+
+# Define the dataset splits to use for training (few-shot), validation, and testing
+training_split: train
+validation_split: validation
+test_split: test
+
+# Functions from the utils file to process the data
+# doc_to_text: Creates the input prompt for the model from a document instance.
+doc_to_text: !function xlsum_fi_utils.doc_to_text
+# doc_to_target: Extracts the ground truth summary.
+doc_to_target: !function xlsum_fi_utils.doc_to_target
+# process_results: Calculates the metrics based on model generation and ground truth.
+process_results: !function xlsum_fi_utils.process_results_gen
+
+# Arguments for the generation process
+generation_kwargs:
+  # Stop generation when two newlines are encountered, a common way to end a summary.
+  until:
+    - "\n\n"
+
+# List of metrics to compute for this task
+metric_list:
+  - metric: bleu
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: rouge1
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: rouge2
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: rougeL
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: bert_score
+    aggregation: nanmean
+    higher_is_better: true
+
+# Metadata about the task
+metadata:
+  version: 1.0
