@@ -1,0 +1,8 @@
+dataset_name: empirical_judgments_zero_shot
+include: multiple_choice_template_yaml
+description: "Määritä suhde seuraavien lauseiden tapahtumien välillä.\n\n"
+doc_to_text: "{{ input_prefix }} {{ query }}\n{{ output_prefix }}"
+task: empirical_judgments_cf_fbv2
+tag:
+  - finbench_multi_test
+  - finbench_multi_test_cf
