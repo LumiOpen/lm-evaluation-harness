@@ -1,0 +1,4 @@
+task: belebele_fin_mcf_p0
+include: _belebele_fin_mcf_yaml
+doc_to_text: "Valitse tekstikatkelman perusteella oikea vastausvaihtoehto kysymykseen.\n\nTeksti: {{flores_passage}}\n\nKysymys: {{question}}\n\nVastausvaihtoehdot:\n1: {{mc_answer1}}\n2: {{mc_answer2}}\n3: {{mc_answer3}}\n4: {{mc_answer4}}\n\nVastaus: "
+doc_to_choice: ["A", "B", "C", "D"]

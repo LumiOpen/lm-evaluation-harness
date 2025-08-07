@@ -1,0 +1,22 @@
+dataset_path: facebook/belebele
+fewshot_config:
+  sampler: first_n
+output_type: multiple_choice
+should_decontaminate: true
+doc_to_decontamination_query: "{{question}}"
+doc_to_target: "{{['1', '2', '3', '4'].index(correct_answer_num)}}"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 0.0
+dataset_name: fin_Latn
+num_fewshot: 5
+fewshot_split: test
+test_split: test
+tag:
+  - finbench_v2
