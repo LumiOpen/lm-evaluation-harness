@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 #description: ""
 doc_to_text: "Analysoi lauseen \"{{ query }}\" tapahtumien välinen suhde.\nSuhde: "
 task: empirical_judgments_cf_fbv2_p2
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_cf

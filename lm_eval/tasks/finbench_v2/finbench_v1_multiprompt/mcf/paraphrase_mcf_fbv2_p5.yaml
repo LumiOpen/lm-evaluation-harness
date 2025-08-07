@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 description: "Onko seuraavien tekstien merkitys identtinen tai lähes sama? Vastaa \"kyllä\" tai \"ei\".\n\n"
 doc_to_text: "{{ query }}\nV: "
 task: paraphrase_mcf_fbv2_p5
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_mcf

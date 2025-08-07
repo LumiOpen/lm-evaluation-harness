@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "{{ query }}?\nMikä on vastaus?: "
 task: general_knowledge_cf_fbv2_p3
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_cf

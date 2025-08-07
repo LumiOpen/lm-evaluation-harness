@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 description: "Tässä on yleistietokysymyksiä ja niihin liittyvät vastausvaihtoehdot. Valitse oikea.\n\n"
 doc_to_text: "{{ query }}\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}Valintasi: "
 task: general_knowledge_mcf_fbv2_p4
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_mcf

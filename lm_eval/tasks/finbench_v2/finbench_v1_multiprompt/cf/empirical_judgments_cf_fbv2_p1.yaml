@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 description: "Kerro, minkälainen suhde seuraavissa lauseissa kuvattujen tapahtumien välillä on.\n\n"
 doc_to_text: "Lause: {{ query }}\nSuhde: "
 task: empirical_judgments_cf_fbv2_p1
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_cf

@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 description: "Analysoi kahta tekstiä ja kerro, ovatko ne sisällöltään yhtenevät.\n"
 doc_to_text: "{{ query }}\nVastaus: "
 task: paraphrase_cf_fbv2_p5
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_cf

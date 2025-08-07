@@ -10,7 +10,3 @@ metric_list:
     higher_is_better: true
 metadata:
   version: 1.0
-tag:
-  - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_cf

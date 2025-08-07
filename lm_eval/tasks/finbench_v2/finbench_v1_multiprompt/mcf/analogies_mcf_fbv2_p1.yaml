@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "Sana {{ reference_1 }} on samassa suhteessa sanaan {{ reference_2 }} kuin {{ known_target }} sanaan...?\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Vastaus: "
 task: analogies_mcf_fbv2_p1
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_mcf

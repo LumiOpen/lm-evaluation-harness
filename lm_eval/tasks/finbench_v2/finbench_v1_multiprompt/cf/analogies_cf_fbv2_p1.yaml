@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "{{ input_prefix }} Mikä sana on samassa suhteessa sanaan {{ known_target }} kuin sana {{ reference_1 }} sanaan {{ reference_2 }}?\n{{ output_prefix }}"
 task: analogies_cf_fbv2_p1
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_cf

@@ -3,3 +3,7 @@ include: _multiple_choice_template_yaml
 description: "Valitse vaihtoehdoista sana, joka täydentää lauseet:\n\n"
 doc_to_text: "\"Sana {{ reference_1 }} on sanalle {{ reference_2 }} sama kuin {{ known_target }} on sanalle ___\".\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}Valinta: "
 task: analogies_mcf_fbv2_p5
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_mcf
