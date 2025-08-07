@@ -1,0 +1,5 @@
+dataset_name: general_knowledge_zero_shot
+include: _multiple_choice_template_yaml
+description: "Valitse oikea vastausvaihtoehto seuraaviin yleistietokysymyksiin:\n\n"
+doc_to_text: "{{ query }}\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Vastauksesi: "
+task: general_knowledge_mcf_fbv2_p1

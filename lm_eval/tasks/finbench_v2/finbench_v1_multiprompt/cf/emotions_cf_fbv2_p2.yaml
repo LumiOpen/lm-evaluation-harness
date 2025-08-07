@@ -1,0 +1,5 @@
+dataset_name: emotions_zero_shot
+include: _multiple_choice_template_yaml
+description: "Minkä perustunteen seuraavat tekstit ilmaisevat?\n\n"
+doc_to_text: "Teksti: {{ query }}\nTunne:"
+task: emotions_cf_fbv2_p2

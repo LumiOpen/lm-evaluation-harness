@@ -1,0 +1,16 @@
+dataset_path: TurkuNLP/finbenchv2-fbv1-stripped-fi-ht
+output_type: multiple_choice
+test_split: default
+doc_to_target: "{{multiple_choice_targets.index(targets[0])}}"
+doc_to_choice: "{{multiple_choice_targets}}"
+num_fewshot: 5
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
+tag:
+  - finbench_v2
+  - finbench_orig_multi
+  - finbench_orig_multi_cf

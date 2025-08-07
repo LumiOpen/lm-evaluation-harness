@@ -1,0 +1,5 @@
+dataset_name: empirical_judgments_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "Tämä lause koskee tapahtumien välistä suhdetta: {{ query }}. Onko lauseen suhde tapahtumiin kausaalinen, korrelatiivinen vai neutraali?\nSuhde: "
+task: empirical_judgments_mcf_fbv2_p5
