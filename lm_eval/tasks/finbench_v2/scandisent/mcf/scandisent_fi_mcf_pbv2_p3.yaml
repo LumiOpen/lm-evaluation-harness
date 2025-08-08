@@ -1,0 +1,23 @@
+tag:
+  - finbench_v2
+  - scandisent_multi_mcf_fbv2
+task: scandisent_fi_mcf_fbv2_p3
+dataset_path: TurkuNLP/finbenchv2-scandisent-fi-mini
+output_type: multiple_choice
+training_split: train
+test_split: test
+validation_split: val
+num_fewshot: 0
+process_docs: !function scandisent_fi_utils.process_docs
+doc_to_text: "Luokittele seuraava arvostelu joko positiiviseksi tai negatiiviseksi.\nTeksti: {{ query }}\nSävy:"
+doc_to_target: "{{gold}}"
+doc_to_choice: "choices"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
