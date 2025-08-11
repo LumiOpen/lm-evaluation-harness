@@ -1,7 +1,7 @@
 dataset_name: analogies_zero_shot
 include: _multiple_choice_template_yaml
 description: "Ratkaise seuraavat sanojen vastaavuussuhteet.\n\n"
-doc_to_text: "Jos {{ reference_1 }} liittyy sanaan {{ reference_2 }}, mikä sana liittyy sanaan {{ known_target }}?\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}Vastaus: "
+doc_to_text: "Jos {{ reference_1 }} liittyy sanaan {{ reference_2 }}, mikä sana liittyy sanaan {{ known_target }}?\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}Vastaus:"
 task: analogies_mcf_fbv2_p4
 tag:
   - finbench_v2

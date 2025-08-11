@@ -1,7 +1,7 @@
 dataset_name: analogies_zero_shot
 include: _multiple_choice_template_yaml
 # description: ""
-doc_to_text: "Keksi sana, joka sopii seuraavaan analogiaan: {{ reference_1 }} suhteutuu sanaan {{ reference_2 }} samoin kuin {{ known_target }} suhteutuu sanaan...?\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Oikea sana on: "
+doc_to_text: "Keksi sana, joka sopii seuraavaan analogiaan: {{ reference_1 }} suhteutuu sanaan {{ reference_2 }} samoin kuin {{ known_target }} suhteutuu sanaan...?\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Oikea sana on:"
 task: analogies_mcf_fbv2_p3
 tag:
   - finbench_v2

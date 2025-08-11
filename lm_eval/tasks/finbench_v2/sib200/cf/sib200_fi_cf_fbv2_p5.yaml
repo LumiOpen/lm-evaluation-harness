@@ -6,7 +6,7 @@ dataset_path: spyysalo/sib-200-fin_Latn
 num_fewshot: 0
 test_split: test
 fewshot_split: test
-doc_to_text: "Mihin aihealueeseen seuraava uutinen kuuluu? Teksti: {{text}}\nAihealue:"
+doc_to_text: "Saat luettavaksesi tekstin, ja tehtäväsi on määrittää sille kategoria.\nTeksti: {{ text }}\nKategoria:"
 doc_to_choice: choices
 doc_to_target: answer_idx
 metric_list:

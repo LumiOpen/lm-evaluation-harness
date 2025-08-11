@@ -1,7 +1,7 @@
 dataset_name: empirical_judgments_zero_shot
 include: _multiple_choice_template_yaml
 # description: ""
-doc_to_text: "Onko lauseessa \"{{ query }}\" kuvattu tapahtumien välinen suhde kausaalinen, korrelatiivinen vai neutraali? Valitse yksi.\nSuhde: "
+doc_to_text: "Onko lauseessa \"{{ query }}\" kuvattu tapahtumien välinen suhde kausaalinen, korrelatiivinen vai neutraali? Valitse yksi.\nSuhde:"
 task: empirical_judgments_mcf_fbv2_p2
 tag:
   - finbench_v2

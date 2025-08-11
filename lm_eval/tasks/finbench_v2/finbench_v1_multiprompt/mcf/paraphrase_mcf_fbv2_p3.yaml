@@ -1,7 +1,7 @@
 dataset_name: paraphrase_zero_shot
 include: _multiple_choice_template_yaml
 # description: ""
-doc_to_text: "Arvioi, ovatko nämä tekstit parafraaseja toisilleen. Vastaa \"kyllä\" tai \"ei\".\n{{ query }}\nVastaus: "
+doc_to_text: "Arvioi, ovatko nämä tekstit parafraaseja toisilleen. Vastaa \"kyllä\" tai \"ei\".\n{{ query }}\nVastaus:"
 task: paraphrase_mcf_fbv2_p3
 tag:
   - finbench_v2

@@ -1,7 +1,7 @@
 dataset_name: similarities_abstraction_zero_shot
 include: _multiple_choice_template_yaml
 # description: ""
-doc_to_text: "Valitse vastausvaihtoehto kuvailemaan {{ word_0 }} ja {{ word_1 }} samankaltaisuutta.\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Vastaus: "
+doc_to_text: "Valitse vastausvaihtoehto kuvailemaan {{ word_0 }} ja {{ word_1 }} samankaltaisuutta.\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Vastaus:"
 task: similarities_abstraction_mcf_fbv2_p5
 tag:
   - finbench_v2

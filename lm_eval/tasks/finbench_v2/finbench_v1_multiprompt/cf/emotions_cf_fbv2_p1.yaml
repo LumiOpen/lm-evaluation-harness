@@ -1,7 +1,7 @@
 dataset_name: emotions_zero_shot
 include: _multiple_choice_template_yaml
 description: "Päättele seuraavien tekstikappaleiden perustunne.\n\n"
-doc_to_text: "Teksti: {{ query }}\nPerustunne: "
+doc_to_text: "Teksti: {{ query }}\nPerustunne:"
 task: emotions_cf_fbv2_p1
 tag:
   - finbench_v2

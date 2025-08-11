@@ -1,7 +1,7 @@
 dataset_name: analogies_zero_shot
 include: _multiple_choice_template_yaml
 # description: ""
-doc_to_text: "Täydennä analogia: sana {{ reference_1 }} on sanalle {{ reference_2 }} niin kuin {{ known_target }} on sanalle "
+doc_to_text: "Täydennä analogia: sana {{ reference_1 }} on sanalle {{ reference_2 }} niin kuin {{ known_target }} on sanalle"
 task: analogies_cf_fbv2_p4
 tag:
   - finbench_v2

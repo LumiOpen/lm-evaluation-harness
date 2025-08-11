@@ -1,7 +1,7 @@
 dataset_name: similarities_abstraction_zero_shot
 include: _multiple_choice_template_yaml
 # description: ""
-doc_to_text: "Miten {{ word_0 }} ja {{ word_1 }} liittyvät toisiinsa?\nVastaus yhdellä lauseella: "
+doc_to_text: "Miten {{ word_0 }} ja {{ word_1 }} liittyvät toisiinsa?\nVastaus yhdellä lauseella:"
 task: similarities_abstraction_cf_fbv2_p4
 tag:
   - finbench_v2

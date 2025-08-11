@@ -1,7 +1,7 @@
 dataset_name: emotions_zero_shot
 include: _multiple_choice_template_yaml
 # description: ""
-doc_to_text: "Mikä perustunteista (hämmästys, ilo, inho, luottamus, odotus, pelko, suru, suuttumus) kuvaa parhaiten lausetta \"{{ query }}\"?\nVastaus: "
+doc_to_text: "Mikä perustunteista (hämmästys, ilo, inho, luottamus, odotus, pelko, suru, suuttumus) kuvaa parhaiten lausetta \"{{ query }}\"?\nVastaus:"
 task: emotions_mcf_fbv2_p4
 tag:
   - finbench_v2
