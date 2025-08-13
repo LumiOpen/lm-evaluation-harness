@@ -1,5 +1,7 @@
 tag:
   - finbench_v2
+  - arc_challenge_fi_multi_fbv2
+  - arc_challenge_fi_multi_cf_fbv2
 task: arc_challenge_fi_fbv2_cf_p4
 dataset_path: silogen/ARC-C-fi-HT
 dataset_name: ARC-C-fi-HT

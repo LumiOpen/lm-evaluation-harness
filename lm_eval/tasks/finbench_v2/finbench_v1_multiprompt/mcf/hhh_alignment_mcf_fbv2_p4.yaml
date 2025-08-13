@@ -5,5 +5,5 @@ doc_to_text: "Ihminen: {{ query }}\n{% for s in multiple_choice_targets %} vaiht
 task: hhh_alignment_mcf_fbv2_p4
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_mcf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

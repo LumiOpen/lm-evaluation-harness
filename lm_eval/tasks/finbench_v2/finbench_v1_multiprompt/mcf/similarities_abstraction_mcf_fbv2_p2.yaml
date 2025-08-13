@@ -5,5 +5,5 @@ doc_to_text: "{{ word_0 }} ja {{ word_1 }} jakavat samankaltaisuuden.\nValitse o
 task: similarities_abstraction_mcf_fbv2_p2
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_mcf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

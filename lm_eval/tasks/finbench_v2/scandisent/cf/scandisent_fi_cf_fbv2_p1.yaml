@@ -1,5 +1,6 @@
 tag:
   - finbench_v2
+  - scandisent_multi_fbv2
   - scandisent_multi_cf_fbv2
 task: scandisent_fi_cf_fbv2_p1
 dataset_path: TurkuNLP/finbenchv2-scandisent-fi-mini

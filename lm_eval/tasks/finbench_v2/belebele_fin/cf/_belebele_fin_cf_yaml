@@ -20,3 +20,5 @@ fewshot_split: test
 test_split: test
 tag:
   - finbench_v2
+  - belebele_fin_multi_fbv2
+  - belebele_fin_multi_fbv2_cf

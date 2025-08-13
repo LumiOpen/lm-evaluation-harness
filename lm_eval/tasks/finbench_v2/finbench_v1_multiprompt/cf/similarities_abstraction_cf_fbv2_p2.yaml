@@ -5,5 +5,5 @@ doc_to_text: "Mikä on yhteistä sanoille {{ word_0 }} ja {{ word_1 }}?\nVastaus
 task: similarities_abstraction_cf_fbv2_p2
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_cf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_cf_fbv2

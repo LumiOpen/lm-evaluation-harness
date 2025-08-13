@@ -5,5 +5,5 @@ doc_to_text: "Tämä lause koskee tapahtumien välistä suhdetta: {{ query }}. O
 task: empirical_judgments_mcf_fbv2_p5
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_mcf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

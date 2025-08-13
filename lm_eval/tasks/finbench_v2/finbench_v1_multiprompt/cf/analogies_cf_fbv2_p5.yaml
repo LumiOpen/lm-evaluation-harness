@@ -5,5 +5,5 @@ doc_to_text: "Sanan {{ reference_1 }} suhde sanaan {{ reference_2 }} on kuin san
 task: analogies_cf_fbv2_p5
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_cf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_cf_fbv2

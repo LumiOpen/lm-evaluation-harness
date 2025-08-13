@@ -5,5 +5,5 @@ doc_to_text: "Ratkaise vastaavuussuhde: jos sana {{ reference_1 }} on suhteessa 
 task: analogies_cf_fbv2_p3
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_cf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_cf_fbv2

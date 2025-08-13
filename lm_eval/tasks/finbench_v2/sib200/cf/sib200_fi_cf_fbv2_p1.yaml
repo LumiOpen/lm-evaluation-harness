@@ -1,6 +1,8 @@
 task: sib200_fi_fbv2
 tag:
   - finbench_v2
+  - sib200_fi_multi_fbv2
+  - sib200_fi_multi_cf_fbv2
 output_type: multiple_choice
 dataset_path: spyysalo/sib-200-fin_Latn
 num_fewshot: 0

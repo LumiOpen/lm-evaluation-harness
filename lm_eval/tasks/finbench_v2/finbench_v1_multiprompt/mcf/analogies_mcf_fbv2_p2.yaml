@@ -5,5 +5,5 @@ doc_to_text: "{{ input_prefix }} Mikä sana on samassa suhteessa sanaan {{ known
 task: analogies_mcf_fbv2_p2
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_mcf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

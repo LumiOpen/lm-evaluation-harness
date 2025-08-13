@@ -5,5 +5,5 @@ doc_to_text: "Sana {{ reference_1 }} on samassa suhteessa sanaan {{ reference_2 
 task: analogies_mcf_fbv2_p1
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_mcf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

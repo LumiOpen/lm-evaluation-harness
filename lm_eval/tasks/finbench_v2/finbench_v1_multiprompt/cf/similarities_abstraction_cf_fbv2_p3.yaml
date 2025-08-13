@@ -5,5 +5,5 @@ doc_to_text: "{{ word_0 }}, {{ word_1 }}. Miten nämä kaksi liittyvät toisiins
 task: similarities_abstraction_cf_fbv2_p3
 tag:
   - finbench_v2
-  - finbench_orig_multi
-  - finbench_orig_multi_cf
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_cf_fbv2
