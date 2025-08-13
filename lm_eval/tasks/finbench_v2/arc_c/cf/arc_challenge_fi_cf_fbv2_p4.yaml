@@ -1,0 +1,22 @@
+tag:
+  - finbench_v2
+task: arc_challenge_fi_fbv2_cf_p4
+dataset_path: silogen/ARC-C-fi-HT
+dataset_name: ARC-C-fi-HT
+output_type: multiple_choice
+test_split: test
+num_fewshot: 10
+doc_to_text: "Vastaa seuraavaan kysymykseen. Kysymys: {{ question }}"
+doc_to_target: "{{choices.label.index(answerKey)}}"
+doc_to_choice: "{{choices.text}}"
+should_decontaminate: false
+doc_to_decontamination_query: "Kysymys: {{question}}\nVastaus:"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0

@@ -1,15 +1,15 @@
 tag:
   - finbench_v2
-task: arc_challenge_fi_fbv2
+task: arc_challenge_fi_fbv2_mcf_p1
 dataset_path: silogen/ARC-C-fi-HT
 dataset_name: ARC-C-fi-HT
 output_type: multiple_choice
 test_split: test
 num_fewshot: 10
-doc_to_text: "Kysymys: {{question}}\nVastaus:"
+doc_to_text: "Mikä on paras vastaus kysymykseen {{ question }}?\n A {{ choices.text[0] }}\n B {{ choices.text[1] }}\n C {{ choices.text[2] }}\n D {{ choices.text[3] }}\nVastaus:"
 doc_to_target: "{{choices.label.index(answerKey)}}"
 doc_to_choice: "{{choices.text}}"
-should_decontaminate: true
+should_decontaminate: false
 doc_to_decontamination_query: "Kysymys: {{question}}\nVastaus:"
 metric_list:
   - metric: acc
