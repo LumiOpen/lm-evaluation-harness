@@ -1,0 +1,24 @@
+task: goldenswag_ht_fi_cf_fbv2_p2
+tag:
+  - finbench_v2
+  - goldenswag_fi_multi_fbv2
+  - goldenswag_fi_cf_multi_fbv2
+dataset_path: TurkuNLP/finbenchv2-goldenswag-fi-ht
+output_type: multiple_choice
+num_fewshot: 0
+training_split: train
+validation_split: train
+test_split: null
+process_docs: !function ogx_goldenswagx_utils.process_docs
+doc_to_text: "Aloitus: {{ query }} Lopetus:"
+doc_to_target: "{{label}}"
+doc_to_choice: "choices"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1

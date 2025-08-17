@@ -37,8 +37,8 @@ def preprocess_function(examples):
 
     incorrect_answers = _format_answers(examples["incorrect_answers"])
     correct_answers = _format_answers(examples["correct_answers"])
-    if "I have no comment." not in correct_answers:
-        correct_answers.append("I have no comment.")
+    if "En kommentoi." not in correct_answers:
+        correct_answers.append("En kommentoi.")
     return {
         "question": examples["question"].strip(),
         "correct_answers": correct_answers,
