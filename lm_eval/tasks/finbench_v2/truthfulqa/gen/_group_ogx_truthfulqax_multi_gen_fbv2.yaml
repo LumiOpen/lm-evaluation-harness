@@ -8,37 +8,37 @@ task:
 aggregate_metric_list:
   - metric: bleu_max
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: bleu_acc
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: bleu_diff
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rouge1_max
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rouge1_acc
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rouge1_diff
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rouge2_max
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rouge2_acc
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rouge2_diff
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rougeL_max
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rougeL_acc
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
   - metric: rougeL_diff
     aggregation: mean
-    higher_is_better: true
+    weight_by_size: true
