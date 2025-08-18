@@ -1,0 +1,44 @@
+group: group_finbench_multi_cf_fbv2
+task:
+  - analogies_cf_fbv2_p1
+  - analogies_cf_fbv2_p2
+  - analogies_cf_fbv2_p3
+  - analogies_cf_fbv2_p4
+  - analogies_cf_fbv2_p5
+  - emotions_cf_fbv2_p1
+  - emotions_cf_fbv2_p2
+  - emotions_cf_fbv2_p3
+  - emotions_cf_fbv2_p4
+  - emotions_cf_fbv2_p5
+  - empirical_judgments_cf_fbv2_p1
+  - empirical_judgments_cf_fbv2_p2
+  - empirical_judgments_cf_fbv2_p3
+  - empirical_judgments_cf_fbv2_p4
+  - empirical_judgments_cf_fbv2_p5
+  - general_knowledge_cf_fbv2_p1
+  - general_knowledge_cf_fbv2_p2
+  - general_knowledge_cf_fbv2_p3
+  - general_knowledge_cf_fbv2_p4
+  - general_knowledge_cf_fbv2_p5
+  - hhh_alignment_cf_fbv2_p1
+  - hhh_alignment_cf_fbv2_p2
+  - hhh_alignment_cf_fbv2_p3
+  - hhh_alignment_cf_fbv2_p4
+  - hhh_alignment_cf_fbv2_p5
+  - paraphrase_cf_fbv2_p1
+  - paraphrase_cf_fbv2_p2
+  - paraphrase_cf_fbv2_p3
+  - paraphrase_cf_fbv2_p4
+  - paraphrase_cf_fbv2_p5
+  - similarities_abstraction_cf_fbv2_p1
+  - similarities_abstraction_cf_fbv2_p2
+  - similarities_abstraction_cf_fbv2_p3
+  - similarities_abstraction_cf_fbv2_p4
+  - similarities_abstraction_cf_fbv2_p5
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true
