@@ -1,4 +1,4 @@
-group: group_goldenswag_multi_cf_fbv2
+group: group_goldenswag_multi_mcf_fbv2
 task:
   - goldenswag_ht_fi_mcf_fbv2_p1
   - goldenswag_ht_fi_mcf_fbv2_p2
