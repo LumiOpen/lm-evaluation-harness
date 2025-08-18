@@ -6,8 +6,8 @@ training_split: train
 validation_split: validation
 test_split: test
 doc_to_target: '{{answers["text"][0]}}'
-process_results: !function utils.process_results
-process_docs: !function utils.process_docs
+process_results: !function squad_v2_utils.process_results
+process_docs: !function squad_v2_utils.process_docs
 target_delimiter: ' '
 generation_kwargs:
   until:
