@@ -2,7 +2,7 @@ tag:
   - finbench_v2
 dataset_path: TurkuNLP/squad_v2_fi_hf
 output_type: generate_until
-train_split: train
+test_split: train
 validation_split: validation
 doc_to_target: '{{answers["text"][0]}}'
 process_results: !function squad_v2_utils.process_results
