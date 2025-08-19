@@ -1,4 +1,3 @@
 task: squad_v2_fi_gen_fbv2_p1
 include: _squad_v2_fi_yaml
-class: !function squad_v2_utils.p1
 doc_to_text: "Otsikko: {{ title }}\n\nTeksti: {{ context }}\n\nKysymys: {{ question }}\nVastaus:"
