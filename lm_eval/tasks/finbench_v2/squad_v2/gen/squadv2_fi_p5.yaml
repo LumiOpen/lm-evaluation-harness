@@ -1,0 +1,2 @@
+task: squadv2_fi_multi_p5
+class: !function squadv2_fi_base.SQuAD2FinnishP5

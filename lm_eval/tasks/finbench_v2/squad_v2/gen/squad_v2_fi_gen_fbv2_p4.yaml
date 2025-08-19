@@ -1,3 +1,0 @@
-task: squad_v2_fi_gen_fbv2_p4
-include: _squad_v2_fi_yaml
-doc_to_text: "Tässä on teksti aiheesta: \"{{ title }}\":\n{{ context }}\n\nVastaa seuraavaan kysymykseen tekstin perusteella: {{ question }}\nVastaus:"
