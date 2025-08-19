@@ -1,3 +1,4 @@
 task: squad_v2_fi_gen_fbv2_p4
 include: _squad_v2_fi_yaml
 class: !function squad_v2_utils.p4
+doc_to_text: "Tässä on teksti aiheesta: \"{{ title }}\":\n{{ context }}\n\nVastaa seuraavaan kysymykseen tekstin perusteella: {{ question }}\nVastaus:"
