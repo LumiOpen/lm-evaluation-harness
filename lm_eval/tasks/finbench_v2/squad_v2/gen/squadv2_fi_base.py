@@ -23,9 +23,9 @@ class SQuAD2FinnishBase(ConfigurableTask):
     DATASET_NAME = None
 
     def __init__(self, config=None):
-        # Allow prompt template to be configured
-        self.prompt_template = getattr(config, 'prompt_template', 1) if config else 1
-        super().__init__(config={"metadata": {"version": self.VERSION}})
+        # Set default prompt template - will be overridden by subclasses
+        self.prompt_template = 1
+        super().__init__(config=config or {"metadata": {"version": self.VERSION}})
 
     assert version.parse(datasets.__version__) >= version.parse("1.11.0"), (
         "datasets v1.11.0 or later required for SQuAD"
@@ -137,30 +137,25 @@ class SQuAD2FinnishBase(ConfigurableTask):
 # Create subclasses for each prompt variant
 class SQuAD2FinnishP1(SQuAD2FinnishBase):
     def __init__(self, config=None):
-        config = config or type('Config', (), {'prompt_template': 1})()
-        config.prompt_template = 1
         super().__init__(config)
+        self.prompt_template = 1
 
 class SQuAD2FinnishP2(SQuAD2FinnishBase):
     def __init__(self, config=None):
-        config = config or type('Config', (), {'prompt_template': 2})()
-        config.prompt_template = 2
         super().__init__(config)
+        self.prompt_template = 2
 
 class SQuAD2FinnishP3(SQuAD2FinnishBase):
     def __init__(self, config=None):
-        config = config or type('Config', (), {'prompt_template': 3})()
-        config.prompt_template = 3
         super().__init__(config)
+        self.prompt_template = 3
 
 class SQuAD2FinnishP4(SQuAD2FinnishBase):
     def __init__(self, config=None):
-        config = config or type('Config', (), {'prompt_template': 4})()
-        config.prompt_template = 4
         super().__init__(config)
+        self.prompt_template = 4
 
 class SQuAD2FinnishP5(SQuAD2FinnishBase):
     def __init__(self, config=None):
-        config = config or type('Config', (), {'prompt_template': 5})()
-        config.prompt_template = 5
         super().__init__(config)
+        self.prompt_template = 5
