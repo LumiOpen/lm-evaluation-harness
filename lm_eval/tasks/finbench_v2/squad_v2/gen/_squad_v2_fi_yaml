@@ -5,6 +5,7 @@ output_type: generate_until
 training_split: train
 validation_split: validation
 process_results: !function squad_v2_utils.process_results
+construct_requests: !function squad_v2_utils.construct_requests
 doc_to_target: "{{ ' ' + (answers.text[0] if answers.text|length > 0 else 'Ei vastausta') }}"
 target_delimiter: ' '
 generation_kwargs:

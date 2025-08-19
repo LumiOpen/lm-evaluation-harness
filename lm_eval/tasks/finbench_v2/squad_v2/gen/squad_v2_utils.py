@@ -1,20 +1,27 @@
+def construct_requests(doc, ctx, **kwargs):
+    return [
+        {"request_type": "generate_until", "arguments": (ctx, {"until": ["\n"]})},
+        {"request_type": "loglikelihood", "arguments": (ctx, " Ei vastausta")}
+    ]
+
 def _squad_metric(predictions, references):
     import evaluate
     
     squad_metric = evaluate.load("squad_v2")
     return squad_metric.compute(predictions=predictions, references=references)
 
+
 def process_results(doc, results):
-    """Process results for SQuAD v2 Finnish task with any prompt variant"""
-    
-    # Extract the generated text from results
-    continuation = results[0] if results else ""
-    
+    from math import exp
+
+    continuation, (logprob_unanswerable, _) = results
+    no_answer_probability = exp(logprob_unanswerable)
+
     # Build prediction and reference structures for SQuAD metric
     predictions = {
         "id": doc["id"],
         "prediction_text": continuation.strip(),
-        "no_answer_probability": 0.0  # Simplified since we're focusing on generation
+        "no_answer_probability": no_answer_probability
     }
     
     references = {
