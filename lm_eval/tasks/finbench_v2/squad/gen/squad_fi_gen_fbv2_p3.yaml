@@ -1,0 +1,3 @@
+task: squad_fi_gen_fbv2_p3
+include: _squad_fi_yaml
+doc_to_text: "Lue seuraava teksti ja vastaa kysymykseen. Aihe: {{ title }}\nTeksti: {{ context }}\nKysymys: {{ question }}\nVastaus:"
