@@ -8,7 +8,7 @@ dataset_name: ARC-C-fi-HT
 output_type: multiple_choice
 test_split: test
 num_fewshot: 10
-doc_to_text: "Lue kysymys ja valitse oikea vastaus annettujen vaihtoehtojen joukosta.\n{{ question }}\nVaihtoehdot:\nA: {{ choices.text[0] }}\nB: {{ choices.text[1] }}\nC: {{ choices.text[2] }}\nD: {{ choices.text[3] }}\nVastaus:"
+doc_to_text: "Lue kysymys ja valitse oikea vastaus annettujen vaihtoehtojen joukosta.\n{{ question }}\nVaihtoehdot:\n{% for s in choices.text %}{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }}: {{ s }}\n{% endfor %}Vastaus:"
 doc_to_target: "{{choices.label.index(answerKey)}}"
 doc_to_choice: "{{choices.text}}"
 should_decontaminate: false

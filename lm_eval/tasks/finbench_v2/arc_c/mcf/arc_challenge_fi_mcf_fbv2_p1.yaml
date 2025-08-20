@@ -8,7 +8,8 @@ dataset_name: ARC-C-fi-HT
 output_type: multiple_choice
 test_split: test
 num_fewshot: 10
-doc_to_text: "Mikä on paras vastaus kysymykseen {{ question }}?\n A {{ choices.text[0] }}\n B {{ choices.text[1] }}\n C {{ choices.text[2] }}\n D {{ choices.text[3] }}\nVastaus:"
+doc_to_text: "Mikä on paras vastaus kysymykseen {{ question }}?\n{% for s in choices.text %} {{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }} {{ s }}\n{% endfor %}Vastaus:"
+asd: ""
 doc_to_target: "{{choices.label.index(answerKey)}}"
 doc_to_choice: "{{choices.text}}"
 should_decontaminate: false
