@@ -1,3 +1,5 @@
+import transformers.data.metrics.squad_metrics as squad_metrics
+
 def process_results(doc, results):
     preds = results[0]
     reference = doc["answers"]["text"][0]
