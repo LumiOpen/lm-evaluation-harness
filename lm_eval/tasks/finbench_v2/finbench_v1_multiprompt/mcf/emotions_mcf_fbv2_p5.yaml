@@ -1,9 +1,0 @@
-dataset_name: emotions_zero_shot
-include: _multiple_choice_template_yaml
-description: "Mikä tunne (hämmästys, ilo, inho, luottamus, odotus, pelko, suru, suuttumus) teksteissä esiintyy?\n\n"
-doc_to_text: "Teksti: {{ query }}\nValinta:"
-task: emotions_mcf_fbv2_p5
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_mcf_fbv2

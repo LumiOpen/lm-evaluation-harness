@@ -1,9 +1,0 @@
-dataset_name: general_knowledge_zero_shot
-include: _multiple_choice_template_yaml
-# description: ""
-doc_to_text: "Tietovisa: {{ query }}\nVastaus:"
-task: general_knowledge_cf_fbv2_p5
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_cf_fbv2

@@ -8,7 +8,7 @@ dataset_name: ARC-C-fi-HT
 output_type: multiple_choice
 test_split: test
 num_fewshot: 10
-doc_to_text: "{{ question }}\nVastaus:"
+doc_to_text: "Vastaa seuraavaan kysymykseen. Kysymys: {{ question }}"
 doc_to_target: "{{choices.label.index(answerKey)}}"
 doc_to_choice: "{{choices.text}}"
 should_decontaminate: false

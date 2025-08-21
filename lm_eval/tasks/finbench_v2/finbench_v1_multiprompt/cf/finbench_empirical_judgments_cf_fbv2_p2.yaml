@@ -1,0 +1,9 @@
+dataset_name: empirical_judgments_zero_shot
+include: _multiple_choice_template_yaml
+#description: ""
+doc_to_text: "Kuvaile tapahtumien välistä suhdetta lauseessa: {{ query }}.\nSuhde:"
+task: finbench_empirical_judgments_cf_fbv2_p2
+tag:
+  - finbench_v2
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_cf_fbv2

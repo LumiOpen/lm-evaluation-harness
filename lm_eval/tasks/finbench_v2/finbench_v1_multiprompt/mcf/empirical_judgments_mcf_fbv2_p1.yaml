@@ -1,9 +1,0 @@
-dataset_name: empirical_judgments_zero_shot
-include: _multiple_choice_template_yaml
-description: "Kerro, onko seuraavissa lauseissa kuvattujen tapahtumien välillä kausaalinen, korrelatiivinen, vai neutraali suhde. Vastaa neutraali siinä tapauksessa, ettei tapahtumien välistä suhdetta voi kuvailla kausaaliseksi eikä korrelatiiviseksi.\n\n"
-doc_to_text: "Lause: {{ query }}\nSuhde:"
-task: empirical_judgments_mcf_fbv2_p1
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_mcf_fbv2

@@ -1,0 +1,9 @@
+dataset_name: general_knowledge_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "Mikä seuraavista on oikea vastaus kysymykseen \"{{ query }}\"?\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}Vastaus:"
+task: finbench_general_knowledge_mcf_fbv2_p2
+tag:
+  - finbench_v2
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

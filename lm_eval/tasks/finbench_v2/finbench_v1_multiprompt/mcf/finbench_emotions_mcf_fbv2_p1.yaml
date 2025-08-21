@@ -1,0 +1,9 @@
+dataset_name: emotions_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "Tunnista tekstin \"{{ query }}\" herättämä perustunne. Vaihtoehdot ovat: hämmästys, ilo, inho, luottamus, odotus, pelko, suru, suuttumus.\nTunne:"
+task: finbench_emotions_mcf_fbv2_p1
+tag:
+  - finbench_v2
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

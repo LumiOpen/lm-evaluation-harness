@@ -1,0 +1,9 @@
+dataset_name: analogies_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "Sana {{ reference_1 }} on samassa suhteessa sanaan {{ reference_2 }} kuin {{ known_target }} sanaan...?\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Vastaus:"
+task: finbench_analogies_mcf_fbv2_p0
+tag:
+  - finbench_v2
+  - finbench_orig_multi_fbv2
+  - finbench_orig_multi_mcf_fbv2

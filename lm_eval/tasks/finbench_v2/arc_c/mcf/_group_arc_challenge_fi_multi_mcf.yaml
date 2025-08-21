@@ -1,0 +1,14 @@
+group: group_belebele_multi_cf_fbv2
+task:
+  - arc_challenge_fi_fbv2_mcf_p0
+  - arc_challenge_fi_fbv2_mcf_p1
+  - arc_challenge_fi_fbv2_mcf_p2
+  - arc_challenge_fi_fbv2_mcf_p3
+  - arc_challenge_fi_fbv2_mcf_p4
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true
