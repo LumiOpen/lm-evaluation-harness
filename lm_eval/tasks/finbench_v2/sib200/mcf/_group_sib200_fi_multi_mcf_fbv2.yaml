@@ -1,0 +1,14 @@
+group: group_sib200_fi_multi_mcf_fbv2
+task:
+  - sib200_fi_mcf_fbv2_p0
+  - sib200_fi_mcf_fbv2_p1
+  - sib200_fi_mcf_fbv2_p2
+  - sib200_fi_mcf_fbv2_p3
+  - sib200_fi_mcf_fbv2_p4
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true

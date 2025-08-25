@@ -1,4 +1,4 @@
-task: sib200_fi_fbv2
+task: sib200_fi_mcf_fbv2_p1
 tag:
   - finbench_v2
   - sib200_fi_multi_fbv2
@@ -8,7 +8,8 @@ dataset_path: spyysalo/sib-200-fin_Latn
 num_fewshot: 0
 test_split: test
 fewshot_split: test
-doc_to_text: "Onko tekstin aihe \"politiikka\", \"viihde\", \"tiede/teknologia\", \"urheilu\", \"matkailu\", \"terveys\" vai \"maantiede\"?\n{{ text }}\n"
+description: "Aihelista: politiikka, viihde, tiede/teknologia, urheilu, matkailu, terveys, maantiede. Valitse seuraaville teksteille sopivin aihe.\n\n"
+doc_to_text: "Teksti: {{ text }}\nAihe:"
 doc_to_choice: choices
 doc_to_target: answer_idx
 metric_list:

@@ -1,6 +1,6 @@
 task: ogx_truthfulqax_mc2_fi_fbv2_p4
 dataset_name: mc_FI
-doc_to_text: "Kysymys: {{ question }}\nAnna kaikki oikeat vastaukset (yksi tai useampi).\nVastaus:"
+doc_to_text: "Seuraavaan kysymykseen saattaa olla useita oikeita vastauksia. Mitkä ne ovat?\n{{ question }}\nVastaus:"
 tag:
   - finbench_v2
   - truthfulqa_fi_multi_fbv2

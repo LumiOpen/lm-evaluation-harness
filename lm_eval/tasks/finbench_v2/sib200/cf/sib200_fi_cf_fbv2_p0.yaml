@@ -1,14 +1,14 @@
-task: sib200_fi_fbv2
+task: sib200_fi_cf_fbv2_p0
 tag:
   - finbench_v2
   - sib200_fi_multi_fbv2
-  - sib200_fi_multi_mcf_fbv2
+  - sib200_fi_multi_cf_fbv2
 output_type: multiple_choice
 dataset_path: spyysalo/sib-200-fin_Latn
 num_fewshot: 0
 test_split: test
 fewshot_split: test
-doc_to_text: "Luokittele artikkeli johonkin seuraavista luokista: politiikka, viihde, tiede/teknologia, urheilu, matkailu, terveys, maantiede.\nArtikkeli: {{ text }}\nLuokka:"
+doc_to_text: "Päättele, mitä aihetta seuraava uutinen käsittelee. Uutinen: {{ text }}\nAihe:"
 doc_to_choice: choices
 doc_to_target: answer_idx
 metric_list:

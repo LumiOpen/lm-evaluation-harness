@@ -1,6 +1,6 @@
 task: ogx_truthfulqax_mc2_fi_fbv2_p2
 dataset_name: mc_FI
-doc_to_text: "Mitkä ovat oikeat vastaukset seuraavaan kysymykseen? {{ question }}\nVastaus:"
+doc_to_text: "Luettele kaikki oikeat vastaukset kysymykseen: {{question}}.\nVastaus:"
 tag:
   - finbench_v2
   - truthfulqa_fi_multi_fbv2

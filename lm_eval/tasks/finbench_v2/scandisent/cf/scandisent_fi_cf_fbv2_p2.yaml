@@ -10,7 +10,7 @@ test_split: test
 validation_split: val
 num_fewshot: 0
 process_docs: !function scandisent_fi_utils.process_docs
-doc_to_text: "Arvostelu: {{ query }}\nArvostelun tunnesävy on:"
+doc_to_text: "Mikä on seuraavan arvostelun sävy?\n\"{{ query }}\"\nSävy:"
 doc_to_target: "{{gold}}"
 doc_to_choice: "choices"
 metric_list:

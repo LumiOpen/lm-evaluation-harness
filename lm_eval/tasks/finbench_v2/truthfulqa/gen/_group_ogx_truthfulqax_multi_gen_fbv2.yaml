@@ -1,10 +1,10 @@
 group: group_ogx_truthfulqax_multi_gen_fbv2
 task:
+  - ogx_truthfulqax_gen_fi_fbv2_p0
   - ogx_truthfulqax_gen_fi_fbv2_p1
   - ogx_truthfulqax_gen_fi_fbv2_p2
   - ogx_truthfulqax_gen_fi_fbv2_p3
   - ogx_truthfulqax_gen_fi_fbv2_p4
-  - ogx_truthfulqax_gen_fi_fbv2_p5
 aggregate_metric_list:
   - metric: bleu_max
     aggregation: mean

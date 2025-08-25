@@ -10,7 +10,7 @@ test_split: test
 validation_split: val
 num_fewshot: 0
 process_docs: !function scandisent_fi_utils.process_docs
-doc_to_text: "Onko tekstissä esiintyvä tunne \"positiivinen\" vai \"negatiivinen\"?\nTeksti: {{ query }}\nTunne:"
+doc_to_text: "Päättele seuraavan tekstin tunnesävy. Vastaa joko \"positiivinen\" tai \"negatiivinen\".\nTeksti: {{ query }}\nTunnesävy:"
 doc_to_target: "{{gold}}"
 doc_to_choice: "choices"
 metric_list:

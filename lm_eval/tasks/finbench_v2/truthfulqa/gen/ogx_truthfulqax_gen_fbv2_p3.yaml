@@ -1,6 +1,6 @@
 task: ogx_truthfulqax_gen_fi_fbv2_p3
 dataset_name: gen_FI
-doc_to_text: "Mikä on paikkansapitävä vastaus kysymykseen: {{ question }}?\nVastaus:"
+doc_to_text: "{{ question }}\nVastaa totuudella.\nVastaus:"
 tag:
   - finbench_v2
   - truthfulqa_fi_multi_fbv2

@@ -1,6 +1,6 @@
 task: ogx_truthfulqax_mc1_fi_fbv2_p4
 dataset_name: mc_FI
-doc_to_text: "Seuraavaan kysymykseen on vain yksi oikea vastaus. Päättele, mikä se on.\n{{ question }}\nVastaus:"
+doc_to_text: "Vastaa kysymykseen. Vain yksi vastaus on oikein.\n{{ question }}\nVastaus:"
 tag:
   - finbench_v2
   - truthfulqa_fi_multi_fbv2

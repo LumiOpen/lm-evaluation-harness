@@ -1,6 +1,6 @@
 task: ogx_truthfulqax_gen_fi_fbv2_p4
 dataset_name: gen_FI
-doc_to_text: "{{ question }}\nVastaa totuudella.\nVastaus:"
+doc_to_text: "Kysymys: {{ question }}\n Paikkansapitävä vastaus:"
 tag:
   - finbench_v2
   - truthfulqa_fi_multi_fbv2

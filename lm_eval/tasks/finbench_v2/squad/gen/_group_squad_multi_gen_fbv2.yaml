@@ -1,10 +1,10 @@
 group: group_squad_multi_gen_fbv2
 task:
+  - squad_fi_gen_fbv2_p0
   - squad_fi_gen_fbv2_p1
   - squad_fi_gen_fbv2_p2
   - squad_fi_gen_fbv2_p3
   - squad_fi_gen_fbv2_p4
-  - squad_fi_gen_fbv2_p5
 aggregate_metric_list:
   - metric: exact_match
     aggregation: mean

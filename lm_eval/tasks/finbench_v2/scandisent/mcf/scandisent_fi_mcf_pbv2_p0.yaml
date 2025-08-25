@@ -2,7 +2,7 @@ tag:
   - finbench_v2
   - scandisent_multi_fbv2
   - scandisent_multi_mcf_fbv2
-task: scandisent_fi_mcf_fbv2_p5
+task: scandisent_fi_mcf_fbv2_p0
 dataset_path: TurkuNLP/finbenchv2-scandisent-fi-mini
 output_type: multiple_choice
 training_split: train
@@ -10,7 +10,7 @@ test_split: test
 validation_split: val
 num_fewshot: 0
 process_docs: !function scandisent_fi_utils.process_docs
-doc_to_text: "Valitse tätä arvostelua kuvaava sävy: \"{{ query }}\"\nOnko se \"positiivinen\" vai \"negatiivinen\"?\nSävy:"
+doc_to_text: "Onko tekstissä esiintyvä tunne \"positiivinen\" vai \"negatiivinen\"?\nTeksti: {{ query }}\nTunne:"
 doc_to_target: "{{gold}}"
 doc_to_choice: "choices"
 metric_list:

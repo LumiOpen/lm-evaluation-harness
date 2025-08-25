@@ -10,7 +10,7 @@ training_split: train
 validation_split: train
 test_split: null
 process_docs: !function ogx_goldenswagx_utils.process_docs
-doc_to_text: "Jatka tekstiä mahdollisimman luontevasti.\n\n{{ query }}\n\nJatko:"
+doc_to_text: "Miten tämä teksti jatkuu?\n\n{{ query }}\n\nJatko:"
 doc_to_target: "{{label}}"
 doc_to_choice: "choices"
 metric_list:
