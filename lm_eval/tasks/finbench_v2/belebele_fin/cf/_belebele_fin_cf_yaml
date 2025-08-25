@@ -15,7 +15,7 @@ metric_list:
 metadata:
   version: 0.0
 dataset_name: fin_Latn
-num_fewshot: 5
+num_fewshot: 0
 fewshot_split: test
 test_split: test
 tag:
