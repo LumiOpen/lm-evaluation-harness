@@ -1,4 +1,3 @@
-task: belebele_fin_mcf_p3
+task: belebele_fin_mcf_fbv2_p3
 include: _belebele_fin_mcf_yaml
 doc_to_text: "{{flores_passage}}\n\nYllä olevan tekstin perusteella vastaa kysymykseen: {{question}}\n1. {{mc_answer1}}\n2. {{mc_answer2}}\n3. {{mc_answer3}}\n4. {{mc_answer4}}\nValitse oikea vaihtoehto: "
-doc_to_choice: ["A", "B", "C", "D"]

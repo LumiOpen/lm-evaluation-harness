@@ -5,6 +5,7 @@ output_type: multiple_choice
 should_decontaminate: true
 doc_to_decontamination_query: "{{question}}"
 doc_to_target: "{{['1', '2', '3', '4'].index(correct_answer_num)}}"
+doc_to_choice: "{{[mc_answer1, mc_answer2, mc_answer3, mc_answer4]}}"
 metric_list:
   - metric: acc
     aggregation: mean
@@ -13,10 +14,9 @@ metric_list:
     aggregation: mean
     higher_is_better: true
 metadata:
-  version: 0.0
+  version: 1.0
 dataset_name: fin_Latn
 num_fewshot: 0
-fewshot_split: test
 test_split: test
 tag:
   - finbench_v2

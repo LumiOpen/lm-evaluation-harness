@@ -1,10 +1,10 @@
 group: group_belebele_multi_cf_fbv2
 task:
-  - belebele_fin_cf_p0
-  - belebele_fin_cf_p1
-  - belebele_fin_cf_p2
-  - belebele_fin_cf_p3
-  - belebele_fin_cf_p4
+  - belebele_fin_cf_fbv2_p0
+  - belebele_fin_cf_fbv2_p1
+  - belebele_fin_cf_fbv2_p2
+  - belebele_fin_cf_fbv2_p3
+  - belebele_fin_cf_fbv2_p4
 aggregate_metric_list:
   - metric: acc
     aggregation: mean

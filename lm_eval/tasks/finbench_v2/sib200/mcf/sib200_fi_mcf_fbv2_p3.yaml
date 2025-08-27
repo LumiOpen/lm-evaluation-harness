@@ -1,22 +1,3 @@
 task: sib200_fi_mcf_fbv2_p3
-tag:
-  - finbench_v2
-  - sib200_fi_multi_fbv2
-  - sib200_fi_multi_mcf_fbv2
-output_type: multiple_choice
-dataset_path: spyysalo/sib-200-fin_Latn
-num_fewshot: 0
-test_split: test
-fewshot_split: test
 doc_to_text: "Teksti: \"{{text}}\"\nValitse tekstin aihe seuraavista: politiikka, viihde, tiede/teknologia, urheilu, matkailu, terveys, maantiede.\nAihe:"
-doc_to_choice: choices
-doc_to_target: answer_idx
-metric_list:
-  - metric: acc
-    aggregation: mean
-    higher_is_better: true
-  - metric: acc_norm
-    aggregation: mean
-    higher_is_better: true
-metadata:
-  version: 0.1
+include: _sib200_fi_mcf_yaml

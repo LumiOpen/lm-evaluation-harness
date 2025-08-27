@@ -1,4 +1,3 @@
-task: belebele_fin_cf_p1
+task: belebele_fin_cf_fbv2_p1
 include: _belebele_fin_cf_yaml
 doc_to_text: "Lue seuraava teksti ja vastaa sen perusteella kysymykseen.\n\nTeksti: {{flores_passage}}\n\nKysymys: {{question}}\nVastaus:"
-doc_to_choice: "{{[mc_answer1, mc_answer2, mc_answer3, mc_answer4]}}"

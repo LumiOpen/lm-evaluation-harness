@@ -1,4 +1,3 @@
-task: belebele_fin_mcf_p1
+task: belebele_fin_mcf_fbv2_p1
 include: _belebele_fin_mcf_yaml
 doc_to_text: "Lue seuraava teksti ja vastaa kysymykseen valitsemalla oikea vaihtoehto.\nTeksti: {{flores_passage}}\nKysymys: {{question}}\nVaihtoehdot:\n1. {{mc_answer1}}\n2. {{mc_answer2}}\n3. {{mc_answer3}}\n4. {{mc_answer4}}\nOikea vastaus on: "
-doc_to_choice: ["A", "B", "C", "D"]
