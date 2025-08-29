@@ -1,0 +1,4 @@
+task: finbench_emotions_1k_cf_fbv2_p2
+description: "Tunnista perustunne teksteistä:\n\n"
+doc_to_text: "\"{{ query }}\"\nVastaus:"
+include: _finbench_emotions_1k_cf_fbv2_yaml

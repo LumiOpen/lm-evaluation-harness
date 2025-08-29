@@ -1,0 +1,3 @@
+task: finbench_emotions_1k_cf_fbv2_p4
+doc_to_text: "Teksti: {{ query }}\nMitä tunnetta teksti ilmaisee?\nVastaus:"
+include: _finbench_emotions_1k_cf_fbv2_yaml

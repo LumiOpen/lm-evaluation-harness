@@ -1,0 +1,4 @@
+task: finbench_emotions_1k_cf_fbv2_p0
+description: "Päättele seuraavien tekstikappaleiden perustunne.\n\n"
+doc_to_text: "Teksti: {{ query }}\nPerustunne:"
+include: _finbench_emotions_1k_cf_fbv2_yaml

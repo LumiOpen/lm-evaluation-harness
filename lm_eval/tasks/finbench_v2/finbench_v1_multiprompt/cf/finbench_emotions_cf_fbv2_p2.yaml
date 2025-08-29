@@ -3,7 +3,8 @@ include: _multiple_choice_template_yaml
 description: "Tunnista perustunne teksteistä:\n\n"
 doc_to_text: "\"{{ query }}\"\nVastaus:"
 task: finbench_emotions_cf_fbv2_p2
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_cf_fbv2
+# Disabled for testing the 1K version
+#tag:
+#  - finbench_v2
+#  - finbench_orig_multi_fbv2
+#  - finbench_orig_multi_cf_fbv2
