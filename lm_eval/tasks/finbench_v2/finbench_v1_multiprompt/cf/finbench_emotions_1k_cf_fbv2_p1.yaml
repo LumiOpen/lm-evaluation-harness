@@ -1,4 +1,4 @@
 task: finbench_emotions_1k_cf_fbv2_p1
 description: "Minkä perustunteen seuraavat tekstit ilmaisevat?\n\n"
-doc_to_text: "Teksti: {{ query }}\nTunne:"
+doc_to_text: "Teksti: {{ text }}\nTunne:"
 include: _finbench_emotions_1k_cf_fbv2_yaml

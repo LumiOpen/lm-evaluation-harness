@@ -1,3 +1,3 @@
 task: finbench_emotions_1k_cf_fbv2_p3
-doc_to_text: "Mikä on tekstin \"{{ query }}\" perustunnetila?\nPerustunne:"
+doc_to_text: "Mikä on tekstin \"{{ text }}\" perustunnetila?\nPerustunne:"
 include: _finbench_emotions_1k_cf_fbv2_yaml

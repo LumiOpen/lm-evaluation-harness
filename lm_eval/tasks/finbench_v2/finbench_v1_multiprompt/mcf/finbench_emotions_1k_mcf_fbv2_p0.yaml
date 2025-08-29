@@ -1,4 +1,4 @@
 task: finbench_emotions_1k_mcf_fbv2_p0
 description: "Päättele seuraavien tekstikappaleiden perustunne, valiten yhden seuraavista: hämmästys, ilo, inho, luottamus, odotus, pelko, suru, suuttumus.\n\n"
-doc_to_text: "Teksti: {{ query }}\nPerustunne:"
+doc_to_text: "Teksti: {{ text }}\nPerustunne:"
 include: _finbench_emotions_1k_mcf_fbv2_yaml
