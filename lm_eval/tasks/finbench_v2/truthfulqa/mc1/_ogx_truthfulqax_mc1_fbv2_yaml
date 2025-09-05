@@ -5,9 +5,7 @@ tag:
   - truthfulqa_fi_multi_fbv2
   - truthfulqa_fi_multi_mc1_fbv2
 output_type: multiple_choice
-training_split: null
 validation_split: validation
-test_split: null
 num_fewshot: 0
 doc_to_target: 0
 doc_to_choice: '{{ mc1_targets.choices }}'
