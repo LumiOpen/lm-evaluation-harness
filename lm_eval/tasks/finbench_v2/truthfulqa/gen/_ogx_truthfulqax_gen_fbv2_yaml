@@ -6,7 +6,6 @@ tag:
   - truthfulqa_fi_multi_gen_fbv2
 output_type: generate_until
 validation_split: validation
-num_fewshot: 0
 doc_to_target: ' '
 process_docs: !function 'ogx_truthfulqax_utils.process_docs_gen'
 process_results: !function 'ogx_truthfulqax_utils.process_results_gen'

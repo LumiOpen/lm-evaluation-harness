@@ -16,7 +16,6 @@ metric_list:
 metadata:
   version: 1.0
 dataset_name: fin_Latn
-num_fewshot: 5
 test_split: test
 tag:
   - finbench_v2

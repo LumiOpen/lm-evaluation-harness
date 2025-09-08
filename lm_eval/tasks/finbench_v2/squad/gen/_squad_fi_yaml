@@ -5,7 +5,6 @@ output_type: generate_until
 training_split: train
 validation_split: validation
 process_results: !function squad_utils.process_results
-num_fewshot: 0
 doc_to_target: '{{ answers["text"][0] }}'
 target_delimiter: ' '
 generation_kwargs:

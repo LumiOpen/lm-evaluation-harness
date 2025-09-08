@@ -6,7 +6,6 @@ tag:
   - truthfulqa_fi_multi_mc2_fbv2
 output_type: multiple_choice
 validation_split: validation
-num_fewshot: 0
 doc_to_target: 0
 doc_to_choice: '{{ mc2_targets.choices }}'
 process_results: !function 'ogx_truthfulqax_utils.process_results_mc2'
