@@ -1,0 +1,14 @@
+group: group_finbench_multi_cf_similarities_abstraction_fbv2
+task:
+  - finbench_similarities_abstraction_cf_fbv2_p0
+  - finbench_similarities_abstraction_cf_fbv2_p1
+  - finbench_similarities_abstraction_cf_fbv2_p2
+  - finbench_similarities_abstraction_cf_fbv2_p3
+  - finbench_similarities_abstraction_cf_fbv2_p4
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true
