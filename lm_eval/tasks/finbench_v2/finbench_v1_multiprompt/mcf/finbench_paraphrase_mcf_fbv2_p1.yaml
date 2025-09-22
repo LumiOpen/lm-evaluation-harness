@@ -3,7 +3,3 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "{{ query }}\nTarkoittavatko yllä olevat virkkeet samaa tai lähes samaa asiaa? Valitse \"kyllä\" tai \"ei\".\nVastaus:"
 task: finbench_paraphrase_mcf_fbv2_p1
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_mcf_fbv2

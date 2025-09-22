@@ -1,5 +1,7 @@
 tag:
   - finbench_v2
+  - finbench_v2_multiple_choice
+  - finbench_v2_multiple_choice_mcf
   - sib200_fi_multi_fbv2
   - sib200_fi_multi_mcf_fbv2
 output_type: multiple_choice

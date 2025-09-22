@@ -2,6 +2,7 @@ dataset_path: LumiOpen/opengpt-x_truthfulqax
 dataset_name: gen_FI
 tag:
   - finbench_v2
+  - finbench_v2_generation
   - truthfulqa_fi_multi_fbv2
   - truthfulqa_fi_multi_gen_fbv2
 output_type: generate_until

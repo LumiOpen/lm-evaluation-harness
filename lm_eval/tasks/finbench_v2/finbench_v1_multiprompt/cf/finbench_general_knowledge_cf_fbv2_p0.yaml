@@ -3,7 +3,3 @@ include: _multiple_choice_template_yaml
 description: "Vastaa seuraaviin yleistietokysymyksiin:\n\n"
 doc_to_text: "{{ query }}\nVastauksesi:"
 task: finbench_general_knowledge_cf_fbv2_p0
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_cf_fbv2

@@ -2,6 +2,7 @@ dataset_path: LumiOpen/opengpt-x_truthfulqax
 dataset_name: mc_FI
 tag:
   - finbench_v2
+  - finbench_v2_multiple_choice
   - truthfulqa_fi_multi_fbv2
   - truthfulqa_fi_multi_mc2_fbv2
 output_type: multiple_choice

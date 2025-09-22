@@ -1,8 +1,10 @@
 # This is a new version of the FIN-bench emotions task with 1K samples
 tag:
   - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_mcf_fbv2
+  - finbench_v2_multiple_choice
+  - finbench_v2_multiple_choice_mcf
+  - belebele_fin_multi_fbv2
+  - belebele_fin_multi_fbv2_mcf
 dataset_path: spyysalo/finbench-emotions-1K
 output_type: multiple_choice
 test_split: test

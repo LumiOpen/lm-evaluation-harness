@@ -1,5 +1,7 @@
 tag:
   - finbench_v2
+  - finbench_v2_multiple_choice
+  - finbench_v2_multiple_choice_cf
   - goldenswag_fi_multi_fbv2
   - goldenswag_fi_cf_multi_fbv2
 dataset_path: TurkuNLP/finbenchv2-goldenswag-fi-ht

@@ -3,7 +3,3 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "Lause: \"{{ query }}\". Ilmaiseeko lause tapahtumien välistä kausaalisuutta, korrelaatiota vai onko suhde neutraali?\nVastaus:"
 task: finbench_empirical_judgments_mcf_fbv2_p3
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_mcf_fbv2

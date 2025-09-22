@@ -1,5 +1,7 @@
 tag:
   - finbench_v2
+  - finbench_v2_generation
+  - squad_fi_gen_fbv2
 dataset_path: TurkuNLP/finbenchv2-squad-strip-fi-mt
 output_type: generate_until
 training_split: train

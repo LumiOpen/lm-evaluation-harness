@@ -3,7 +3,3 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "Tämä lause koskee tapahtumien välistä suhdetta: {{ query }}. Onko lauseen suhde tapahtumiin kausaalinen, korrelatiivinen vai neutraali?\nSuhde:"
 task: finbench_empirical_judgments_mcf_fbv2_p4
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_mcf_fbv2

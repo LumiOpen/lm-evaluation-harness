@@ -19,5 +19,7 @@ dataset_name: fin_Latn
 test_split: test
 tag:
   - finbench_v2
+  - finbench_v2_multiple_choice
+  - finbench_v2_multiple_choice_cf
   - belebele_fin_multi_fbv2
   - belebele_fin_multi_fbv2_cf

@@ -3,7 +3,3 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "Miten {{ word_0 }} ja {{ word_1 }} liittyvät toisiinsa?\nVastaus yhdellä lauseella:"
 task: finbench_similarities_abstraction_cf_fbv2_p3
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_cf_fbv2

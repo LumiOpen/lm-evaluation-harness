@@ -3,7 +3,3 @@ include: _multiple_choice_template_yaml
 # description: ""
 doc_to_text: "Kysymys: {{ query }}\nValitse oikea vastausvaihtoehdoista:\n{% for s in multiple_choice_targets %} {{ choice_prefix }} {{ s }}\n{% endfor %}Vastaus:"
 task: finbench_general_knowledge_mcf_fbv2_p4
-tag:
-  - finbench_v2
-  - finbench_orig_multi_fbv2
-  - finbench_orig_multi_mcf_fbv2
