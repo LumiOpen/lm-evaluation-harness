@@ -4,8 +4,8 @@ tag:
   - finbench_v2
   - finbench_v2_multiple_choice
   - finbench_v2_multiple_choice_cf
-  - belebele_fin_multi_fbv2
-  - belebele_fin_multi_fbv2_cf
+  - orig_finbench_multi_fbv2
+  - orig_finbench_multi_fbv2_cf
 dataset_path: spyysalo/finbench-emotions-1K
 output_type: multiple_choice
 test_split: test
