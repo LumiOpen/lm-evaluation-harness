@@ -1,9 +1,10 @@
-task: helmet_recall
+task: helmet_rag
 class: !function task.HELMETTask
 tag:
   - helmet
   - long_context
-  - recall
+  - rag
+  - qa
 dataset_path: princeton-nlp/HELMET
 dataset_name: default
 dataset_kwargs:
@@ -19,15 +20,20 @@ target_delimiter: ""
 should_decontaminate: false
 output_type: generate_until
 generation_kwargs:
-  max_gen_toks: 50
+  max_gen_toks: 20
   temperature: 0.0
   do_sample: false
+  until:
+    - "\n"
 process_results: !function utils.helmet_process_results
 metric_list:
   - metric: exact_match
     aggregation: mean
     higher_is_better: true
   - metric: f1
+    aggregation: mean
+    higher_is_better: true
+  - metric: bleu
     aggregation: mean
     higher_is_better: true
 metadata:

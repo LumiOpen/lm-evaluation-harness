@@ -1,0 +1,21 @@
+group: helmet
+task:
+  - helmet_recall
+  - helmet_rag
+  - helmet_rerank
+  - helmet_cite
+  - helmet_longqa
+  - helmet_summ
+  - helmet_icl
+aggregate_metric_list:
+  - metric: exact_match
+    aggregation: mean
+    weight_by_size: true
+  - metric: bleu
+    aggregation: mean
+    weight_by_size: true
+  - metric: rouge1
+    aggregation: mean
+    weight_by_size: true
+metadata:
+  version: 1.0
