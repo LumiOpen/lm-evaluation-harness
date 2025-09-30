@@ -9,6 +9,8 @@ validation_split: validation
 process_results: !function squad_utils.process_results
 doc_to_target: '{{ answers["text"][0] }}'
 target_delimiter: ' '
+should_decontaminate: true
+doc_to_decontamination_query: "{{ title }}\n\n{{ context }}\n\n{{ question }}"
 generation_kwargs:
   until:
     - "\n"
