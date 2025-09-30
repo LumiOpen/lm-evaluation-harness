@@ -10,7 +10,7 @@ test_split: test
 doc_to_choice: choices
 doc_to_target: answer_idx
 should_decontaminate: true
-doc_to_decontamination_query: {{ text }}
+doc_to_decontamination_query: "{{ text }}"
 metric_list:
   - metric: acc
     aggregation: mean

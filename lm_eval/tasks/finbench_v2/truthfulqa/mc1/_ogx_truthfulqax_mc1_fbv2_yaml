@@ -10,7 +10,7 @@ validation_split: validation
 doc_to_target: 0
 doc_to_choice: '{{ mc1_targets.choices }}'
 should_decontaminate: true
-doc_to_decontamination_query: question
+doc_to_decontamination_query: "{{ question }}"
 metric_list:
 - metric: acc
   aggregation: mean

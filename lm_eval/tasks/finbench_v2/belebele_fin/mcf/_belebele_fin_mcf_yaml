@@ -3,7 +3,7 @@ fewshot_config:
   sampler: first_n
 output_type: multiple_choice
 should_decontaminate: true
-doc_to_decontamination_query: "{{question}}"
+doc_to_decontamination_query: "{{ question }}"
 doc_to_target: "{{['1', '2', '3', '4'].index(correct_answer_num)}}"
 doc_to_choice: ["A", "B", "C", "D"]
 metric_list:
