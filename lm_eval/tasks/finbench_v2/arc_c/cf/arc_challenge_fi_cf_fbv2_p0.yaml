@@ -1,3 +1,3 @@
-task: arc_challenge_fi_fbv2_cf_p0
+task: arc_challenge_fi_cf_fbv2_p0
 doc_to_text: "Vastaus kysymykseen {{ question }}, on:"
 include: _arc_challenge_fi_cf_fbv2_yaml
