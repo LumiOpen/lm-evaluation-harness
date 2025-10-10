@@ -1,0 +1,31 @@
+task: _dropped_xlsum_fi_fbv2
+dataset_path: poesia/finbench_v2-xlsum-fi-mt
+description: "Tee tiivistelmä seuraavasta uutisartikkelista.\n\n"
+output_type: generate_until
+training_split: train
+validation_split: validation
+test_split: test
+doc_to_text: !function _dropped_xlsum_fi_fbv2_utils.doc_to_text
+doc_to_target: !function _dropped_xlsum_fi_fbv2_utils.doc_to_target
+process_results: !function _dropped_xlsum_fi_fbv2_utils.process_results_gen
+generation_kwargs:
+  until:
+    - "\n\n"
+metric_list:
+  - metric: bleu
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: rouge1
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: rouge2
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: rougeL
+    aggregation: nanmean
+    higher_is_better: true
+  - metric: bert_score
+    aggregation: nanmean
+    higher_is_better: true
+metadata:
+  version: 1.0
