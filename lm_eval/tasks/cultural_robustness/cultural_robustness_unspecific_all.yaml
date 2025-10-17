@@ -1,0 +1,5 @@
+include: _cultural_robustness_unspecific_template.yaml
+task: cultural_robustness_unspecific_all
+custom_dataset: !function utils.load_dataset_multilingual
+tag:
+  - cultural_robustness_unspecific

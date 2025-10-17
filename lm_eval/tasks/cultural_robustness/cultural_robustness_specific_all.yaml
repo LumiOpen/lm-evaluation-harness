@@ -1,0 +1,9 @@
+include: _cultural_robustness_unspecific_template.yaml
+task: cultural_robustness_specific_all
+custom_dataset: !function utils.load_dataset_specific
+tag:
+  - cultural_robustness_specific
+metric_list:
+  - metric: cultural_diversity
+    aggregation: cultural_robustness_agg  # Uses task_type="specific"
+    higher_is_better: true
