@@ -1,4 +1,4 @@
-group: group_sib200_fi_multi_mcf_fbv2
+group: group_sib200_fi_multi_cf_fbv2
 task:
   - sib200_fi_cf_fbv2_p0
   - sib200_fi_cf_fbv2_p1
