@@ -1,3 +1,4 @@
+dataset_name: emotions_1k_zero_shot
 task: finbench_emotions_1k_cf_fbv2_p3
-doc_to_text: "Mikä on tekstin \"{{ text }}\" perustunnetila?\nPerustunne:"
-include: _finbench_emotions_1k_cf_fbv2_yaml
+doc_to_text: "Mikä on tekstin \"{{ query }}\" perustunnetila?\nPerustunne:"
+include: _multiple_choice_template_yaml
