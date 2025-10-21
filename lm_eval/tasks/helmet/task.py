@@ -17,8 +17,12 @@ class HELMETTask(ConfigurableTask):
 
     def _process_doc(self, doc):
         """Override to handle streaming dataset documents safely."""
-        # For streaming datasets, just return the doc as-is
-        # The basic ConfigurableTask should handle this fine
+        # Convert dataset row to plain dict if needed (for streaming datasets)
+        if hasattr(doc, 'to_dict'):
+            return doc.to_dict()
+        elif not isinstance(doc, dict):
+            # Try to convert to dict (works for most dataset row types)
+            return dict(doc)
         return doc
 
     def doc_iterator(self, rank=0, num_workers=1, limit=None):
