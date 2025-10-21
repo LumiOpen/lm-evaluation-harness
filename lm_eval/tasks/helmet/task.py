@@ -52,3 +52,7 @@ class HELMETTask(ConfigurableTask):
 
     def has_test_docs(self):
         return True
+
+    def fewshot_docs(self):
+        """Return empty iterator for fewshot - HELMET doesn't use fewshot examples."""
+        return iter([])
