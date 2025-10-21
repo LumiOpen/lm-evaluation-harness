@@ -113,7 +113,21 @@ class HELMETTask(ConfigurableTask):
                 if idx == 0:
                     # Cache and return first doc
                     if self.task._cached_first_doc is None:
-                        self.task._cached_first_doc = next(iter(self.dataset))
+                        # Get first item - might be IterableColumn or dict
+                        first_item = next(iter(self.dataset))
+
+                        # If it's IterableColumn, we need to extract the actual data
+                        # IterableColumn wraps column data - we need to get the underlying dict
+                        import sys
+                        print(f"DEBUG __getitem__: first_item type = {type(first_item)}", file=sys.stderr)
+
+                        if hasattr(first_item, 'to_dict'):
+                            first_item = first_item.to_dict()
+                        elif not isinstance(first_item, dict):
+                            # Try to extract dict from IterableColumn or similar
+                            print(f"DEBUG: first_item has these attrs: {dir(first_item)[:10]}", file=sys.stderr)
+
+                        self.task._cached_first_doc = first_item
                     return self.task._cached_first_doc
                 raise IndexError("Only index 0 is supported for streaming datasets")
 
