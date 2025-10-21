@@ -23,21 +23,24 @@ print("  ✓ Task created (skipped dataset download)")
 # Test with mock data - IMPORTANT: Use JSONL format (multiple JSON objects separated by newlines)
 # This mimics the actual HELMET dataset structure
 mock_docs = [
+    # Task with 'answers' field
     {
         'jsonl': b'{"qid": "131843", "query": "definition of a sigmet", "answers": ["significant meteorological information"], "ctxs": [{"id": "8305152", "text": "SIGMET definition"}]}\n{"other": "data"}\n{"more": "lines"}',
         '__key__': 'sample1',
         '__url__': 'mock://url1'
     },
+    # Task with 'answers' field (list)
     {
         'jsonl': b'{"qid": "222", "query": "what is python", "answers": ["a programming language"], "ctxs": [{"id": "999", "text": "Python is a language"}]}\n{"extra": "json"}',
         '__key__': 'sample2',
         '__url__': 'mock://url2'
     },
+    # RERANKING task: NO answers field, must compute from ctxs
     {
-        'jsonl': b'{"qid": "333", "query": "how tall is mt everest", "answers": ["8,849 meters"], "ctxs": []}\n{"another": "line"}',
-        '__key__': 'sample3',
+        'jsonl': b'{"qid": "333", "query": "definition of a sigmet", "ctxs": [{"id": "8305152", "text": "Definition of SIGMET", "label": 3}, {"id": "1234", "text": "Other doc", "label": 1}, {"id": "5678", "text": "Another doc", "label": 2}]}\n{"another": "line"}',
+        '__key__': 'sample3_rerank',
         '__url__': 'mock://url3'
-    }
+    },
 ]
 
 print("\nStep 2: Testing _process_doc on multiple samples...")

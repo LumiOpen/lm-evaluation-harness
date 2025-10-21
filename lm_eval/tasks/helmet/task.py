@@ -51,13 +51,28 @@ class HELMETTask(ConfigurableTask):
                     # Map common variations to standard names
                     if 'query' in parsed and 'question' not in parsed:
                         parsed['question'] = parsed['query']
-                    if 'answers' in parsed and 'answer' not in parsed:
-                        # Handle both list and single answer
-                        answers = parsed['answers']
-                        if isinstance(answers, list) and answers:
-                            parsed['answer'] = answers[0]
-                        else:
-                            parsed['answer'] = answers
+
+                    # Handle answer field - different tasks have different structures
+                    if 'answer' not in parsed:
+                        if 'answers' in parsed:
+                            # Handle both list and single answer
+                            answers = parsed['answers']
+                            if isinstance(answers, list) and answers:
+                                parsed['answer'] = answers[0]
+                            else:
+                                parsed['answer'] = answers
+                        elif 'ctxs' in parsed and isinstance(parsed['ctxs'], list):
+                            # Reranking task: compute gold ranking from ctxs
+                            # Sort by label (descending) and join IDs
+                            try:
+                                sorted_ctxs = sorted(parsed['ctxs'], key=lambda x: x.get('label', 0), reverse=True)
+                                gold_ranking = " > ".join([str(x['id']) for x in sorted_ctxs if 'id' in x])
+                                parsed['answer'] = gold_ranking
+                                print(f"DEBUG _process_doc: Computed answer from ctxs: {gold_ranking[:100]}", file=sys.stderr)
+                            except Exception as e:
+                                print(f"DEBUG _process_doc: Failed to compute answer from ctxs: {e}", file=sys.stderr)
+                                # Set empty answer as fallback
+                                parsed['answer'] = ""
 
                     return parsed
                 except Exception as e:
