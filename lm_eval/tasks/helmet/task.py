@@ -13,6 +13,10 @@ class HELMETTask(ConfigurableTask):
             filtered_config = {k: v for k, v in config.items() if k != 'class'}
         else:
             filtered_config = config
+
+        # Cache first doc for testing during init (streaming datasets can't be indexed)
+        self._cached_first_doc = None
+
         super().__init__(config=filtered_config, **kwargs)
 
     def _process_doc(self, doc):
@@ -87,6 +91,37 @@ class HELMETTask(ConfigurableTask):
 
     def has_test_docs(self):
         return True
+
+    def test_docs(self):
+        """Override to provide iterable-compatible access to test docs."""
+        # Wrap the dataset in a helper that caches the first doc for indexed access
+        dataset = self.dataset[self.config.test_split]
+        if self.config.process_docs is not None:
+            dataset = self.config.process_docs(dataset)
+
+        # Return a wrapper that supports both iteration and [0] access
+        class StreamingDatasetWrapper:
+            def __init__(self, dataset, task):
+                self.dataset = dataset
+                self.task = task
+
+            def __iter__(self):
+                for doc in self.dataset:
+                    yield doc
+
+            def __getitem__(self, idx):
+                if idx == 0:
+                    # Cache and return first doc
+                    if self.task._cached_first_doc is None:
+                        self.task._cached_first_doc = next(iter(self.dataset))
+                    return self.task._cached_first_doc
+                raise IndexError("Only index 0 is supported for streaming datasets")
+
+            @property
+            def features(self):
+                return self.dataset.features if hasattr(self.dataset, 'features') else {}
+
+        return StreamingDatasetWrapper(dataset, self)
 
     def fewshot_docs(self):
         """Return empty iterator for fewshot - HELMET doesn't use fewshot examples."""
