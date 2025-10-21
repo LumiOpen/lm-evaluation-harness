@@ -199,6 +199,12 @@ class HELMETTask(ConfigurableTask):
                     return self.task._cached_first_doc
                 raise IndexError("Only index 0 is supported for streaming datasets")
 
+            def __len__(self):
+                # Streaming datasets don't have a known length
+                # Return a placeholder value for evaluation reporting
+                # The actual iteration will process all available samples
+                return 1000000  # Large placeholder value
+
             @property
             def features(self):
                 return self.dataset.features if hasattr(self.dataset, 'features') else {}
