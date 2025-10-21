@@ -35,8 +35,16 @@ class HELMETTask(ConfigurableTask):
                     # Decode bytes to string if needed
                     if isinstance(jsonl_data, bytes):
                         jsonl_data = jsonl_data.decode('utf-8')
-                    # Parse JSON
-                    parsed = json.loads(jsonl_data)
+
+                    # JSONL format = multiple JSON objects separated by newlines
+                    # Parse only the first line
+                    first_line = jsonl_data.split('\n')[0].strip()
+                    if not first_line:
+                        print(f"DEBUG _process_doc: Empty jsonl field", file=sys.stderr)
+                        return doc
+
+                    # Parse first JSON object
+                    parsed = json.loads(first_line)
                     print(f"DEBUG _process_doc: Parsed jsonl field, got keys: {list(parsed.keys())}", file=sys.stderr)
 
                     # Normalize field names - HELMET uses different names across tasks
