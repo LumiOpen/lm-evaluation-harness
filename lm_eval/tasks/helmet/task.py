@@ -22,11 +22,38 @@ class HELMETTask(ConfigurableTask):
     def _process_doc(self, doc):
         """Convert dataset row to plain dict if needed (for streaming datasets)."""
         import sys
+        import json
         doc_type = str(type(doc))
         print(f"DEBUG _process_doc called: type={doc_type}", file=sys.stderr)
 
-        # If it's already a plain dict, return it immediately
+        # If it's already a plain dict, check if we need to parse jsonl field
         if isinstance(doc, dict) and 'IterableColumn' not in doc_type:
+            # HELMET dataset stores actual data in a 'jsonl' field as bytes
+            if 'jsonl' in doc:
+                try:
+                    jsonl_data = doc['jsonl']
+                    # Decode bytes to string if needed
+                    if isinstance(jsonl_data, bytes):
+                        jsonl_data = jsonl_data.decode('utf-8')
+                    # Parse JSON
+                    parsed = json.loads(jsonl_data)
+                    print(f"DEBUG _process_doc: Parsed jsonl field, got keys: {list(parsed.keys())}", file=sys.stderr)
+
+                    # Normalize field names - HELMET uses different names across tasks
+                    # Map common variations to standard names
+                    if 'query' in parsed and 'question' not in parsed:
+                        parsed['question'] = parsed['query']
+                    if 'answers' in parsed and 'answer' not in parsed:
+                        # Handle both list and single answer
+                        answers = parsed['answers']
+                        if isinstance(answers, list) and answers:
+                            parsed['answer'] = answers[0]
+                        else:
+                            parsed['answer'] = answers
+
+                    return parsed
+                except Exception as e:
+                    print(f"DEBUG _process_doc: Failed to parse jsonl field: {e}", file=sys.stderr)
             return doc
 
         # Try accessing internal batch data structures (common in HF datasets)
