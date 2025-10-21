@@ -26,6 +26,31 @@ class HELMETTask(ConfigurableTask):
         doc_type = str(type(doc))
         print(f"DEBUG _process_doc called: type={doc_type}", file=sys.stderr)
 
+        # Handle multi_lexsum dataset - normalize field names with slashes
+        if isinstance(doc, dict) and 'summary/short' in doc:
+            # Normalize summary/* fields to summary_*
+            normalized = {}
+            for key, value in doc.items():
+                if '/' in key:
+                    normalized_key = key.replace('/', '_')
+                    normalized[normalized_key] = value
+                normalized[key] = value
+            doc = normalized
+            print(f"DEBUG multi_lexsum: normalized keys to {list(normalized.keys())[:10]}", file=sys.stderr)
+            return doc
+
+        # Handle TREC dataset - convert label integers to label names
+        if isinstance(doc, dict) and 'fine_label' in doc and 'text' in doc:
+            # Get label names from dataset features
+            if hasattr(self.dataset, 'features') and 'fine_label' in self.dataset.features:
+                label_names = self.dataset.features['fine_label'].names
+                doc['fine_label_name'] = label_names[doc['fine_label']]
+                if 'coarse_label' in doc and 'coarse_label' in self.dataset.features:
+                    coarse_names = self.dataset.features['coarse_label'].names
+                    doc['coarse_label_name'] = coarse_names[doc['coarse_label']]
+                print(f"DEBUG TREC: fine_label={doc['fine_label']} -> {doc['fine_label_name']}", file=sys.stderr)
+            return doc
+
         # If it's already a plain dict, check if we need to parse jsonl field
         if isinstance(doc, dict) and 'IterableColumn' not in doc_type:
             # HELMET dataset stores actual data in a 'jsonl' field as bytes

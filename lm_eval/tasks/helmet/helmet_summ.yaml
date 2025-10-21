@@ -4,17 +4,17 @@ tag:
   - helmet
   - long_context
   - summarization
-dataset_path: princeton-nlp/HELMET
-dataset_name: default
+dataset_path: allenai/multi_lexsum
+dataset_name: v20230518
 dataset_kwargs:
-  streaming: true
+  streaming: false
   trust_remote_code: true
-training_split: null
-validation_split: null
-test_split: train
-fewshot_split: null
-doc_to_text: "{{ question }}"
-doc_to_target: "{{ answer }}"
+training_split: train
+validation_split: validation
+test_split: test
+fewshot_split: train
+doc_to_text: "{% for source in sources %}{{ source }}\n{% endfor %}"
+doc_to_target: "{{ summary_short }}"
 target_delimiter: ""
 should_decontaminate: false
 output_type: generate_until

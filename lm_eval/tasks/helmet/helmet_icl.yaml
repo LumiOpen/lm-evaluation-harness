@@ -5,17 +5,17 @@ tag:
   - long_context
   - icl
   - few_shot
-dataset_path: princeton-nlp/HELMET
+dataset_path: CogComp/trec
 dataset_name: default
 dataset_kwargs:
-  streaming: true
+  streaming: false
   trust_remote_code: true
-training_split: null
+training_split: train
 validation_split: null
-test_split: train
-fewshot_split: null
-doc_to_text: "{{ question }}"
-doc_to_target: "{{ answer }}"
+test_split: test
+fewshot_split: train
+doc_to_text: "{{ text }}"
+doc_to_target: "{{ fine_label_name }}"
 target_delimiter: ""
 should_decontaminate: false
 output_type: generate_until
