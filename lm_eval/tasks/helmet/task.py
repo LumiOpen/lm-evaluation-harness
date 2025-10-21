@@ -60,3 +60,13 @@ class HELMETTask(ConfigurableTask):
     def fewshot_docs(self):
         """Return empty iterator for fewshot - HELMET doesn't use fewshot examples."""
         return iter([])
+
+    def doc_to_text(self, doc):
+        """Convert doc to dict before processing."""
+        doc = self._process_doc(doc)
+        return super().doc_to_text(doc)
+
+    def doc_to_target(self, doc):
+        """Convert doc to dict before processing."""
+        doc = self._process_doc(doc)
+        return super().doc_to_target(doc)
