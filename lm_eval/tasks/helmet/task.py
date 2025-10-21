@@ -17,7 +17,26 @@ class HELMETTask(ConfigurableTask):
 
     def _process_doc(self, doc):
         """Convert dataset row to plain dict if needed (for streaming datasets)."""
-        if isinstance(doc, dict):
+        import sys
+        doc_type = str(type(doc))
+        print(f"DEBUG _process_doc called: type={doc_type}", file=sys.stderr)
+
+        # Check if it's actually IterableColumn masquerading as a dict
+        if 'IterableColumn' in doc_type:
+            print(f"DEBUG: Detected IterableColumn, attempting conversion", file=sys.stderr)
+            # Force convert IterableColumn by iterating and extracting values
+            try:
+                if hasattr(doc, '__iter__'):
+                    items = list(doc)
+                    print(f"DEBUG: Converted to list with {len(items)} items", file=sys.stderr)
+                    if items and isinstance(items[0], dict):
+                        print(f"DEBUG: Returning first dict item", file=sys.stderr)
+                        return items[0]
+                    print(f"DEBUG: Items type: {type(items[0]) if items else 'empty'}", file=sys.stderr)
+            except Exception as e:
+                print(f"DEBUG: IterableColumn iteration failed: {e}", file=sys.stderr)
+
+        if isinstance(doc, dict) and 'IterableColumn' not in doc_type:
             return doc
 
         # For IterableColumn or similar objects, convert to dict
@@ -36,8 +55,7 @@ class HELMETTask(ConfigurableTask):
                     # Single dict item
                     return items[0]
         except Exception as e:
-            import sys
-            print(f"DEBUG: IterableColumn conversion failed: {e}", file=sys.stderr)
+            print(f"DEBUG: IterableColumn list conversion failed: {e}", file=sys.stderr)
 
         # Try .to_dict() method
         if hasattr(doc, 'to_dict'):
