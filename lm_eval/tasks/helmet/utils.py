@@ -3,7 +3,8 @@
 
 def helmet_process_results(doc, results):
     """Fix aggregation TypeError by computing exact_match and f1 properly."""
-    gold = str(doc["target"]).strip() if doc["target"] else ""
+    # Use 'answer' field (we normalized all tasks to use 'answer')
+    gold = str(doc["answer"]).strip() if doc.get("answer") else ""
     result = str(results[0]).strip() if results else ""
 
     exact_match = 1.0 if gold == result else 0.0
