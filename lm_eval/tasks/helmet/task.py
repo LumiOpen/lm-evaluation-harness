@@ -25,62 +25,87 @@ class HELMETTask(ConfigurableTask):
         doc_type = str(type(doc))
         print(f"DEBUG _process_doc called: type={doc_type}", file=sys.stderr)
 
-        # Check if it's actually IterableColumn masquerading as a dict
-        if 'IterableColumn' in doc_type:
-            print(f"DEBUG: Detected IterableColumn, attempting conversion", file=sys.stderr)
-            # Force convert IterableColumn by iterating and extracting values
-            try:
-                if hasattr(doc, '__iter__'):
-                    items = list(doc)
-                    print(f"DEBUG: Converted to list with {len(items)} items", file=sys.stderr)
-                    if items and isinstance(items[0], dict):
-                        print(f"DEBUG: Returning first dict item", file=sys.stderr)
-                        return items[0]
-                    print(f"DEBUG: Items type: {type(items[0]) if items else 'empty'}", file=sys.stderr)
-            except Exception as e:
-                print(f"DEBUG: IterableColumn iteration failed: {e}", file=sys.stderr)
-
+        # If it's already a plain dict, return it immediately
         if isinstance(doc, dict) and 'IterableColumn' not in doc_type:
             return doc
 
-        # For IterableColumn or similar objects, convert to dict
-        # by extracting all items
-        try:
-            # IterableColumn wraps a dict-like structure
-            # Try accessing it as a mapping
-            if hasattr(doc, '__iter__') and not isinstance(doc, (str, bytes)):
-                # This might be an iterable that needs conversion
-                # Try converting to list first, then to dict if it's key-value pairs
-                items = list(doc)
-                if items and isinstance(items[0], tuple) and len(items[0]) == 2:
-                    # List of (key, value) tuples
-                    return dict(items)
-                elif len(items) == 1 and isinstance(items[0], dict):
-                    # Single dict item
-                    return items[0]
-        except Exception as e:
-            print(f"DEBUG: IterableColumn list conversion failed: {e}", file=sys.stderr)
+        # Try accessing internal batch data structures (common in HF datasets)
+        for attr in ['_data', '_batch', 'data', 'batch']:
+            if hasattr(doc, attr):
+                try:
+                    internal_data = getattr(doc, attr)
+                    print(f"DEBUG: Found {attr} attribute: {type(internal_data)}", file=sys.stderr)
+                    if isinstance(internal_data, dict):
+                        return internal_data
+                    elif isinstance(internal_data, list) and internal_data and isinstance(internal_data[0], dict):
+                        return internal_data[0]
+                except Exception as e:
+                    print(f"DEBUG: Accessing {attr} failed: {e}", file=sys.stderr)
 
         # Try .to_dict() method
         if hasattr(doc, 'to_dict'):
             try:
-                return doc.to_dict()
+                result = doc.to_dict()
+                print(f"DEBUG: .to_dict() returned type={type(result)}", file=sys.stderr)
+                if isinstance(result, dict):
+                    return result
             except Exception as e:
-                import sys
                 print(f"DEBUG: .to_dict() failed: {e}", file=sys.stderr)
 
         # Try manual key extraction for dict-like objects
-        if hasattr(doc, 'keys'):
+        if hasattr(doc, 'keys') and hasattr(doc, '__getitem__'):
             try:
-                keys = list(doc.keys()) if callable(doc.keys) else list(doc.keys)
-                return {key: doc[key] for key in keys}
+                keys_obj = doc.keys()
+                keys = list(keys_obj) if not isinstance(keys_obj, list) else keys_obj
+                print(f"DEBUG: Found keys: {keys[:5] if len(keys) > 5 else keys}", file=sys.stderr)
+                result = {}
+                for key in keys:
+                    try:
+                        result[key] = doc[key]
+                    except Exception as e:
+                        print(f"DEBUG: Failed to get doc[{key}]: {e}", file=sys.stderr)
+                if result:
+                    print(f"DEBUG: Manual key extraction succeeded with {len(result)} keys", file=sys.stderr)
+                    return result
             except Exception as e:
-                import sys
-                print(f"DEBUG: Manual key extraction failed: {e}, type={type(doc)}", file=sys.stderr)
+                print(f"DEBUG: Manual key extraction failed: {e}", file=sys.stderr)
+
+        # Try to get attributes as dict keys
+        if hasattr(doc, '__dict__'):
+            try:
+                result = {k: v for k, v in doc.__dict__.items() if not k.startswith('_')}
+                if result:
+                    print(f"DEBUG: Extracted __dict__ with {len(result)} keys", file=sys.stderr)
+                    return result
+            except Exception as e:
+                print(f"DEBUG: __dict__ extraction failed: {e}", file=sys.stderr)
+
+        # Last resort: try to iterate and see what we get
+        if hasattr(doc, '__iter__') and not isinstance(doc, (str, bytes)):
+            try:
+                # Peek at first few items to understand structure
+                iterator = iter(doc)
+                first_items = []
+                for _ in range(min(5, 100)):  # Safety limit
+                    try:
+                        item = next(iterator)
+                        first_items.append(item)
+                    except StopIteration:
+                        break
+
+                print(f"DEBUG: Iteration yielded {len(first_items)} items", file=sys.stderr)
+                if first_items:
+                    print(f"DEBUG: First item type: {type(first_items[0])}", file=sys.stderr)
+                    if isinstance(first_items[0], dict):
+                        return first_items[0]
+                    elif isinstance(first_items[0], tuple) and len(first_items[0]) == 2:
+                        return dict(first_items)
+            except Exception as e:
+                print(f"DEBUG: Iteration failed: {e}", file=sys.stderr)
 
         # If all conversions fail, return as-is and let downstream handle it
-        import sys
-        print(f"DEBUG: Returning doc as-is, type={type(doc)}", file=sys.stderr)
+        print(f"DEBUG: All conversion attempts failed, returning as-is: type={type(doc)}", file=sys.stderr)
+        print(f"DEBUG: Available attributes: {[a for a in dir(doc) if not a.startswith('_')][:10]}", file=sys.stderr)
         return doc
 
     def has_training_docs(self):
@@ -107,7 +132,8 @@ class HELMETTask(ConfigurableTask):
 
             def __iter__(self):
                 for doc in self.dataset:
-                    yield doc
+                    # Process each doc to convert IterableColumn to dict
+                    yield self.task._process_doc(doc)
 
             def __getitem__(self, idx):
                 if idx == 0:
@@ -116,16 +142,8 @@ class HELMETTask(ConfigurableTask):
                         # Get first item - might be IterableColumn or dict
                         first_item = next(iter(self.dataset))
 
-                        # If it's IterableColumn, we need to extract the actual data
-                        # IterableColumn wraps column data - we need to get the underlying dict
-                        import sys
-                        print(f"DEBUG __getitem__: first_item type = {type(first_item)}", file=sys.stderr)
-
-                        if hasattr(first_item, 'to_dict'):
-                            first_item = first_item.to_dict()
-                        elif not isinstance(first_item, dict):
-                            # Try to extract dict from IterableColumn or similar
-                            print(f"DEBUG: first_item has these attrs: {dir(first_item)[:10]}", file=sys.stderr)
+                        # Always process through _process_doc to handle conversion
+                        first_item = self.task._process_doc(first_item)
 
                         self.task._cached_first_doc = first_item
                     return self.task._cached_first_doc
