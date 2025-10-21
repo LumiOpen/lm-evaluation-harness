@@ -14,8 +14,8 @@ training_split: null
 validation_split: null
 test_split: train
 fewshot_split: null
-doc_to_text: "{{ input }}"
-doc_to_target: "{{ target }}"
+doc_to_text: "{{ question }}"
+doc_to_target: "{{ answer }}"
 target_delimiter: ""
 should_decontaminate: false
 output_type: generate_until

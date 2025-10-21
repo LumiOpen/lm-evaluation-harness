@@ -10,8 +10,7 @@ dataset = load_dataset(
     "princeton-nlp/HELMET",
     name="default",
     split="train",
-    streaming=True,
-    trust_remote_code=True
+    streaming=True
 )
 
 print(f"\nDataset type: {type(dataset)}")
@@ -29,8 +28,7 @@ dataset = load_dataset(
     "princeton-nlp/HELMET",
     name="default",
     split="train",
-    streaming=True,
-    trust_remote_code=True
+    streaming=True
 )
 
 for i, item in enumerate(dataset):
