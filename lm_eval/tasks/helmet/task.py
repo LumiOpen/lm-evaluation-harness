@@ -162,6 +162,14 @@ class HELMETTask(ConfigurableTask):
     def doc_to_text(self, doc):
         """Convert doc to dict before processing."""
         doc = self._process_doc(doc)
+        import sys
+        print(f"DEBUG doc_to_text: doc type={type(doc)}, keys={list(doc.keys()) if isinstance(doc, dict) else 'NOT A DICT'}", file=sys.stderr)
+        if isinstance(doc, dict):
+            print(f"DEBUG doc_to_text: All keys in doc: {list(doc.keys())}", file=sys.stderr)
+            # Print first 200 chars of each key's value
+            for key in list(doc.keys())[:10]:  # Limit to first 10 keys
+                value_str = str(doc[key])[:200]
+                print(f"DEBUG doc_to_text:   {key} = {value_str}", file=sys.stderr)
         return super().doc_to_text(doc)
 
     def doc_to_target(self, doc):
