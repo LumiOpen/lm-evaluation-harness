@@ -19,18 +19,27 @@ class HELMETTask(ConfigurableTask):
         """Convert dataset row to plain dict if needed (for streaming datasets)."""
         if isinstance(doc, dict):
             return doc
+
+        # Try .to_dict() method first
         if hasattr(doc, 'to_dict'):
-            return doc.to_dict()
-        # Try to convert via dict() constructor (works for dict-like objects)
+            try:
+                return doc.to_dict()
+            except Exception:
+                pass
+
+        # Try manual key extraction for dict-like objects
+        if hasattr(doc, 'keys') and hasattr(doc, '__getitem__'):
+            try:
+                return {key: doc[key] for key in doc.keys()}
+            except Exception:
+                pass
+
+        # Try dict() constructor as fallback
         try:
             return dict(doc)
-        except (TypeError, ValueError):
-            # Last resort: if it has column-like access, extract manually
-            if hasattr(doc, 'keys') and hasattr(doc, '__getitem__'):
-                try:
-                    return {key: doc[key] for key in doc.keys()}
-                except Exception:
-                    pass
+        except Exception:
+            pass
+
         # If all conversions fail, return as-is and let downstream handle it
         return doc
 
