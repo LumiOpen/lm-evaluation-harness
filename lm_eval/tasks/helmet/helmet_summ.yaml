@@ -4,11 +4,14 @@ tag:
   - helmet
   - long_context
   - summarization
-dataset_path: allenai/multi_lexsum
-dataset_name: v20230518
+dataset_path: json
+dataset_name: null
 dataset_kwargs:
-  streaming: false
-  trust_remote_code: true
+  data_files:
+    train: "hf://datasets/allenai/multi_lexsum/releases/v20230518/train.json"
+    validation: "hf://datasets/allenai/multi_lexsum/releases/v20230518/dev.json"
+    test: "hf://datasets/allenai/multi_lexsum/releases/v20230518/test.json"
+  field: data
 training_split: train
 validation_split: validation
 test_split: test
