@@ -1,4 +1,4 @@
-dataset_path: LumiOpen/opengpt-x_truthfulqax
+dataset_path: TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt
 dataset_name: mc_FI
 tag:
   - finbench_v2

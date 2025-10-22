@@ -1,4 +1,4 @@
-dataset_path: facebook/belebele
+dataset_path: TurkuNLP/finbenchv2-belebele-fi-og
 fewshot_config:
   sampler: first_n
 output_type: multiple_choice
