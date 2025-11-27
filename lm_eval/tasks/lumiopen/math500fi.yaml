@@ -1,0 +1,7 @@
+include: math500.yaml
+task: lumiopen_math500fi
+process_docs: !function utils.process_docs_fi
+dataset_name: default
+dataset_path: Chaanim/math_500_fi
+training_split: null
+test_split: test

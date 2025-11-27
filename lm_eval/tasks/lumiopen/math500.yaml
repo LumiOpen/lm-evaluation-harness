@@ -1,0 +1,26 @@
+tag:
+  - math_word_problems
+task: lumiopen_math500
+dataset_path: HuggingFaceH4/MATH-500
+process_docs: !function utils.process_docs
+dataset_name: default
+output_type: generate_until
+training_split: null
+test_split: test
+doc_to_text: "{{problem}}"
+process_results: !function utils.process_results
+doc_to_target: "{{answer}}"
+generation_kwargs:
+  until:
+    - "</s>"
+    - "<|im_end|>"
+    - "<|eot_id|>"
+  do_sample: false
+  temperature: 0.0 # TODO: We should do repeats with temperature > 0
+  max_gen_toks: 32768
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
