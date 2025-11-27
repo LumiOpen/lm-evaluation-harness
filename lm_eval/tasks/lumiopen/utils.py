@@ -40,12 +40,6 @@ def process_docs_fi(dataset: datasets.Dataset) -> datasets.Dataset:
 
 def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
     retval = 0
-    indices = [pos for pos, char in enumerate(results[0]) if char == "$"]
-    if len(indices) <= 1:
-        answer = results[0]
-    else:
-        answer = results[0][indices[0] + 1 : indices[-1]]
-
     # Extract the answer in the same way as the solution
     answer = last_boxed_only_string(results[0])
     if answer:
