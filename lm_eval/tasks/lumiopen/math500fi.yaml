@@ -1,5 +1,5 @@
 include: math500.yaml
-task: lumiopen_math500fi
+task: lumiopen_math500_mt_fi
 process_docs: !function utils.process_docs_fi
 dataset_name: default
 dataset_path: Chaanim/math_500_fi
