@@ -44,8 +44,6 @@ def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
     answer = last_boxed_only_string(results[0])
     if answer:
         answer = remove_boxed(answer)
-    print("ANSWER:", answer)
-    print("EXPECTED:", remove_boxed(last_boxed_only_string(doc["solution"])))
     if is_equiv(answer, remove_boxed(last_boxed_only_string(doc["solution"]))):
         retval = 1
 
