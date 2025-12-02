@@ -10,7 +10,8 @@ Solve the following problem. The final line of your response MUST be of the foll
 """.strip()
 
 MATH_QUERY_TEMPLATE_FI = """
-Ratkaise seuraava matemaattinen ongelma. Varmista, että vastaus (ja vain vastaus) sijoitetaan \\boxed{{}} sisään.
+Ratkaise seuraava matemaattinen ongelma. Vastauksesi viimeisen rivin TULEE OLLA muodossa:
+"VASTAUS: $\\boxed{{VASTAUS}}$" (ilman lainausmerkkejä), missä $VASTAUS on lopullinen vastaus. Ennen vastaamista, ajattele vaihe vaiheelta miten ongelma ratkaistaan.
 
 {prompt}
 """.strip()
