@@ -1,5 +1,0 @@
-dataset_name: paraphrase_zero_shot
-include: _multiple_choice_template_yaml
-# description: ""
-doc_to_text: "Tekstipari:\n{{ query }}\nOnko lauseiden merkitys sama? Vastausvaihtoehdot: kyllä, ei.\nVastaus:"
-task: finbench_paraphrase_mcf_fbv2_p3

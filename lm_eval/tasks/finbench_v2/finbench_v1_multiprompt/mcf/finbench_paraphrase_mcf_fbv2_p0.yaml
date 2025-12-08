@@ -1,5 +1,0 @@
-dataset_name: paraphrase_zero_shot
-include: _multiple_choice_template_yaml
-description: "Tarkoittavatko seuraavat tekstiparit samaa? Vastaa kyllä tai ei.\n\n"
-doc_to_text: "{{ query }}\n{{ output_prefix }}"
-task: finbench_paraphrase_mcf_fbv2_p0

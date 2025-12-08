@@ -1,12 +1,12 @@
-# 🇫🇮 Finbench v2
+# 🇫🇮 FIN-bench-v2
 
 ### Paper & Homepage
 
-TODO
+To be added
 
 **Overview**
 
-🇫🇮 Finbench v2 is a multi-task Finnish language understanding and generation evaluation benchmark. It adapts several well-known English benchmarks and includes tasks designed to test various capabilities of language models in Finnish. The primary goal of Finbench v2 is to provide a comprehensive and challenging suite for evaluating models on the Finnish language, covering a diverse set of tasks from commonsense reasoning and world knowledge to truthfulness and instruction following.
+🇫🇮 FIN-bench-v2 is a multi-task Finnish language understanding and generation evaluation benchmark. It adapts several well-known English benchmarks and includes tasks designed to test various capabilities of language models in Finnish. The primary goal of FIN-bench-v2 is to provide a comprehensive and challenging suite for evaluating models on the Finnish language, covering a diverse set of tasks from commonsense reasoning and world knowledge to truthfulness and instruction following.
 
 Our main evaluation principles are:
 
@@ -27,23 +27,21 @@ Our main evaluation principles are:
 |                                                                         | _cf_        | `goldenswag_ht_fi_cf_fbv2_p[0-4]`                   |                 |                                    |                               |                                                                                                                           |
 | [TruthfulQA](https://huggingface.co/datasets/Eurolingua/truthfulqax)    | _cf_        | `ogx_truthfulqax_mc1_fi_fbv2_p[0-4]`                | MT              | Multiple-choice question answering | Truthfulness                  | [finbenchv2-opengpt-x_truthfulqax-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-opengpt-x_truthfulqax-fi-mt) |
 |                                                                         | _cf_        | `ogx_truthfulqax_mc2_fi_fbv2_p[0-4]`                |                 |                                    |                               |                                                                                                                           |
-|                                                                         | _gen_       | `ogx_truthfulqax_gen_fi_fbv2_p[0-4]`                | MT              | Generative question answering      | Truthfulness                  |                                                                                                                           |
-| [SQuAD FI](https://huggingface.co/datasets/rajpurkar/squad_v2)          | _gen_       | `squad_fi_gen_fbv2_p[0-4]`                          | MT              | Generative question answering      | Machine reading comprehension | [finbenchv2-squad-strip-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-squad-strip-fi-mt)                     |
+|                                                                         | _gen_       | `ogx_truthfulqax_gen_fi_fbv2_p[0-4]`                |                 | Generative question answering      | Truthfulness                  |                                                                                                                           |
+| [ScandiSent](https://github.com/timpal0l/ScandiSent)                    | _mcf_       | `scandisent_fi_mcf_fbv2_p[0-4]`                     | HW              | Multiple-choice question answering | Sentiment analysis            | [finbenchv2-scandisent-fi-mini](https://huggingface.co/datasets/TurkuNLP/finbenchv2-scandisent-fi-mini)                   |                                                                                                                           |
+|                                                                         | _cf_        | `scandisent_fi_cf_fbv2_p[0-4]`                      |                 |                                    |                               |                                                                                                                           |
 | [SIB-200](https://huggingface.co/datasets/Davlan/sib200)                | _mcf_       | `sib200_fi_mcf_fbv2_p[0-4]`                         | HT              | Multiple-choice classification     | Text classification           | [finbenchv2-sib-200-fi-og](https://huggingface.co/datasets/TurkuNLP/finbenchv2-sib-200-fi-og)                             |
 |                                                                         | _cf_        | `sib200_fi_cf_fbv2_p[0-4]`                          |                 |                                    |                               |                                                                                                                           |
-| [FIN-Bench](https://github.com/TurkuNLP/FIN-bench)                      | _mcf_       | `finbench_analogies_mcf_fbv2_p[0-4]`                | MT&HR           | Multiple-choice                    | Relational reasoning          | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench)                                                           |
+| [SQuAD FI](https://huggingface.co/datasets/rajpurkar/squad_v2)          | _gen_       | `squad_fi_gen_fbv2_p[0-4]`                          | MT              | Generative question answering      | Machine reading comprehension | [finbenchv2-squad-strip-fi-mt](https://huggingface.co/datasets/TurkuNLP/finbenchv2-squad-strip-fi-mt)                     |
+| [FIN-Bench](https://github.com/TurkuNLP/FIN-bench)                      | _mcf_       | `finbench_analogies_mcf_fbv2_p[0-4]`                | MT&HR           | Multiple-choice                    | Relational reasoning          | [finbenchv2-fbv1-stripped-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-fbv1-stripped-fi-ht)                                                           |
 |                                                                         | _cf_        | `finbench_analogies_cf_fbv2_p[0-4]`                 |                 |                                    |                               |                                                                                                                           |
-|                                                                         | _mcf_       | `finbench_emotions_mcf_fbv2_p[0-4]`                 | MT&HR           | Multiple-choice                    | Sentiment analysis            | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench)                                                           |
+|                                                                         | _mcf_       | `finbench_emotions_mcf_fbv2_p[0-4]`                 | MT&HR           | Multiple-choice                    | Sentiment analysis            | [finbenchv2-fbv1-stripped-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-fbv1-stripped-fi-ht)                                      |
 |                                                                         | _cf_        | `finbench_emotions_cf_fbv2_p[0-4]`                  |                 |                                    |                               |                                                                                                                           |
-|                                                                         | _mcf_       | `finbench_empirical_judgments_mcf_fbv2_p[0-4]`      | MT&HR           | Multiple-choice                    | Causal reasoning              | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench)                                                           |
-|                                                                         | _cf_        | `finbench_empirical_judgments_cf_fbv2_p[0-4]`       |                 |                                    |                               |                                                                                                                           |
-|                                                                         | _mcf_       | `finbench_general_knowledge_mcf_fbv2_p[0-4]`        | MT&HR           | Multiple-choice                    | World knowledge               | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench)                                                           |
+|                                                                         | _mcf_       | `finbench_general_knowledge_mcf_fbv2_p[0-4]`        | MT&HR           | Multiple-choice                    | World knowledge               | [finbenchv2-fbv1-stripped-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-fbv1-stripped-fi-ht)                                      |
 |                                                                         | _cf_        | `finbench_general_knowledge_cf_fbv2_p[0-4]`         |                 |                                    |                               |                                                                                                                           |
-|                                                                         | _mcf_       | `finbench_hhh_alignment_mcf_fbv2_p[0-4]`            | MT&HR           | Multiple-choice                    | Alignment and safety          | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench)                                                           |
+|                                                                         | _mcf_       | `finbench_hhh_alignment_mcf_fbv2_p[0-4]`            | MT&HR           | Multiple-choice                    | Alignment and safety          | [finbenchv2-fbv1-stripped-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-fbv1-stripped-fi-ht)                                      |
 |                                                                         | _cf_        | `finbench_hhh_alignment_cf_fbv2_p[0-4]`             |                 |                                    |                               |                                                                                                                           |
-|                                                                         | _mcf_       | `finbench_paraphrase_mcf_fbv2_p[0-4]`               | MT&HR           | Multiple-choice                    | Paraphrase identification     | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench)                                                           |
-|                                                                         | _cf_        | `finbench_paraphrase_cf_fbv2_p[0-4]`                |                 |                                    |                               |                                                                                                                           |
-|                                                                         | _mcf_       | `finbench_similarities_abstraction_mcf_fbv2_p[0-4]` | MT&HR           | Multiple-choice                    | Commonsense reasoning         | [FIN-bench](https://huggingface.co/datasets/TurkuNLP/FIN-bench)                                                           |
+|                                                                         | _mcf_       | `finbench_similarities_abstraction_mcf_fbv2_p[0-4]` | MT&HR           | Multiple-choice                    | Commonsense reasoning         | [finbenchv2-fbv1-stripped-fi-ht](https://huggingface.co/datasets/TurkuNLP/finbenchv2-fbv1-stripped-fi-ht)                                      |
 |                                                                         | _cf_        | `finbench_similarities_abstraction_cf_fbv2_p[0-4]`  |                 |                                    |                               |                                                                                                                           |
 
 <details open>
@@ -53,12 +51,13 @@ Our main evaluation principles are:
 *   **Formatting**: The prompt formatting used in the task.
 *   **Finnish task name**: The LM Evaluation Harness task name for the Finnish dataset.
 *   **Creation method**: How the Finnish dataset was created:
-    *   MT = Machine translation of the original English dataset.
-    *   HT = Human translation
+    *   HW = Human-written.
+    *   HT = Human translation.
     *   HR = Human review and correction of machine-translated data.
+    *   MT = Machine translation of the original English dataset.
 *   **Task type**: The specific type of the task.
 *   **Task category**: A broader categorization of the task.
-*   **Our dataset version**: Direct link to the dataset used in Finbench v2.
+*   **Our dataset version**: Direct link to the dataset used in FIN-bench-v2.
 
 </details>
 
@@ -70,15 +69,15 @@ Our main evaluation principles are:
 
 ### Citation
 
-As there is no formal paper, please cite the repository directly if you use FinBench v2 in your work:
+We will update the missing fields when the article is published. In the meantime, use the following available information:
 
 ```
 @misc{finbenchv2,
-  author       = {[TODO: List of authors/contributors]},
-  title        = {FinBench v2: A Finnish Language Understanding and Generation Evaluation Benchmark},
+  author       = {[Joona Kytöniemi, Jousia Piha, Akseli Reunamo, Fedor Vitiugin, Farrokh Mehryary, Sampo Pyysalo]},
+  title        = {FIN-bench-v2: A Unified and Robust Benchmark Suite for Evaluating Finnish Large Language Models},
   year         = {2025},
-  publisher    = {GitHub},
-  journal      = {GitHub repository},
-  howpublished = {\url{[TODO: Add full URL to the GitHub directory]}}
+  publisher    = {(missing)},
+  journal      = {(missing)},
+  howpublished = {\url{(missing)}}
 }
 ```

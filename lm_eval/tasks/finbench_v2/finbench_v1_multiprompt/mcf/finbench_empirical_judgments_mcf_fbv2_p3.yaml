@@ -1,5 +1,0 @@
-dataset_name: empirical_judgments_zero_shot
-include: _multiple_choice_template_yaml
-# description: ""
-doc_to_text: "Lause: \"{{ query }}\". Ilmaiseeko lause tapahtumien välistä kausaalisuutta, korrelaatiota vai onko suhde neutraali?\nVastaus:"
-task: finbench_empirical_judgments_mcf_fbv2_p3

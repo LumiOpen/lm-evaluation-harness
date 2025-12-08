@@ -1,5 +1,0 @@
-dataset_name: empirical_judgments_zero_shot
-include: _multiple_choice_template_yaml
-description: "Luokittele seuraavien lauseiden tapahtumien väliset suhteet. Vaihtoehdot ovat kausaalinen, korrelatiivinen ja neutraali.\n\n"
-doc_to_text: "Lause: {{ query }}\nLuokka:"
-task: finbench_empirical_judgments_mcf_fbv2_p2

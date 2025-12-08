@@ -1,5 +1,0 @@
-dataset_name: paraphrase_zero_shot
-include: _multiple_choice_template_yaml
-# description: ""
-doc_to_text: "{{ query }}\nOnko näiden kahden tekstin merkitys sama?\nVastaus:"
-task: finbench_paraphrase_cf_fbv2_p1
