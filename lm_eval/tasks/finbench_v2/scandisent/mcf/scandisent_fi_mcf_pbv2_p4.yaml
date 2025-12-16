@@ -1,0 +1,3 @@
+task: scandisent_fi_mcf_fbv2_p4
+doc_to_text: "Valitse tätä arvostelua kuvaava sävy: \"{{ query }}\"\nOnko se \"positiivinen\" vai \"negatiivinen\"?\nSävy:"
+include: _scandisent_fi_mcf_yaml

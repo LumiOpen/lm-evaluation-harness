@@ -1,0 +1,4 @@
+dataset_name: emotions_1k_zero_shot
+task: finbench_emotions_1k_mcf_fbv2_p2
+doc_to_text: "Mihin tunnekategoriaan seuraava lause kuuluu?Lause:\n\"{{ query }}\"\nKategoriat: hämmästys, ilo, inho, luottamus, odotus, pelko, suru, suuttumus.\nKategoria:"
+include: _multiple_choice_template_yaml

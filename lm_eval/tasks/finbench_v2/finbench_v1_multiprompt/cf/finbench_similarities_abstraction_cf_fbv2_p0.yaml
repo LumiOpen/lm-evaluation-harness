@@ -1,0 +1,5 @@
+dataset_name: similarities_abstraction_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "Minkä samanlaisuuden {{ word_0 }} ja {{ word_1 }} jakavat?\nVastaus:"
+task: finbench_similarities_abstraction_cf_fbv2_p0

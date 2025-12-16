@@ -1,0 +1,28 @@
+tag:
+  - finbench_v2
+  - finbench_v2_generation
+  - squad_fi_gen_fbv2
+dataset_path: TurkuNLP/finbenchv2-squad-strip-fi-mt
+output_type: generate_until
+training_split: train
+validation_split: validation
+process_results: !function squad_utils.process_results
+doc_to_target: '{{ answers["text"][0] }}'
+target_delimiter: ' '
+should_decontaminate: true
+doc_to_decontamination_query: "{{ title }}\n\n{{ context }}\n\n{{ question }}"
+generation_kwargs:
+  until:
+    - "\n"
+  do_sample: false
+  num_beams: 1
+  max_new_tokens: 32
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+  - metric: f1
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0

@@ -1,0 +1,5 @@
+dataset_name: emotions_1k_zero_shot
+task: finbench_emotions_1k_cf_fbv2_p2
+description: "Tunnista perustunne teksteistä:\n\n"
+doc_to_text: "\"{{ query }}\"\nVastaus:"
+include: _multiple_choice_template_yaml

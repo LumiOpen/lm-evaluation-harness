@@ -1,0 +1,5 @@
+dataset_name: similarities_abstraction_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "{{ word_0 }} ja {{ word_1 }} jakavat samankaltaisuuden.\nValitse oikea vaihtoehto:\n{% for s in multiple_choice_targets %} vaihtoehto: {{ s }}\n{% endfor %}Vastaus:"
+task: finbench_similarities_abstraction_mcf_fbv2_p1

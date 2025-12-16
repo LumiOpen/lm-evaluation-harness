@@ -1,0 +1,3 @@
+task: arc_challenge_fi_cf_fbv2_p2
+doc_to_text: "{{ question }}\nVastaus:"
+include: _arc_challenge_fi_cf_fbv2_yaml

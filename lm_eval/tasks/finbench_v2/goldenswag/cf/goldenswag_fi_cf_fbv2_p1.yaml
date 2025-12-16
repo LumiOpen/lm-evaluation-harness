@@ -1,0 +1,3 @@
+task: goldenswag_ht_fi_cf_fbv2_p1
+doc_to_text: "Aloitus: {{ query }} Lopetus:"
+include: _goldenswag_fi_cf_yaml

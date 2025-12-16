@@ -1,0 +1,4 @@
+dataset_name: emotions_1k_zero_shot
+task: finbench_emotions_1k_mcf_fbv2_p3
+doc_to_text: "Mikä perustunteista (hämmästys, ilo, inho, luottamus, odotus, pelko, suru, suuttumus) kuvaa parhaiten lausetta \"{{ query }}\"?\nVastaus:"
+include: _multiple_choice_template_yaml

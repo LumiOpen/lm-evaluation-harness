@@ -1,0 +1,3 @@
+task: arc_challenge_fi_mcf_fbv2_p1
+doc_to_text: "{% for s in choices.text %}{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }}: {{ s }}\n{% endfor %}\nVastaa seuraavaan kysymykseen käyttäen edellä olevia vastausvaihtoehtoja. Kysymys: {{ question }}\nVastaus:"
+include: _arc_challenge_fi_mcf_fbv2_yaml

@@ -1,0 +1,4 @@
+task: sib200_fi_mcf_fbv2_p1
+description: "Aihelista: politiikka, viihde, tiede/teknologia, urheilu, matkailu, terveys, maantiede. Valitse seuraaville teksteille sopivin aihe.\n\n"
+doc_to_text: "Teksti: {{ text }}\nAihe:"
+include: _sib200_fi_mcf_yaml

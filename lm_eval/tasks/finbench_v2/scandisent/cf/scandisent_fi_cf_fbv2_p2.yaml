@@ -1,0 +1,3 @@
+task: scandisent_fi_cf_fbv2_p2
+doc_to_text: "Mikä on seuraavan arvostelun sävy?\n\"{{ query }}\"\nSävy:"
+include: _scandisent_fi_cf_yaml

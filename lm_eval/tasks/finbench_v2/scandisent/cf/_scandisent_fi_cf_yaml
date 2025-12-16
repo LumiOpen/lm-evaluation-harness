@@ -1,0 +1,25 @@
+tag:
+  - finbench_v2
+  - finbench_v2_multiple_choice
+  - finbench_v2_multiple_choice_cf
+  - scandisent_multi_fbv2
+  - scandisent_multi_cf_fbv2
+dataset_path: TurkuNLP/finbenchv2-scandisent-fi-mini
+output_type: multiple_choice
+training_split: train
+test_split: test
+validation_split: val
+process_docs: !function scandisent_fi_utils.process_docs
+doc_to_target: "{{ gold }}"
+doc_to_choice: "choices"
+should_decontaminate: true
+doc_to_decontamination_query: "{{ query }}"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0

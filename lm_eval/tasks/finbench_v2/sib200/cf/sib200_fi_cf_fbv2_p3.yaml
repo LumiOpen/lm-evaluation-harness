@@ -1,0 +1,3 @@
+task: sib200_fi_cf_fbv2_p3
+doc_to_text: "Mikä on tämän artikkelin aihe?\nArtikkeli: {{ text }}\nAihe:"
+include: _sib200_fi_cf_yaml

@@ -1,0 +1,44 @@
+group: group_finbench_multi_cf_fbv2
+task:
+  - finbench_analogies_cf_fbv2_p0
+  - finbench_analogies_cf_fbv2_p1
+  - finbench_analogies_cf_fbv2_p2
+  - finbench_analogies_cf_fbv2_p3
+  - finbench_analogies_cf_fbv2_p4
+  - finbench_emotions_1k_cf_fbv2_p0
+  - finbench_emotions_1k_cf_fbv2_p1
+  - finbench_emotions_1k_cf_fbv2_p2
+  - finbench_emotions_1k_cf_fbv2_p3
+  - finbench_emotions_1k_cf_fbv2_p4
+  - finbench_empirical_judgments_cf_fbv2_p0
+  - finbench_empirical_judgments_cf_fbv2_p1
+  - finbench_empirical_judgments_cf_fbv2_p2
+  - finbench_empirical_judgments_cf_fbv2_p3
+  - finbench_empirical_judgments_cf_fbv2_p4
+  - finbench_general_knowledge_cf_fbv2_p0
+  - finbench_general_knowledge_cf_fbv2_p1
+  - finbench_general_knowledge_cf_fbv2_p2
+  - finbench_general_knowledge_cf_fbv2_p3
+  - finbench_general_knowledge_cf_fbv2_p4
+  - finbench_hhh_alignment_cf_fbv2_p0
+  - finbench_hhh_alignment_cf_fbv2_p1
+  - finbench_hhh_alignment_cf_fbv2_p2
+  - finbench_hhh_alignment_cf_fbv2_p3
+  - finbench_hhh_alignment_cf_fbv2_p4
+  - finbench_paraphrase_cf_fbv2_p0
+  - finbench_paraphrase_cf_fbv2_p1
+  - finbench_paraphrase_cf_fbv2_p2
+  - finbench_paraphrase_cf_fbv2_p3
+  - finbench_paraphrase_cf_fbv2_p4
+  - finbench_similarities_abstraction_cf_fbv2_p0
+  - finbench_similarities_abstraction_cf_fbv2_p1
+  - finbench_similarities_abstraction_cf_fbv2_p2
+  - finbench_similarities_abstraction_cf_fbv2_p3
+  - finbench_similarities_abstraction_cf_fbv2_p4
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true
