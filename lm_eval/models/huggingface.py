@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import copy
 import logging
 import os
-from collections.abc import Iterator, Sequence
 from datetime import timedelta
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Literal
@@ -33,18 +31,23 @@ from lm_eval.api.registry import register_model
 from lm_eval.models.utils import (
     Collator,
     _add_special_kwargs,
-    clear_torch_cache,
     configure_pad_token,
-    get_dtype,
     handle_stop_sequences,
     has_bos_prefix,
-    pad_and_concat,
+    normalize_gen_kwargs,
     postprocess_generated_text,
+)
+from lm_eval.models.utils_hf import (
+    clear_torch_cache,
+    get_dtype,
+    pad_and_concat,
     stop_sequences_criteria,
 )
 
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator, Sequence
+
     from transformers.quantizers.auto import AutoQuantizationConfig
 
     from lm_eval.api.instance import Instance
@@ -555,6 +558,7 @@ class HFLM(TemplateLM):
     def _get_config(
         self,
         pretrained: str,
+        *,
         revision: str = "main",
         trust_remote_code: bool = False,
         gguf_file: str | None = None,
@@ -679,8 +683,7 @@ class HFLM(TemplateLM):
             )
 
         if peft:
-            from peft import PeftModel
-            from peft import __version__ as PEFT_VERSION
+            from peft import PeftModel, __version__ as PEFT_VERSION
 
             if model_kwargs.get("load_in_4bit") and vparse(PEFT_VERSION) < vparse(
                 "0.4.0"
@@ -897,6 +900,7 @@ class HFLM(TemplateLM):
             else:
                 add_special_tokens = {}
 
+        assert self.tokenizer, "Tokenizer shoukd be initialized at this point"
         encoding = self.tokenizer(
             strings,
             truncation=truncation,
@@ -958,10 +962,10 @@ class HFLM(TemplateLM):
                     input_ids=inps, attention_mask=attn_mask, labels=labels
                 ).logits
 
-            assert self.AUTO_MODEL_CLASS in (
-                transformers.AutoModelForCausalLM,
-                transformers.AutoModelForVision2Seq,
-            )
+            # assert self.AUTO_MODEL_CLASS in (
+            #     transformers.AutoModelForCausalLM,
+            #     transformers.AutoModelForVision2Seq,
+            # )
             return self.model(inps).logits
 
     def _model_generate(
@@ -979,11 +983,11 @@ class HFLM(TemplateLM):
         do_sample = generation_kwargs.get("do_sample")
 
         # The temperature has to be a strictly positive float -- if it is 0.0, use greedy decoding strategies
-        if generation_kwargs.get("temperature") == 0.0 and do_sample is None:
+        if (temp := generation_kwargs.get("temperature")) == 0.0 and do_sample is None:
             generation_kwargs["do_sample"] = do_sample = False
 
-        if do_sample is False and generation_kwargs.get("temperature") == 0.0:
-            generation_kwargs.pop("temperature")
+        if do_sample is False and temp == 0.0:
+            generation_kwargs.pop("temperature", None)
         # build stopping criteria
         stopping_criteria = stop_sequences_criteria(
             self.tokenizer, stop, context.shape[1], context.shape[0]
@@ -1079,7 +1083,7 @@ class HFLM(TemplateLM):
         for i in range(0, len(all_windows), batch_size):
             batch = all_windows[i : i + batch_size]
             # Extract just the windows for processing, keeping track of request indices
-            batch_indices, batch_windows = zip(*batch)
+            batch_indices, batch_windows = zip(*batch, strict=True)
 
             batch_nlls = self._loglikelihood_tokens(
                 requests=batch_windows,
@@ -1087,7 +1091,7 @@ class HFLM(TemplateLM):
                 override_bs=len(batch_windows),
             )
             # Store results with their request indices
-            all_nlls.extend(zip(batch_indices, batch_nlls))
+            all_nlls.extend(zip(batch_indices, batch_nlls, strict=True))
 
         # Remove padding if necessary
         if (self.world_size > 1) and (pad_amnt > 0):
@@ -1133,7 +1137,7 @@ class HFLM(TemplateLM):
         requests: list[tuple[tuple[str, str], list[int], list[int]]],
         disable_tqdm: bool = False,
         override_bs: int | None = None,
-    ) -> list[tuple[float, bool]]:
+    ) -> list[tuple[float, bool]]:  # type: ignore[invalid-method-override]
         # TODO: implement some kind of efficient-request-middleware that lumps together requests with the same context
         res = []
 
@@ -1272,11 +1276,13 @@ class HFLM(TemplateLM):
 
             # create encoder attn mask and batched conts, if seq2seq
             call_kwargs = {}
+            assert padding_len_inp, "padding_len_inp should be set by now"
             if self.backend == "causal":
                 batched_inps = pad_and_concat(
                     padding_len_inp, inps, padding_side="right"
                 )  # [batch, padding_len_inp]
             elif self.backend == "seq2seq":
+                assert padding_len_cont, "padding_len_cont should be set by now"
                 # TODO: left-pad encoder inps and mask?
                 batched_inps = pad_and_concat(
                     padding_len_inp, inps
@@ -1299,7 +1305,7 @@ class HFLM(TemplateLM):
             )  # [batch, padding_length (inp or cont), vocab]
 
             for (request_str, ctx_tokens, _), logits, inplen, cont_toks in zip(
-                chunk, multi_logits, inplens, cont_toks_list
+                chunk, multi_logits, inplens, cont_toks_list, strict=True
             ):
                 # Slice to original seq length
                 contlen = len(cont_toks)
@@ -1418,23 +1424,17 @@ class HFLM(TemplateLM):
         chunks = re_ords.get_batched(n=batch_size, batch_fn=batch_fn)
         eos = self.tok_decode(self.eot_token_id, skip_special_tokens=False)
         for chunk in chunks:
-            contexts, all_gen_kwargs = zip(*chunk)
+            contexts, all_gen_kwargs = zip(*chunk, strict=True)
             # we assume all gen kwargs in the batch are the same
             # this is safe to assume because the `grouper` object ensures it.
             gen_kwargs = all_gen_kwargs[0]
-            # unpack our keyword arguments.
-            if isinstance(gen_kwargs, dict):
-                kwargs = copy.deepcopy(gen_kwargs)  # edge case for repeats > 1
-                # add EOS token to stop sequences
-                until = handle_stop_sequences(kwargs.pop("until", None), eos=eos)
-            else:
-                raise TypeError(
-                    f"Expected `kwargs` to be of type `dict` but got {type(gen_kwargs)}"
-                )
-            if "max_gen_toks" in kwargs:
-                max_gen_toks = kwargs.pop("max_gen_toks")
-            else:
-                max_gen_toks = self.max_gen_toks
+            assert isinstance(gen_kwargs, dict), (
+                f"Expected `kwargs` to be of type `dict` but got {type(gen_kwargs)}"
+            )
+            kwargs = normalize_gen_kwargs(gen_kwargs, self.max_gen_toks)
+            # add EOS token to stop sequences
+            until = handle_stop_sequences(kwargs.pop("until", None), eos=eos)
+            max_gen_toks = kwargs.pop("max_gen_toks")
 
             # set the max length in tokens of inputs ("context_enc")
             if self.backend == "causal":
@@ -1456,19 +1456,24 @@ class HFLM(TemplateLM):
             context_enc = context_enc.to(self.device)
             attn_masks = attn_masks.to(self.device)
 
-            if "max_length" not in kwargs:
-                kwargs["max_length"] = context_enc.shape[1] + max_gen_toks
+            # max_length = context + generation tokens
+            if "max_length" in kwargs:
+                eval_logger.warning(
+                    "`max_length` in generation kwargs. Please use `max_gen_toks` instead."
+                )
+            max_length = kwargs.pop("max_length", context_enc.shape[1] + max_gen_toks)  # type: ignore
 
             # perform batched generation
             cont = self._model_generate(
                 context=context_enc,
                 attention_mask=attn_masks,
                 stop=until,
+                max_length=max_length,
                 **kwargs,
             )
 
             cont_toks_list = cont.tolist()
-            for cont_toks, context in zip(cont_toks_list, contexts):
+            for cont_toks, context in zip(cont_toks_list, contexts, strict=True):
                 # discard context + left-padding toks if using causal decoder-only LM
                 if self.backend == "causal":
                     cont_toks = cont_toks[context_enc.shape[1] :]
