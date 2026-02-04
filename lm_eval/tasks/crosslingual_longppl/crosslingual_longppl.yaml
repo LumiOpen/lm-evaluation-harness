@@ -1,0 +1,115 @@
+# Cross-Lingual LongPPL Transfer Task
+#
+# Evaluates long-context capability on any language by transferring key paragraph
+# positions from English using cross-lingual embedding alignment.
+#
+# Validated: Spearman rho=0.978 correlation with native evaluation across 12 languages.
+#
+# Prerequisites:
+#   Set CROSSLINGUAL_LONGPPL_ALIGNED_DOCS environment variable to path of aligned_docs.json
+#
+# Usage:
+#   lm_eval --model hf \
+#     --model_args pretrained=meta-llama/Llama-3.1-8B \
+#     --tasks crosslingual_longppl_fi,crosslingual_longppl_de \
+#     --batch_size 1
+#     --num_fewshot 0
+
+# Base task configuration
+group: crosslingual_longppl
+
+---
+task: crosslingual_longppl_en
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: en
+  top_k: 8
+
+---
+task: crosslingual_longppl_de
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: de
+  top_k: 8
+
+---
+task: crosslingual_longppl_fr
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: fr
+  top_k: 8
+
+---
+task: crosslingual_longppl_es
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: es
+  top_k: 8
+
+---
+task: crosslingual_longppl_fi
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: fi
+  top_k: 8
+
+---
+task: crosslingual_longppl_sv
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: sv
+  top_k: 8
+
+---
+task: crosslingual_longppl_pl
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: pl
+  top_k: 8
+
+---
+task: crosslingual_longppl_lt
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: lt
+  top_k: 8
+
+---
+task: crosslingual_longppl_hu
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: hu
+  top_k: 8
+
+---
+task: crosslingual_longppl_el
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: el
+  top_k: 8
+
+---
+task: crosslingual_longppl_mt
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: mt
+  top_k: 8
+
+---
+task: crosslingual_longppl_lv
+class: !function task.CrossLingualLongPPL
+metadata:
+  version: 1.0
+  target_lang: lv
+  top_k: 8
