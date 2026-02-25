@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Finnish (fi)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_fi
+process_docs: !function utils.process_docs_fi
+metadata:
+  version: 2.0
+  target_lang: fi
+  target_lang_name: Finnish

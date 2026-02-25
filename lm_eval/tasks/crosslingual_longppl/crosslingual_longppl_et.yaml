@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Estonian (et)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_et
+process_docs: !function utils.process_docs_et
+metadata:
+  version: 2.0
+  target_lang: et
+  target_lang_name: Estonian
