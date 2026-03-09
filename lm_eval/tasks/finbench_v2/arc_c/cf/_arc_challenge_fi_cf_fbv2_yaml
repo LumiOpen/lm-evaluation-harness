@@ -1,5 +1,5 @@
 dataset_path: TurkuNLP/finbenchv2-arc-c-fi-ht
-dataset_name: ARC-C-fi-HT
+dataset_name: default
 tag:
   - finbench_v2
   - finbench_v2_multiple_choice
