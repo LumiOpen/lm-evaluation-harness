@@ -1,8 +1,8 @@
 # Cultural Robustness Evaluation
 
-Evaluates cultural diversity and robustness in multilingual LLMs across 12 European languages.
+Evaluates cultural diversity and robustness in multilingual LLMs across 22 languages.
 
-Based on the paper "Measuring the Cultural Capabilities of LLMs across European Languages" (LREC-COLING 2024).
+Based on the paper "Measuring the Cultural Capabilities of LLMs across European Languages".
 
 Dataset: [dzautner/cultural-robustness](https://huggingface.co/datasets/dzautner/cultural-robustness)
 
@@ -35,7 +35,9 @@ Run just diversity or robustness:
 
 ## Supported languages
 
-Danish, German, Greek, English, Spanish, Finnish, Hebrew, Italian, Polish, Russian, Slovak, Swedish (12 languages, 52,200 examples)
+Bengali, Catalan, Czech, Danish, English, Faroese, Finnish, French, German, Greek, Hebrew, Hindi, Italian, Kannada, Marathi, Polish, Russian, Slovak, Spanish, Swedish, Tamil, Telugu (22 languages, 123,662 examples across 48 countries/regions)
+
+Use `--apply_chat_template` for instruction-tuned models. Generation uses `do_sample=False` and `max_gen_toks=200`.
 
 The task auto-detects which languages your model supports from its HuggingFace model card and only tests those.
 

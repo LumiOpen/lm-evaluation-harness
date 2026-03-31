@@ -15,18 +15,28 @@ _DEFAULT_DATASET_NAME = "dzautner/cultural-robustness"
 
 # ISO code → language name (single source of truth)
 ISO_TO_LANGUAGE = {
+    "bn": "bengali",
+    "ca": "catalan",
+    "cs": "czech",
     "da": "danish",
     "de": "german",
     "el": "greek",
     "en": "english",
     "es": "spanish",
     "fi": "finnish",
+    "fo": "faroese",
+    "fr": "french",
     "he": "hebrew",
+    "hi": "hindi",
     "it": "italian",
+    "kn": "kannada",
+    "mr": "marathi",
     "pl": "polish",
     "ru": "russian",
     "sk": "slovak",
     "sv": "swedish",
+    "ta": "tamil",
+    "te": "telugu",
 }
 
 # Derive reverse mapping
@@ -41,7 +51,7 @@ for iso, lang in ISO_TO_LANGUAGE.items():
     LANGUAGE_MAP[iso] = lang
     LANGUAGE_MAP[lang] = lang
 
-# Add common aliases
+# Add common aliases (native names, alternate spellings)
 LANGUAGE_MAP.update(
     {
         "deutsch": "german",
@@ -50,6 +60,24 @@ LANGUAGE_MAP.update(
         "français": "french",
         "português": "portuguese",
         "suomi": "finnish",
+        "dansk": "danish",
+        "svenska": "swedish",
+        "ελληνικά": "greek",
+        "polski": "polish",
+        "slovenčina": "slovak",
+        "čeština": "czech",
+        "føroyskt": "faroese",
+        "català": "catalan",
+        # Catalan model cards sometimes use semicolon-separated names
+        "català;valencian": "catalan",
+        "catalan;valencian": "catalan",
+        "हिन्दी": "hindi",
+        "বাংলা": "bengali",
+        "मराठी": "marathi",
+        "தமிழ்": "tamil",
+        "తెలుగు": "telugu",
+        "ಕನ್ನಡ": "kannada",
+        "türkçe": "turkish",
     }
 )
 
@@ -79,8 +107,11 @@ def get_model_supported_languages(model_name: str) -> Set[str]:
             if lang is None:
                 continue
             lang_lower = lang.lower().strip()
-            if lang_lower in LANGUAGE_MAP:
-                supported.add(LANGUAGE_MAP[lang_lower])
+            # Handle semicolon-separated names (e.g., "Catalan;Valencian")
+            lang_variants = [l.strip() for l in lang_lower.split(";")] if ";" in lang_lower else [lang_lower]
+            for variant in lang_variants:
+                if variant in LANGUAGE_MAP:
+                    supported.add(LANGUAGE_MAP[variant])
 
         # Intersect with available languages
         result = supported & AVAILABLE_LANGUAGES
