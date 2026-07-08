@@ -1,0 +1,3 @@
+include: _lingsoft_pemt_fi_mcf_5shot_template_yaml
+task: lingsoft_pemt_fi_mcf_broad_5shot
+test_split: test_broad

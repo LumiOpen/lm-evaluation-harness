@@ -1,0 +1,23 @@
+dataset_path: LumiOpen/lingsoft-pemt-evals
+dataset_name: FI_pairs
+tag:
+  - lingsoft_pemt
+  - lingsoft_pemt_fi
+  - lingsoft_pemt_bpb
+output_type: multiple_choice
+num_fewshot: 0
+doc_to_text: ""
+doc_to_choice: "{{ [raw_mt, target_pemt] }}"
+doc_to_target: 1
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_bytes
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
