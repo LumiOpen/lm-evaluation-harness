@@ -38,6 +38,7 @@ MODEL_MAPPING = {
     "ipex": "lm_eval.models.optimum_ipex:IPEXForCausalLM",
     "local-chat-completions": "lm_eval.models.openai_completions:LocalChatCompletion",
     "local-completions": "lm_eval.models.openai_completions:LocalCompletionsAPI",
+    "longppl_hf": "lm_eval.models.longppl_hf:LongPPLHFModel",
     "mamba_ssm": "lm_eval.models.mamba_lm:MambaLMWrapper",
     "nemo_lm": "lm_eval.models.nemo_lm:NeMoLM",
     "neuronx": "lm_eval.models.neuron_optimum:NeuronModelForCausalLM",

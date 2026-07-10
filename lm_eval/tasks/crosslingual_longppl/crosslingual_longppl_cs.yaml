@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Czech (cs)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_cs
+process_docs: !function utils.process_docs_cs
+metadata:
+  version: 2.0
+  target_lang: cs
+  target_lang_name: Czech

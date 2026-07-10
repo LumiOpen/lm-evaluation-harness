@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Dutch (nl)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_nl
+process_docs: !function utils.process_docs_nl
+metadata:
+  version: 2.0
+  target_lang: nl
+  target_lang_name: Dutch

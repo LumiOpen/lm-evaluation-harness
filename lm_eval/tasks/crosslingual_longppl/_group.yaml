@@ -1,0 +1,47 @@
+group: crosslingual_longppl
+aggregate_metric_list:
+  - metric: longppl
+    aggregation: mean
+    weight_by_size: false
+  - metric: mean_key_loss
+    aggregation: mean
+    weight_by_size: false
+  - metric: key_span_coverage
+    aggregation: mean
+    weight_by_size: false
+  - metric: word_perplexity
+    aggregation: mean
+    weight_by_size: true
+  - metric: byte_perplexity
+    aggregation: mean
+    weight_by_size: true
+  - metric: bits_per_byte
+    aggregation: mean
+    weight_by_size: true
+task:
+  - crosslingual_longppl_bg
+  - crosslingual_longppl_cs
+  - crosslingual_longppl_da
+  - crosslingual_longppl_de
+  - crosslingual_longppl_el
+  - crosslingual_longppl_en
+  - crosslingual_longppl_es
+  - crosslingual_longppl_et
+  - crosslingual_longppl_fi
+  - crosslingual_longppl_fr
+  - crosslingual_longppl_ga
+  - crosslingual_longppl_hr
+  - crosslingual_longppl_hu
+  - crosslingual_longppl_it
+  - crosslingual_longppl_lt
+  - crosslingual_longppl_lv
+  - crosslingual_longppl_mt
+  - crosslingual_longppl_nl
+  - crosslingual_longppl_pl
+  - crosslingual_longppl_pt
+  - crosslingual_longppl_ro
+  - crosslingual_longppl_sk
+  - crosslingual_longppl_sl
+  - crosslingual_longppl_sv
+metadata:
+  version: 2.0
