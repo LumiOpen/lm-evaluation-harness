@@ -58,6 +58,23 @@ model tested scored 0.35–0.45 — the formulation measures literalness rather
 than quality (see [Pistotti et al., 2025](https://aclanthology.org/2025.uncertainlp-main.7/))
 and was dropped.
 
+Why conditioning inverts the signal (working analysis): post-editors change
+the raw MT for two distinct reasons — *fluency* (the MT is unnatural Finnish)
+and *translation accuracy/terminology* (the MT is wrong or off the official
+term base). Manual inspection of flipped pairs shows the second kind
+dominates the inversion: the editor's fix imports knowledge from outside the
+sentence (e.g. the official EU term-base rendering), which makes the
+post-edit *less* predictable from the source alone, while the literal raw MT
+becomes more predictable. Conditioning therefore rewards literalness and
+penalizes exactly the edits that make the text better. A per-edit human
+annotation layer separating fluency edits from accuracy/terminology edits is
+in progress (Danish complete — 256 fluency / 165 accuracy segments — with
+propagation to the other languages underway); once it covers Finnish we will
+split the eval by edit type and quantify how much of the conditional
+inversion is attributable to each. Until then, treat the unconditional bpb
+and the blind mcf preference as the quality signals, and any
+source-conditioned formulation as a literalness probe.
+
 ### Groups
 
 - `lingsoft_pemt_fi_mcf_5shot` — both mcf tasks, size-weighted mean.
