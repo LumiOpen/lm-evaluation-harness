@@ -9,6 +9,7 @@ num_fewshot: 0
 doc_to_text: "{{ prompt }}"
 doc_to_choice: "{{ choices }}"
 doc_to_target: "{{ choices.index(completion) }}"
+target_delimiter: ""
 process_results: !function utils.process_results_preference
 metric_list:
   - metric: acc

@@ -9,6 +9,7 @@ num_fewshot: 0
 doc_to_text: ""
 doc_to_choice: "{{ [raw_mt, target_pemt] }}"
 doc_to_target: 1
+target_delimiter: ""
 metric_list:
   - metric: acc
     aggregation: mean
