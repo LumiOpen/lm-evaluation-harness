@@ -32,8 +32,11 @@ def pass_at_1(
 def extract_code_blocks(text: str) -> str:
     # Pattern to match ```...``` blocks
     pattern = r"```(?:\w+)?\n?(.*?)\n?```"
-    # (+ ```) as we add the opening "```python" to the gen_prefix
-    matches = re.findall(pattern, r"```" + text, re.DOTALL)
+    # Instruct tasks open a code fence in gen_prefix, so generations can start
+    # directly with code. Include a newline when reconstructing that fence so
+    # the first identifier is not mistaken for a language tag.
+    haystack = text if text.lstrip().startswith("```") else "```\n" + text
+    matches = re.findall(pattern, haystack, re.DOTALL)
     # if no matches, try to match ```...``` blocks (after removing the language)
     if not matches:
         text_without_lang = re.sub(r"```python", "```", text)
