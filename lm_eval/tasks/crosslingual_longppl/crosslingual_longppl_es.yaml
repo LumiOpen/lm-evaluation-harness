@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Spanish (es)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_es
+process_docs: !function utils.process_docs_es
+metadata:
+  version: 2.0
+  target_lang: es
+  target_lang_name: Spanish

@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Lithuanian (lt)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_lt
+process_docs: !function utils.process_docs_lt
+metadata:
+  version: 2.0
+  target_lang: lt
+  target_lang_name: Lithuanian

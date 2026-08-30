@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Greek (el)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_el
+process_docs: !function utils.process_docs_el
+metadata:
+  version: 2.0
+  target_lang: el
+  target_lang_name: Greek

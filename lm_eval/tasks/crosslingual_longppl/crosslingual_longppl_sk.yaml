@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Slovak (sk)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_sk
+process_docs: !function utils.process_docs_sk
+metadata:
+  version: 2.0
+  target_lang: sk
+  target_lang_name: Slovak
