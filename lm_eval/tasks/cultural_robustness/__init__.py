@@ -1,0 +1,1 @@
+"""Cultural robustness evaluation task."""
