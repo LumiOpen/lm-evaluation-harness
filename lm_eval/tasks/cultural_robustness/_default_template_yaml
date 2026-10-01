@@ -10,7 +10,3 @@ generation_kwargs:
     - '<|end_of_text|>'
     - '<|eot_id|>'
 process_results: !function utils.process_results
-metric_list:
-  - metric: cultural_diversity
-    aggregation: cultural_diversity_agg
-    higher_is_better: true

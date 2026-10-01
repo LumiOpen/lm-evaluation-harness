@@ -39,6 +39,7 @@ ISO_TO_LANGUAGE = {
     "sv": "swedish",
     "ta": "tamil",
     "te": "telugu",
+    "tr": "turkish",
 }
 
 # Derive reverse mapping
@@ -257,5 +258,13 @@ def process_results(doc, results):
             "prompt": doc["prompt"],
         }
     )
-    # lm-eval requires dict with metric name key, value ignored (aggregation uses global state)
-    return {"cultural_diversity": 1.0}
+    # lm-eval needs one value per metric in the task's metric_list. The scores only
+    # exist for the whole run (the aggregations score all recorded responses
+    # together), so per-sample values are None rather than a misleading number.
+    if doc["type"] == "specific":
+        return {
+            "cultural_robustness": None,
+            "cultural_signal_purity": None,
+            "cultural_signal_purity_question_level": None,
+        }
+    return {"cultural_diversity": None}
