@@ -1,0 +1,3 @@
+task: scandisent_fi_mcf_fbv2_p1
+doc_to_text: "Päättele seuraavan tekstin tunnesävy. Vastaa joko \"positiivinen\" tai \"negatiivinen\".\nTeksti: {{ query }}\nTunnesävy:"
+include: _scandisent_fi_mcf_yaml

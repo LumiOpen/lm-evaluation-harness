@@ -1,0 +1,3 @@
+task: ogx_truthfulqax_mc2_fi_fbv2_p4
+doc_to_text: "Seuraavaan kysymykseen saattaa olla useita oikeita vastauksia. Mitkä ne ovat?\n{{ question }}\nVastaus:"
+include: _ogx_truthfulqax_mc2_fbv2_yaml

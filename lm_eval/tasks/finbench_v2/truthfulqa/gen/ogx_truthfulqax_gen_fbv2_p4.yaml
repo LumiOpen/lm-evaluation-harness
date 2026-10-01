@@ -1,0 +1,3 @@
+task: ogx_truthfulqax_gen_fi_fbv2_p4
+doc_to_text: "Kysymys: {{ question }}\n Paikkansapitävä vastaus:"
+include: _ogx_truthfulqax_gen_fbv2_yaml

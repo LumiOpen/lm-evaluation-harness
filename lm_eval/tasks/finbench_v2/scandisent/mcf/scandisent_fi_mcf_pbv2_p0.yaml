@@ -1,0 +1,3 @@
+task: scandisent_fi_mcf_fbv2_p0
+doc_to_text: "Onko tekstissä esiintyvä tunne \"positiivinen\" vai \"negatiivinen\"?\nTeksti: {{ query }}\nTunne:"
+include: _scandisent_fi_mcf_yaml

@@ -1,0 +1,3 @@
+task: arc_challenge_fi_mcf_fbv2_p2
+doc_to_text: "Kysymys: {{ question }}\nValitse oikea vaihtoehto:\n{% for s in choices.text %}{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[loop.index0] }}. {{ s }}\n{% endfor %}Oikea vaihtoehto on:"
+include: _arc_challenge_fi_mcf_fbv2_yaml

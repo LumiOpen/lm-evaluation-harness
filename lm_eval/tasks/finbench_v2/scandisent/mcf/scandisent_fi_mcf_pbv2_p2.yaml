@@ -1,0 +1,3 @@
+task: scandisent_fi_mcf_fbv2_p2
+doc_to_text: "Luokittele seuraava arvostelu joko positiiviseksi tai negatiiviseksi.\nTeksti: {{ query }}\nSävy:"
+include: _scandisent_fi_mcf_yaml

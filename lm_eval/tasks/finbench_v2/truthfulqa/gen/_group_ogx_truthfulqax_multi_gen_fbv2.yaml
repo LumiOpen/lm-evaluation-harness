@@ -1,0 +1,44 @@
+group: group_ogx_truthfulqax_multi_gen_fbv2
+task:
+  - ogx_truthfulqax_gen_fi_fbv2_p0
+  - ogx_truthfulqax_gen_fi_fbv2_p1
+  - ogx_truthfulqax_gen_fi_fbv2_p2
+  - ogx_truthfulqax_gen_fi_fbv2_p3
+  - ogx_truthfulqax_gen_fi_fbv2_p4
+aggregate_metric_list:
+  - metric: bleu_max
+    aggregation: mean
+    weight_by_size: true
+  - metric: bleu_acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: bleu_diff
+    aggregation: mean
+    weight_by_size: true
+  - metric: rouge1_max
+    aggregation: mean
+    weight_by_size: true
+  - metric: rouge1_acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: rouge1_diff
+    aggregation: mean
+    weight_by_size: true
+  - metric: rouge2_max
+    aggregation: mean
+    weight_by_size: true
+  - metric: rouge2_acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: rouge2_diff
+    aggregation: mean
+    weight_by_size: true
+  - metric: rougeL_max
+    aggregation: mean
+    weight_by_size: true
+  - metric: rougeL_acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: rougeL_diff
+    aggregation: mean
+    weight_by_size: true

@@ -1,0 +1,5 @@
+dataset_name: general_knowledge_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "{{ query }}\nVastaus:"
+task: finbench_general_knowledge_cf_fbv2_p1

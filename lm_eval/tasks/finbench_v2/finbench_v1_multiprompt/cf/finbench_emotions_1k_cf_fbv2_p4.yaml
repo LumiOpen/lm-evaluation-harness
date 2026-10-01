@@ -1,0 +1,4 @@
+dataset_name: emotions_1k_zero_shot
+task: finbench_emotions_1k_cf_fbv2_p4
+doc_to_text: "Teksti: {{ query }}\nMitä tunnetta teksti ilmaisee?\nVastaus:"
+include: _multiple_choice_template_yaml

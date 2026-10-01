@@ -1,0 +1,14 @@
+group: group_finbench_multi_cf_analogies_fbv2
+task:
+  - finbench_analogies_cf_fbv2_p0
+  - finbench_analogies_cf_fbv2_p1
+  - finbench_analogies_cf_fbv2_p2
+  - finbench_analogies_cf_fbv2_p3
+  - finbench_analogies_cf_fbv2_p4
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true

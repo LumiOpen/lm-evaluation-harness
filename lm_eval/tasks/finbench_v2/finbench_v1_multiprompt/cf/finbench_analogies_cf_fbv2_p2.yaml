@@ -1,0 +1,5 @@
+dataset_name: analogies_zero_shot
+include: _multiple_choice_template_yaml
+# description: ""
+doc_to_text: "Ratkaise vastaavuussuhde: jos sana {{ reference_1 }} on suhteessa sanaan {{ reference_2 }}, niin {{ known_target }} on suhteessa sanaan"
+task: finbench_analogies_cf_fbv2_p2

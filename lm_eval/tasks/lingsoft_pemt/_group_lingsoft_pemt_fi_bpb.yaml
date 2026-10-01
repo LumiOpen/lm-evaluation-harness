@@ -1,0 +1,16 @@
+group: lingsoft_pemt_fi_bpb
+task:
+  - lingsoft_pemt_fi_bpb_shared
+  - lingsoft_pemt_fi_bpb_broad
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_bytes
+    aggregation: mean
+    weight_by_size: true
+metadata:
+  version: 1.0

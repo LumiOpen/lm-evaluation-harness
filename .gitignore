@@ -47,3 +47,6 @@ examples/wandb/
 *.spec
 cache
 .*.sw*
+
+#uv
+uv.lock

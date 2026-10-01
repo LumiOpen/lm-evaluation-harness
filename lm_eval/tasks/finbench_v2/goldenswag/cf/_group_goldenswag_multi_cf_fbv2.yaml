@@ -1,0 +1,14 @@
+group: group_goldenswag_multi_cf_fbv2
+task:
+  - goldenswag_ht_fi_cf_fbv2_p0
+  - goldenswag_ht_fi_cf_fbv2_p1
+  - goldenswag_ht_fi_cf_fbv2_p2
+  - goldenswag_ht_fi_cf_fbv2_p3
+  - goldenswag_ht_fi_cf_fbv2_p4
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true

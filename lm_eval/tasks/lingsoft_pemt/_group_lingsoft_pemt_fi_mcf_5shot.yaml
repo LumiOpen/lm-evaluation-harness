@@ -1,0 +1,13 @@
+group: lingsoft_pemt_fi_mcf_5shot
+task:
+  - lingsoft_pemt_fi_mcf_shared_5shot
+  - lingsoft_pemt_fi_mcf_broad_5shot
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: pair_acc
+    aggregation: mean
+    weight_by_size: true
+metadata:
+  version: 1.0

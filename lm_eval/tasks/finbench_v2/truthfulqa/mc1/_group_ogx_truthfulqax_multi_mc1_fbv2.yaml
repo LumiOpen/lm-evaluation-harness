@@ -1,0 +1,14 @@
+group: group_ogx_truthfulqax_multi_mc1_fbv2
+task:
+  - ogx_truthfulqax_mc1_fi_fbv2_p0
+  - ogx_truthfulqax_mc1_fi_fbv2_p1
+  - ogx_truthfulqax_mc1_fi_fbv2_p2
+  - ogx_truthfulqax_mc1_fi_fbv2_p3
+  - ogx_truthfulqax_mc1_fi_fbv2_p4
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: true
+  - metric: acc_norm
+    aggregation: mean
+    weight_by_size: true
