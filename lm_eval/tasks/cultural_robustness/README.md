@@ -58,7 +58,7 @@ export EVAL_LANGUAGES="english,german,spanish"
 
 ## Output
 
-Prints aggregated scores to stdout.
+Aggregated scores are reported in the standard lm-eval results table. Per-question clustering details are logged at `DEBUG` level (`--verbosity DEBUG`).
 
 Optionally saves detailed clustering results to `OUTPUT_DIR/clustering/` if the `OUTPUT_DIR` environment variable is set:
 - `diversity_results.csv` / `robustness_results.csv` - per-question clustering stats

@@ -1,10 +1,11 @@
 """Cultural robustness evaluation metric."""
 
 import json
+import logging
 import os
 from collections import defaultdict
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 import numpy as np
 import torch
@@ -13,24 +14,22 @@ from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 from tqdm import tqdm
 
-
-try:
-    import pandas as pd
-except ImportError:
-    pd = None
-
-try:
-    from sentence_transformers import SentenceTransformer
-except ImportError:
-    raise ImportError(
-        'Please install the required dependencies for this task with `pip install lm_eval["cultural_robustness"]` or `pip install sentence-transformers`'
-    )
-
 from lm_eval.api.registry import register_aggregation
 
 
+try:
+    import pandas as pd
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    raise ImportError(
+        'Please install the required dependencies for this task with `pip install lm_eval["cultural_robustness"]` or `pip install sentence-transformers pandas`'
+    ) from None
+
+eval_logger = logging.getLogger(__name__)
+
+
 # global state needed because clustering requires all responses together
-_ALL_RESPONSES: List[Dict[str, Any]] = []
+_ALL_RESPONSES: list[dict[str, Any]] = []
 _EMBEDDING_MODEL = None
 
 
@@ -43,7 +42,7 @@ def reset_state() -> None:
 reset_state()
 
 
-def record_response(entry: Dict[str, Any]) -> None:
+def record_response(entry: dict[str, Any]) -> None:
     """Store one model response for later aggregation."""
     response = entry.get("response")
     if response is None:
@@ -75,10 +74,10 @@ def _get_embedding_model():
         if requested_device in ("cuda", "cuda:all"):
             requested_device = "cuda:0"
 
-        print(f"Loading embedding model {model_name} on {requested_device}")
+        eval_logger.info(f"Loading embedding model {model_name} on {requested_device}")
         if use_data_parallel:
-            print(
-                f"  Multi-GPU: SentenceTransformer will use {gpu_count} GPUs automatically"
+            eval_logger.info(
+                f"Multi-GPU: SentenceTransformer will use {gpu_count} GPUs automatically"
             )
 
         model = SentenceTransformer(model_name, device=requested_device)
@@ -87,12 +86,12 @@ def _get_embedding_model():
             "model": model,
             "device": requested_device,
         }
-        print("Embedding model ready.")
+        eval_logger.info("Embedding model ready.")
 
     return _EMBEDDING_MODEL
 
 
-def embed_texts(texts: List[str]) -> np.ndarray:
+def embed_texts(texts: list[str]) -> np.ndarray:
     """Embed texts using SentenceTransformer (matches Maria's implementation)."""
     model_bundle = _get_embedding_model()
     model = model_bundle["model"]
@@ -116,7 +115,9 @@ def embed_texts(texts: List[str]) -> np.ndarray:
     return embeddings
 
 
-def find_optimal_k(embeddings: np.ndarray, min_k: int = 2, max_k: int = None) -> tuple:
+def find_optimal_k(
+    embeddings: np.ndarray, min_k: int = 2, max_k: int | None = None
+) -> tuple:
     """Find optimal number of clusters (K range 2 to n-1 per paper)"""
     n_items = len(embeddings)
 
@@ -146,7 +147,7 @@ def find_optimal_k(embeddings: np.ndarray, min_k: int = 2, max_k: int = None) ->
             else:
                 score = silhouette_score(embeddings_scaled, labels)
 
-        except Exception:
+        except ValueError:
             score = 0.0
             labels = [0] * n_items
 
@@ -191,7 +192,7 @@ def _group_responses_by_question(task_type=None):
     return grouped, skipped
 
 
-def _build_id_fields(base_id: str, task_type: str) -> Dict[str, str]:
+def _build_id_fields(base_id: str, task_type: str) -> dict[str, str]:
     """Build ID-related fields based on task type."""
     if task_type == "specific" and "-" in str(base_id):
         base_part, variation_part = str(base_id).split("-", 1)
@@ -206,20 +207,16 @@ def _build_id_fields(base_id: str, task_type: str) -> Dict[str, str]:
 
 
 def _save_cluster_outputs(
-    results: List[Dict[str, Any]],
-    cluster_assignments: List[Dict[str, Any]],
-    language_clusters: List[Dict[str, Any]],
+    results: list[dict[str, Any]],
+    cluster_assignments: list[dict[str, Any]],
+    language_clusters: list[dict[str, Any]],
     task_type: str,
     avg_score: float,
 ) -> None:
     """Save cluster output CSVs and summary JSON to OUTPUT_DIR/clustering/{task_type}/"""
     output_dir_env = os.environ.get("OUTPUT_DIR")
     if not output_dir_env:
-        print("⚠️  OUTPUT_DIR not set, cluster outputs not saved")
-        return
-
-    if pd is None:
-        print("⚠️  pandas not available, cluster outputs not saved")
+        eval_logger.info("OUTPUT_DIR not set, cluster outputs not saved")
         return
 
     try:
@@ -233,15 +230,15 @@ def _save_cluster_outputs(
             results_df = pd.DataFrame(results)
             results_path = output_dir / f"{analysis_type}_results.csv"
             results_df.to_csv(results_path, index=False)
-            print(f"💾 Saved {len(results)} results to {results_path}")
+            eval_logger.info(f"Saved {len(results)} results to {results_path}")
 
         # Save cluster assignments CSV
         if cluster_assignments:
             assignments_df = pd.DataFrame(cluster_assignments)
             assignments_path = output_dir / f"{analysis_type}_cluster_assignments.csv"
             assignments_df.to_csv(assignments_path, index=False)
-            print(
-                f"💾 Saved {len(cluster_assignments)} cluster assignments to {assignments_path}"
+            eval_logger.info(
+                f"Saved {len(cluster_assignments)} cluster assignments to {assignments_path}"
             )
 
         # Save language clusters CSV
@@ -249,8 +246,8 @@ def _save_cluster_outputs(
             clusters_df = pd.DataFrame(language_clusters)
             clusters_path = output_dir / f"{analysis_type}_language_clusters.csv"
             clusters_df.to_csv(clusters_path, index=False)
-            print(
-                f"💾 Saved {len(language_clusters)} language clusters to {clusters_path}"
+            eval_logger.info(
+                f"Saved {len(language_clusters)} language clusters to {clusters_path}"
             )
 
         # Save summary JSON (match Maria's format)
@@ -280,10 +277,10 @@ def _save_cluster_outputs(
         summary_path = output_dir / f"{analysis_type}_summary.json"
         with open(summary_path, "w") as f:
             json.dump(summary, f, indent=2)
-        print(f"💾 Saved summary to {summary_path}")
+        eval_logger.info(f"Saved summary to {summary_path}")
 
-    except Exception as e:
-        print(f"⚠️  Error saving cluster outputs: {e}")
+    except OSError as e:
+        eval_logger.warning(f"Error saving cluster outputs: {e}")
 
 
 def _compute_metric(task_type: str) -> float:
@@ -324,17 +321,15 @@ def _compute_metric(task_type: str) -> float:
     # Analysis type based on explicit task_type (no auto-detection)
     analysis_type = "Robustness" if task_type == "specific" else "Diversity"
 
-    print(f"\n{'=' * 60}")
-    print(f"{analysis_type.upper()} ANALYSIS (DETAILED)")
-    print(f"{'=' * 60}")
+    eval_logger.info(f"Running {analysis_type.lower()} analysis")
 
-    k_values: List[float] = []
-    relative_scores: List[float] = []
+    k_values: list[float] = []
+    relative_scores: list[float] = []
 
     # Track data for CSV outputs (like Maria's script)
-    results: List[Dict[str, Any]] = []
-    cluster_assignments: List[Dict[str, Any]] = []
-    language_clusters: List[Dict[str, Any]] = []
+    results: list[dict[str, Any]] = []
+    cluster_assignments: list[dict[str, Any]] = []
+    language_clusters: list[dict[str, Any]] = []
 
     def _sort_key(value: Any) -> tuple:
         # Return tuple (is_numeric, numeric_value, string_value) for consistent sorting
@@ -356,99 +351,95 @@ def _compute_metric(task_type: str) -> float:
 
         languages = list(lang_map.keys())
         sentences = list(lang_map.values())
-        try:
-            embeddings = embed_texts(sentences)
-            optimal_k, silhouette, cluster_labels = find_optimal_k(embeddings)
+        embeddings = embed_texts(sentences)
+        optimal_k, silhouette, cluster_labels = find_optimal_k(embeddings)
 
-            # calculate normalized score: (k-2)/(n-3) per paper, where k ∈ [2, n-1]
-            if n_items < 3:
-                clustering_score = 0.0
-            else:
-                clustering_score = (optimal_k - 2) / (n_items - 3)
+        # calculate normalized score: (k-2)/(n-3) per paper, where k ∈ [2, n-1]
+        if n_items < 3:
+            clustering_score = 0.0
+        else:
+            clustering_score = (optimal_k - 2) / (n_items - 3)
 
-            # diversity wants more clusters (higher), robustness wants fewer (invert)
-            if task_type == "specific":
-                relative_score = 1 - clustering_score
-            else:
-                relative_score = clustering_score
+        # diversity wants more clusters (higher), robustness wants fewer (invert)
+        if task_type == "specific":
+            relative_score = 1 - clustering_score
+        else:
+            relative_score = clustering_score
 
-            k_values.append(optimal_k)
-            relative_scores.append(relative_score)
+        k_values.append(optimal_k)
+        relative_scores.append(relative_score)
 
-            # Track which languages cluster together
-            cluster_groups = defaultdict(list)
-            for language, cluster_id in zip(languages, cluster_labels):
-                cluster_groups[cluster_id].append(language)
+        # Track which languages cluster together
+        cluster_groups = defaultdict(list)
+        for language, cluster_id in zip(languages, cluster_labels, strict=False):
+            cluster_groups[cluster_id].append(language)
 
-            # Build common metrics dict
-            common_metrics = {
-                "n_languages": n_items,
-                "total_items": n_items,  # No duplicates in lm-eval
-                "languages": ", ".join(sorted(languages)),
+        # Build common metrics dict
+        common_metrics = {
+            "n_languages": n_items,
+            "total_items": n_items,  # No duplicates in lm-eval
+            "languages": ", ".join(sorted(languages)),
+            "optimal_k": int(optimal_k),
+            "silhouette_score": float(silhouette),
+            "relative_score": float(relative_score),
+        }
+
+        # Store results
+        result_entry = {**_build_id_fields(base_id, task_type), **common_metrics}
+        results.append(result_entry)
+
+        # Store cluster assignments
+        for language, cluster_id in zip(languages, cluster_labels, strict=False):
+            assignment_entry = {
+                **_build_id_fields(base_id, task_type),
+                "language": language,
+                "cluster_id": int(cluster_id),
                 "optimal_k": int(optimal_k),
-                "silhouette_score": float(silhouette),
                 "relative_score": float(relative_score),
             }
+            cluster_assignments.append(assignment_entry)
 
-            # Store results
-            result_entry = {**_build_id_fields(base_id, task_type), **common_metrics}
-            results.append(result_entry)
-
-            # Store cluster assignments
-            for language, cluster_id in zip(languages, cluster_labels):
-                assignment_entry = {
+        # Store language clusters (multi-language clusters only)
+        for cluster_id, cluster_langs in cluster_groups.items():
+            if len(cluster_langs) > 1:
+                cluster_entry = {
                     **_build_id_fields(base_id, task_type),
-                    "language": language,
                     "cluster_id": int(cluster_id),
+                    "languages_in_cluster": ", ".join(sorted(cluster_langs)),
+                    "cluster_size": len(cluster_langs),
                     "optimal_k": int(optimal_k),
                     "relative_score": float(relative_score),
                 }
-                cluster_assignments.append(assignment_entry)
+                language_clusters.append(cluster_entry)
 
-            # Store language clusters (multi-language clusters only)
-            for cluster_id, cluster_langs in cluster_groups.items():
-                if len(cluster_langs) > 1:
-                    cluster_entry = {
-                        **_build_id_fields(base_id, task_type),
-                        "cluster_id": int(cluster_id),
-                        "languages_in_cluster": ", ".join(sorted(cluster_langs)),
-                        "cluster_size": len(cluster_langs),
-                        "optimal_k": int(optimal_k),
-                        "relative_score": float(relative_score),
-                    }
-                    language_clusters.append(cluster_entry)
+        score_desc = (
+            f"1-({optimal_k}-2)/({n_items}-3)"
+            if task_type == "specific"
+            else f"({optimal_k}-2)/({n_items}-3)"
+        )
+        eval_logger.debug(
+            f"ID {base_id}: {n_items} languages -> {optimal_k} clusters -> score: {relative_score:.3f} [{score_desc}]"
+        )
+        eval_logger.debug(f"  Languages: {', '.join(sorted(languages))}")
 
-            score_desc = (
-                f"1-({optimal_k}-2)/({n_items}-3)"
-                if task_type == "specific"
-                else f"({optimal_k}-2)/({n_items}-3)"
-            )
-            print(
-                f"📝 ID {base_id}: {n_items} languages → {optimal_k} clusters → score: {relative_score:.3f} [{score_desc}]"
-            )
-            print(f"   Languages: {', '.join(sorted(languages))}")
-
-            # Show which languages clustered together (only multi-language clusters)
-            for cluster_id, cluster_languages in sorted(cluster_groups.items()):
-                if len(cluster_languages) > 1:
-                    print(
-                        f"   Cluster {cluster_id}: {', '.join(sorted(cluster_languages))}"
-                    )
-
-        except Exception as exc:  # pragma: no cover - defensive
-            print(f"  Question {base_id}: ERROR {exc}")
+        # Show which languages clustered together (only multi-language clusters)
+        for cluster_id, cluster_languages in sorted(cluster_groups.items()):
+            if len(cluster_languages) > 1:
+                eval_logger.debug(
+                    f"  Cluster {cluster_id}: {', '.join(sorted(cluster_languages))}"
+                )
 
     if not relative_scores:
-        print("WARNING: No valid clusters produced; returning 0.")
+        eval_logger.warning("No valid clusters produced; returning 0.")
         return 0.0
 
     avg_relative_score = sum(relative_scores) / len(relative_scores)
 
-    print(f"\n📊 {analysis_type.upper()} SUMMARY:")
-    print(
-        f"   Total {'sentence-variation combinations' if analysis_type == 'Robustness' else 'sentence IDs'} analyzed: {len(relative_scores)}"
+    eval_logger.info(
+        f"{analysis_type} summary: "
+        f"{'sentence-variation combinations' if analysis_type == 'Robustness' else 'sentence IDs'} "
+        f"analyzed: {len(relative_scores)}, average relative score: {avg_relative_score:.4f}"
     )
-    print(f"   Average relative score: {avg_relative_score:.4f}")
 
     # Save cluster outputs to OUTPUT_DIR/clustering/{task_type}/
     _save_cluster_outputs(
@@ -458,7 +449,7 @@ def _compute_metric(task_type: str) -> float:
     return avg_relative_score
 
 
-def cultural_diversity(items: List[float], task_type: str, **kwargs) -> float:  # pylint: disable=unused-argument
+def cultural_diversity(items: list[float], task_type: str, **kwargs) -> float:  # pylint: disable=unused-argument
     """Compute cultural diversity/robustness metric for a specific task type.
 
     Args:
@@ -474,12 +465,12 @@ def cultural_diversity(items: List[float], task_type: str, **kwargs) -> float:  
 
 
 @register_aggregation("cultural_diversity_agg")
-def cultural_diversity_agg(items: List[float]) -> float:
+def cultural_diversity_agg(items: list[float]) -> float:
     """Aggregation for unspecific (diversity) task."""
     return cultural_diversity(items, task_type="unspecific")
 
 
 @register_aggregation("cultural_robustness_agg")
-def cultural_robustness_agg(items: List[float]) -> float:
+def cultural_robustness_agg(items: list[float]) -> float:
     """Aggregation for specific (robustness) task."""
     return cultural_diversity(items, task_type="specific")

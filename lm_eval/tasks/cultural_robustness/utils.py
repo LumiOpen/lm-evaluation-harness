@@ -1,13 +1,15 @@
 """Cultural robustness task utilities."""
 
+import logging
 import os
-from pathlib import Path
-from typing import Set
 
 from datasets import DatasetDict, load_dataset
 from huggingface_hub import model_info
 
 from lm_eval.tasks.cultural_robustness import metrics
+
+
+eval_logger = logging.getLogger(__name__)
 
 
 _DATASET_NAME_ENV = "CULTURAL_ROBUSTNESS_DATASET"
@@ -84,7 +86,7 @@ LANGUAGE_MAP.update(
 _SUPPORTED_LANGUAGES_CACHE = None
 
 
-def get_model_supported_languages(model_name: str) -> Set[str]:
+def get_model_supported_languages(model_name: str) -> set[str]:
     """Get supported languages from HF model card, mapped to our file prefixes."""
     global _SUPPORTED_LANGUAGES_CACHE
 
@@ -96,10 +98,9 @@ def get_model_supported_languages(model_name: str) -> Set[str]:
 
         # Get languages from model card
         hf_languages = []
-        if hasattr(info, "cardData") and info.cardData:
-            if hasattr(info.cardData, "language"):
-                lang = info.cardData.language
-                hf_languages = lang if isinstance(lang, list) else [lang]
+        if getattr(info, "cardData", None) and hasattr(info.cardData, "language"):
+            lang = info.cardData.language
+            hf_languages = lang if isinstance(lang, list) else [lang]
 
         # Map to our file prefixes
         supported = set()
@@ -108,7 +109,11 @@ def get_model_supported_languages(model_name: str) -> Set[str]:
                 continue
             lang_lower = lang.lower().strip()
             # Handle semicolon-separated names (e.g., "Catalan;Valencian")
-            lang_variants = [l.strip() for l in lang_lower.split(";")] if ";" in lang_lower else [lang_lower]
+            lang_variants = (
+                [l.strip() for l in lang_lower.split(";")]
+                if ";" in lang_lower
+                else [lang_lower]
+            )
             for variant in lang_variants:
                 if variant in LANGUAGE_MAP:
                     supported.add(LANGUAGE_MAP[variant])
@@ -117,25 +122,27 @@ def get_model_supported_languages(model_name: str) -> Set[str]:
         result = supported & AVAILABLE_LANGUAGES
 
         if result:
-            print(
-                f"🌐 Model {model_name} supports {len(result)} languages: {sorted(result)}"
+            eval_logger.info(
+                f"Model {model_name} supports {len(result)} languages: {sorted(result)}"
             )
         else:
-            print(
-                f"⚠️  Could not determine supported languages for {model_name}, using all available"
+            eval_logger.warning(
+                f"Could not determine supported languages for {model_name}, using all available"
             )
             result = AVAILABLE_LANGUAGES
 
         _SUPPORTED_LANGUAGES_CACHE = result
         return result
 
-    except Exception as e:
-        print(f"⚠️  Error checking model languages: {e}. Using all available languages.")
+    except Exception as e:  # noqa: BLE001 - model card lookup is best-effort
+        eval_logger.warning(
+            f"Error checking model languages: {e}. Using all available languages."
+        )
         _SUPPORTED_LANGUAGES_CACHE = AVAILABLE_LANGUAGES
         return AVAILABLE_LANGUAGES
 
 
-def get_languages_to_evaluate() -> Set[str]:
+def get_languages_to_evaluate() -> set[str]:
     """Determine which languages to evaluate based on priority:
     1. Explicit override via EVAL_LANGUAGES env var
     2. Model card detection
@@ -145,28 +152,33 @@ def get_languages_to_evaluate() -> Set[str]:
     # Priority 1: Explicit override
     explicit_languages = os.environ.get("EVAL_LANGUAGES")
     if explicit_languages:
-        langs = set(lang.strip().lower() for lang in explicit_languages.split(","))
+        langs = {lang.strip().lower() for lang in explicit_languages.split(",")}
         valid_langs = langs & AVAILABLE_LANGUAGES
         invalid_langs = langs - AVAILABLE_LANGUAGES
 
         if invalid_langs:
-            print(f"⚠️  Invalid languages specified: {invalid_langs}")
-            print(f"   Available languages: {sorted(AVAILABLE_LANGUAGES)}")
+            eval_logger.warning(
+                f"Invalid languages specified: {sorted(invalid_langs)}. "
+                f"Available languages: {sorted(AVAILABLE_LANGUAGES)}"
+            )
 
         if valid_langs:
-            print(f"🎯 Using explicitly specified languages: {sorted(valid_langs)}")
+            eval_logger.info(
+                f"Using explicitly specified languages: {sorted(valid_langs)}"
+            )
             return valid_langs
         else:
-            print("❌ No valid languages specified in EVAL_LANGUAGES")
-            print(f"   Available: {sorted(AVAILABLE_LANGUAGES)}")
-            raise ValueError("No valid languages to evaluate")
+            raise ValueError(
+                f"No valid languages specified in EVAL_LANGUAGES. "
+                f"Available: {sorted(AVAILABLE_LANGUAGES)}"
+            )
 
     # Priority 2: Model card detection
     model_name = os.environ.get("MODEL_ID") or os.environ.get("MODEL_NAME")
 
     if not model_name or model_name == "dummy":
-        print(
-            "ℹ️  No model specified or using dummy model, using all available languages"
+        eval_logger.info(
+            "No model specified or using dummy model, using all available languages"
         )
         return AVAILABLE_LANGUAGES
 
@@ -192,7 +204,7 @@ def _load_dataset_by_type(task_type: str):
     dataset_name = _get_dataset_name()
     languages_to_eval = get_languages_to_evaluate()
 
-    print(f"📊 Loading dataset from {dataset_name}...")
+    eval_logger.info(f"Loading dataset from {dataset_name}...")
 
     # Load full dataset from HuggingFace
     dataset = load_dataset(dataset_name, split="train")
@@ -211,8 +223,8 @@ def _load_dataset_by_type(task_type: str):
 
     # Get unique languages in filtered dataset
     unique_languages = sorted(set(dataset["language"]))
-    print(
-        f"📊 Loaded {len(dataset)} examples for {task_type} task across {len(unique_languages)} language(s): {unique_languages}"
+    eval_logger.info(
+        f"Loaded {len(dataset)} examples for {task_type} task across {len(unique_languages)} language(s): {unique_languages}"
     )
 
     # Return as DatasetDict with train split (required by lm-eval)
