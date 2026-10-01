@@ -5,6 +5,15 @@ tag:
   - cultural_robustness
   - cultural_robustness_specific
 metric_list:
-  - metric: cultural_diversity
-    aggregation: cultural_robustness_agg  # Uses task_type="specific"
+  - metric: cultural_robustness
+    aggregation: cultural_robustness_agg
     higher_is_better: true
+  # CSP needs both tasks in the same run (--tasks cultural_robustness); NaN otherwise.
+  - metric: cultural_signal_purity
+    aggregation: cultural_signal_purity_agg
+    higher_is_better: true
+  - metric: cultural_signal_purity_question_level
+    aggregation: cultural_signal_purity_question_level_agg
+    higher_is_better: true
+metadata:
+  version: 1.0
