@@ -354,8 +354,9 @@ def _compute_metric(task_type: str) -> float:
         embeddings = embed_texts(sentences)
         optimal_k, silhouette, cluster_labels = find_optimal_k(embeddings)
 
-        # calculate normalized score: (k-2)/(n-3) per paper, where k ∈ [2, n-1]
-        if n_items < 3:
+        # calculate normalized score: (k-2)/(n-3) per paper, where k ∈ [2, n-1];
+        # with three or fewer languages k can only be 2, so the score is 0
+        if n_items <= 3:
             clustering_score = 0.0
         else:
             clustering_score = (optimal_k - 2) / (n_items - 3)
