@@ -4,7 +4,7 @@ Evaluates cultural diversity and robustness in multilingual LLMs across 22 langu
 
 Based on the paper "Measuring the Cultural Capabilities of LLMs across European Languages".
 
-Dataset: [dzautner/cultural-robustness](https://huggingface.co/datasets/dzautner/cultural-robustness)
+Dataset: [LumiOpen/cultural-robustness](https://huggingface.co/datasets/LumiOpen/cultural-robustness)
 
 ## What it does
 

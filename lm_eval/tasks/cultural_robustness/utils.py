@@ -13,7 +13,7 @@ eval_logger = logging.getLogger(__name__)
 
 
 _DATASET_NAME_ENV = "CULTURAL_ROBUSTNESS_DATASET"
-_DEFAULT_DATASET_NAME = "dzautner/cultural-robustness"
+_DEFAULT_DATASET_NAME = "LumiOpen/cultural-robustness"
 
 # ISO code → language name (single source of truth)
 ISO_TO_LANGUAGE = {
