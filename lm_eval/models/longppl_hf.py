@@ -228,7 +228,7 @@ class LongPPLHFModel(HFLM):
             # using the same add_special_tokens logic as tok_encode.
             encoding = self.tokenizer(
                 text,
-                add_special_tokens=False or self.add_bos_token,
+                add_special_tokens=bool(self.add_bos_token),
                 truncation=self._allow_truncation,
                 max_length=max_doc_tokens if self._allow_truncation else None,
                 return_offsets_mapping=True,
