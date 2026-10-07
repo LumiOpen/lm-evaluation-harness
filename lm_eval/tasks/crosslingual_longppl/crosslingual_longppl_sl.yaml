@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Slovenian (sl)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_sl
+process_docs: !function utils.process_docs_sl
+metadata:
+  version: 2.0
+  target_lang: sl
+  target_lang_name: Slovenian

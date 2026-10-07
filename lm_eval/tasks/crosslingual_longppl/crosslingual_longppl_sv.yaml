@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Swedish (sv)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_sv
+process_docs: !function utils.process_docs_sv
+metadata:
+  version: 2.0
+  target_lang: sv
+  target_lang_name: Swedish

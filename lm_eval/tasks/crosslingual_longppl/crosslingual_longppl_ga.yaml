@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Irish (ga)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_ga
+process_docs: !function utils.process_docs_ga
+metadata:
+  version: 2.0
+  target_lang: ga
+  target_lang_name: Irish

@@ -1,0 +1,44 @@
+# Cross-Lingual Key-Token LongPPL
+#
+# Dataset: dzautner/longppl-24lang-medium
+#   - 1200 rows (50 docs x 24 EU languages)
+#   - Medium-length documents with pre-computed key_char_spans
+#   - Key spans from Qwen2-72B teacher (long-short contrastive PPL)
+#
+# Requires: --model longppl_hf (exposes per-token losses)
+# LongPPL = exp(weighted mean loss on key tokens)
+
+task: crosslingual_longppl_base
+output_type: loglikelihood_rolling
+
+dataset_path: dzautner/longppl-24lang-medium
+test_split: test
+
+doc_to_text: ""
+doc_to_target: "{{text}}"
+
+process_results: !function task.process_results
+
+metric_list:
+  - metric: longppl
+    aggregation: !function task.longppl_agg
+    higher_is_better: false
+  - metric: mean_key_loss
+    aggregation: !function task.nanmean
+    higher_is_better: false
+  - metric: key_span_coverage
+    aggregation: mean
+    higher_is_better: true
+  - metric: word_perplexity
+    aggregation: weighted_perplexity
+    higher_is_better: false
+  - metric: byte_perplexity
+    aggregation: weighted_perplexity
+    higher_is_better: false
+  - metric: bits_per_byte
+    aggregation: bits_per_byte
+    higher_is_better: false
+
+metadata:
+  version: 2.0
+  max_length: 32768

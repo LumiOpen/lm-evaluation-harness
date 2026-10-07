@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Maltese (mt)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_mt
+process_docs: !function utils.process_docs_mt
+metadata:
+  version: 2.0
+  target_lang: mt
+  target_lang_name: Maltese

@@ -41,6 +41,7 @@ MODEL_MAPPING = {
     "litellm-chat-completions": "lm_eval.models.litellm_llms:LiteLLMChatCompletion",
     "local-chat-completions": "lm_eval.models.openai_completions:LocalChatCompletion",
     "local-completions": "lm_eval.models.openai_completions:LocalCompletionsAPI",
+    "longppl_hf": "lm_eval.models.longppl_hf:LongPPLHFModel",
     "mamba_ssm": "lm_eval.models.mamba_lm:MambaLMWrapper",
     "megatron_lm": "lm_eval.models.megatron_lm:MegatronLMEval",
     "nemo_lm": "lm_eval.models.nemo_lm:NeMoLM",

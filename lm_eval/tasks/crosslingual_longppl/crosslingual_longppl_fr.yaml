@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - French (fr)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_fr
+process_docs: !function utils.process_docs_fr
+metadata:
+  version: 2.0
+  target_lang: fr
+  target_lang_name: French
