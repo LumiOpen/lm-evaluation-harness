@@ -1,6 +1,47 @@
 from collections import defaultdict
 
 import numpy as np
+from datasets import Dataset
+
+
+def process_docs_fluency(dataset):
+    """Present each annotated Finnish pair in both candidate orders."""
+    rows = []
+    for doc in dataset:
+        for order, candidates, answer in (
+            ("raw_first", (doc["raw_mt"], doc["target_pemt"]), "B"),
+            ("target_first", (doc["target_pemt"], doc["raw_mt"]), "A"),
+        ):
+            rows.append(
+                {
+                    **doc,
+                    "order": order,
+                    "answer": answer,
+                    "prompt": (
+                        "Which Finnish text is more fluent and natural? "
+                        "Answer with A or B only.\n\n"
+                        f"Finnish text A: {candidates[0]}\n"
+                        f"Finnish text B: {candidates[1]}"
+                    ),
+                }
+            )
+    return Dataset.from_list(rows)
+
+
+def process_results_fluency(doc, results):
+    """Score a bare A/B final answer, counting invalid answers as incorrect.
+
+    Backends should strip reasoning with their native think_end_token setting
+    before scoring. Explanations and unstripped reasoning are invalid answers.
+    """
+    answer = results[0].strip().upper()
+    valid = answer in ("A", "B")
+    acc = float(valid and answer == doc["answer"])
+    return {
+        "acc": acc,
+        "pair_acc": (doc["pair_id"], acc),
+        "invalid_answer_rate": float(not valid),
+    }
 
 
 def process_results_preference(doc, results):

@@ -1,0 +1,30 @@
+task: lingsoft_pemt_fi_fluency
+dataset_path: LumiOpen/lingsoft-pemt-evals
+dataset_name: FI_fluency
+tag:
+  - lingsoft_pemt
+  - lingsoft_pemt_fi
+test_split: test
+output_type: generate_until
+num_fewshot: 0
+process_docs: !function utils.process_docs_fluency
+doc_to_text: "{{ prompt }}"
+doc_to_target: "{{ answer }}"
+generation_kwargs:
+  until: []
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 32768
+process_results: !function utils.process_results_fluency
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: pair_acc
+    aggregation: !function utils.agg_pair_acc
+    higher_is_better: true
+  - metric: invalid_answer_rate
+    aggregation: mean
+    higher_is_better: false
+metadata:
+  version: 1.0

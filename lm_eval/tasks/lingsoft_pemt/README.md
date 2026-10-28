@@ -21,7 +21,8 @@ other languages can be added alongside.
 
 ### Tasks
 
-Two formulations over the same underlying pairs:
+Two formulations over the original translation-quality pairs, plus a separate
+annotated fluency task for post-trained models:
 
 | Task | Formulation | What it measures | Split | n |
 |:--|:--|:--|:--|--:|
@@ -29,8 +30,34 @@ Two formulations over the same underlying pairs:
 | `lingsoft_pemt_fi_mcf_broad_5shot` | _mcf_, 5-shot, logprob over `" A"`/`" B"` | blind A/B preference judgment | broad | 8,144 |
 | `lingsoft_pemt_fi_bpb_shared` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | shared | 527 |
 | `lingsoft_pemt_fi_bpb_broad` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | broad | 4,072 |
+| `lingsoft_pemt_fi_fluency` | 0-shot, generated A/B answer | Finnish fluency/naturalness preference | annotated fluency | 452 |
 
 (mcf has 2× the rows of bpb because every pair appears in both A/B orders.)
+
+The fluency task uses the separate `FI_fluency` config: 226 deduplicated,
+annotated pairs, each presented in both A/B orders (452 prompts). It is not a
+subset selected dynamically from the shared/broad tasks.
+
+**fluency** — designed for post-trained models with `--apply_chat_template`.
+Only the two Finnish candidates are shown. The English source, annotation
+labels, and candidate provenance remain sample metadata. The prompt is:
+
+```text
+Which Finnish text is more fluent and natural? Answer with A or B only.
+
+Finnish text A: {candidate A}
+Finnish text B: {candidate B}
+```
+
+There are no demonstrations. The model generates its answer; after stripping
+surrounding whitespace, a single `A` or `B` (case-insensitive) is accepted.
+Explanations, empty answers, and unstripped reasoning are invalid and count as
+incorrect. Reasoning models should use their backend's native
+`think_end_token` setting so scoring receives only the final answer. Both
+candidate orders share a `pair_id`, and the post-edited candidate is the gold
+answer in each order. This measures fluency preference; the English source
+is not provided for judging translation accuracy.
+
 
 The `shared` split contains text units from 6 segments shared across all 23
 corpus languages (cross-lingually comparable once other languages are added);
@@ -92,6 +119,10 @@ source-conditioned formulation as a literalness probe.
 - `acc_bytes` (bpb): byte-length-normalized comparison = bits-per-byte
   ranking; headline metric. `acc_norm` (character-normalized) is reported
   alongside.
+- `acc` / `pair_acc` (fluency): generated-answer accuracy and accuracy in both
+  candidate orders, with the same pair interpretation and chance levels as mcf.
+- `invalid_answer_rate` (fluency): fraction of responses that are not a bare
+  A/B answer. Invalid answers are included in the accuracy denominator.
 
 ### How to run
 
@@ -101,6 +132,49 @@ lm_eval --model hf \
     --tasks lingsoft_pemt_fi_mcf_5shot,lingsoft_pemt_fi_bpb \
     --batch_size auto
 ```
+
+### Running the post-trained fluency task
+
+Use a chat template. Task defaults are greedy decoding and a 32,768-token
+budget, allowing reasoning models to finish their trace. Generation settings
+can be overridden through `--gen_kwargs`. For example, with a local Qwen3
+checkpoint and the vLLM backend:
+
+```bash
+lm_eval --model vllm \
+    --model_args 'pretrained=/path/to/Qwen3-0.6B,enable_thinking=true,think_end_token=</think>' \
+    --tasks lingsoft_pemt_fi_fluency \
+    --num_fewshot 0 \
+    --apply_chat_template \
+    --gen_kwargs 'max_gen_toks=32768,do_sample=True,temperature=0.6,top_p=0.95' \
+    --batch_size auto \
+    --log_samples \
+    --output_path results/lingsoft_pemt_fi_fluency
+```
+
+Use `think_end_token` only for models that emit that reasoning delimiter.
+For non-reasoning instruction models, omit it and `enable_thinking`. Run all
+452 prompts for the complete evaluation. If limiting samples for validation,
+use an even limit: candidate orders are adjacent, and incomplete pairs are
+excluded from `pair_acc`.
+
+### Fluency validation (October 2026)
+
+Validated with vLLM 0.20.0rc1, chat templates, sampling at temperature 0.6 /
+top-p 0.95, and the default harness seeds:
+
+| Model | Prompts | Token budget | acc | pair_acc | Invalid answers |
+|:--|--:|--:|--:|--:|--:|
+| Qwen3-0.6B, thinking enabled, `think_end_token=</think>` | 20 (10 pairs, smoke only) | 4,096 | 0.6500 | 0.5000 | 0 |
+| Qwen3-4B-Instruct-2507, non-reasoning | 452 (full set) | 32,768 | 0.5133 | 0.0575 | 0 |
+
+Neither run truncated a response. The full run's scores were independently
+recomputed from the logged final answers. It chose B in 410/452 responses;
+the low `pair_acc` exposes that position bias despite near-chance `acc`.
+The smoke subset and full-set results are not a model comparison. Unit tests
+cover candidate swapping, gold labels, metadata exclusion, invalid answers,
+and pair aggregation. Full-data validation confirmed 226 distinct changed
+pairs, 452 prompts, and 226 gold labels of each letter.
 
 ### Reference results (July 2026)
 
@@ -131,9 +205,9 @@ errors (omissions, mistranslations) while penalizing fluency/terminology
 edits. Edit-type annotations (fluency vs. translation accuracy) are being
 produced for the corpus; once available, we will revisit the formulation —
 including a conditional variant restricted to translation-error pairs — and
-get to the bottom of the issue. Until then this suite ships mcf (for
-instruction-tuned and strong base models) and unconditional bpb (for base
-models).
+get to the bottom of the issue. The original suite ships mcf (for instruction-tuned and strong base models)
+and unconditional bpb (for base models). The separate annotated `FI_fluency`
+task evaluates generated fluency preferences on post-trained models.
 
 ### Dataset provenance
 
