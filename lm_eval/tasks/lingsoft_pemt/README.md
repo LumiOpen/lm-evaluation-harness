@@ -160,7 +160,7 @@ excluded from `pair_acc`.
 
 ### Fluency validation (October 2026)
 
-Validated with vLLM 0.20.0, chat templates, sampling at temperature 0.6 /
+Validated with vLLM 0.20.0rc1, chat templates, sampling at temperature 0.6 /
 top-p 0.95, and the default harness seeds:
 
 | Model | Prompts | Token budget | acc | pair_acc | Invalid answers |
