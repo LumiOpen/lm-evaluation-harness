@@ -1,0 +1,27 @@
+task: lingsoft_pemt_fi_morphology_mcf
+dataset_path: LumiOpen/lingsoft-pemt-evals
+dataset_name: FI_morphology_4choice
+dataset_kwargs:
+  revision: 5823dbd84ee6165323e70694e88b504e83714f97
+test_split: test
+tag:
+  - lingsoft_pemt
+  - lingsoft_pemt_fi
+  - lingsoft_pemt_morphology
+output_type: multiple_choice
+num_fewshot: 0
+doc_to_text: "{{ prompt }}"
+doc_to_choice: "{{ choices }}"
+doc_to_target: "{{ gold }}"
+target_delimiter: ""
+process_results: !function utils.process_results_rotation
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: rotation_acc
+    aggregation: !function utils.agg_rotation_acc
+    higher_is_better: true
+metadata:
+  version: 1.0
+  source_sha256: 2c439ec12862d09d50317a61b2a01705cc9eab2578c0759d1e8382819bea5508
