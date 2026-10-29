@@ -21,7 +21,8 @@ other languages can be added alongside.
 
 ### Tasks
 
-Two formulations over the same underlying pairs:
+Two formulations over the same underlying pairs, plus a Finnish morphology
+diagnostic:
 
 | Task | Formulation | What it measures | Split | n |
 |:--|:--|:--|:--|--:|
@@ -29,6 +30,7 @@ Two formulations over the same underlying pairs:
 | `lingsoft_pemt_fi_mcf_broad_5shot` | _mcf_, 5-shot, logprob over `" A"`/`" B"` | blind A/B preference judgment | broad | 8,144 |
 | `lingsoft_pemt_fi_bpb_shared` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | shared | 527 |
 | `lingsoft_pemt_fi_bpb_broad` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | broad | 4,072 |
+| `lingsoft_pemt_fi_morphology_mcf` | 4-choice mcf, 0-shot, logprob over `" A"`–`" D"` | Finnish inflection choice in context | test | 400 (100 items × 4 rotations) |
 
 (mcf has 2× the rows of bpb because every pair appears in both A/B orders.)
 
@@ -49,6 +51,17 @@ and instruction-tuned models.
 with byte-length normalization (bits-per-byte comparison; the texts differ in
 length, so `acc_bytes` is the headline metric). No source, no prompt, no
 instruction — usable on any base model.
+
+**morphology mcf** — each item blanks one word of the professional post-edit
+and offers four forms of the same lemma: the professional form, the attested
+raw-MT form, and two Omorfi-generated forms that are valid Finnish and attested
+elsewhere in the corpus. The model sees only the Finnish sentence; the four
+single-token continuations `" A"`–`" D"` are scored by loglikelihood. Each
+item appears in four rotations so every candidate occupies every letter once
+(chance = 0.25). Works for base and instruction-tuned models without a chat
+template. The items were prescreened by an assistant but have **not** been
+natively adjudicated for a unique valid answer, so treat this as a development
+diagnostic.
 
 Note bpb is deliberately **unconditional**. A source-conditioned variant
 (`English: {source}\nFinnish:` + BPB of each continuation) was implemented
@@ -79,16 +92,21 @@ source-conditioned formulation as a literalness probe.
 
 - `lingsoft_pemt_fi_mcf_5shot` — both mcf tasks, size-weighted mean.
 - `lingsoft_pemt_fi_bpb` — both bpb tasks, size-weighted mean.
+- `lingsoft_pemt_morphology` (tag) — the morphology mcf task.
 
 ### Metrics
 
-- `acc` (all tasks): rate of preferring the human post-edit.
+- `acc` (all tasks): rate of preferring the human post-edit (morphology mcf:
+  rate of picking the professional form, per rotation record).
 - `pair_acc` (mcf): fraction of pairs answered correctly in **both** A/B
   orders — the position-bias-corrected number. A model that always emits the
   same letter scores 0.5 `acc` but 0.0 `pair_acc`; unbiased random guessing
   scores 0.25. Pairs with only one order present (e.g. under `--limit`) are
   dropped. (`acc_norm` is omitted for mcf: both continuations are single
   tokens of equal length, so it equals `acc`.)
+- `rotation_acc` (morphology mcf): item-level accuracy after averaging each
+  candidate's letter loglikelihood over its four positions, so letter-position
+  bias cancels; headline metric. Chance is 0.25.
 - `acc_bytes` (bpb): byte-length-normalized comparison = bits-per-byte
   ranking; headline metric. `acc_norm` (character-normalized) is reported
   alongside.
