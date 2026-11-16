@@ -21,8 +21,8 @@ other languages can be added alongside.
 
 ### Tasks
 
-Two formulations over the same underlying pairs, plus a Finnish morphology
-diagnostic:
+Two formulations over the same underlying pairs, a Finnish morphology
+diagnostic, and a seven-choice Finnish fluency fill-in-the-blank set:
 
 | Task | Formulation | What it measures | Split | n |
 |:--|:--|:--|:--|--:|
@@ -31,6 +31,8 @@ diagnostic:
 | `lingsoft_pemt_fi_bpb_shared` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | shared | 527 |
 | `lingsoft_pemt_fi_bpb_broad` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | broad | 4,072 |
 | `lingsoft_pemt_fi_morphology_mcf` | 4-choice mcf, 0-shot, logprob over `" A"`–`" D"` | Finnish inflection choice in context | test | 400 (100 items × 4 rotations) |
+| `lingsoft_pemt_fi_blank_mcf` | 7-choice mcf, 5-shot, logprob over `" A"`–`" G"` | Finnish fluency: which fill reads most naturally | test | 223 |
+| `lingsoft_pemt_fi_blank_cf` | 7-choice cloze, 5-shot, logprob of each fill | Finnish fluency: which fill reads most naturally | test | 223 |
 
 (mcf has 2× the rows of bpb because every pair appears in both A/B orders.)
 
@@ -63,6 +65,20 @@ template. The items were prescreened by an assistant but have **not** been
 natively adjudicated for a unique valid answer, so treat this as a development
 diagnostic.
 
+**blank mcf / cf** — a preliminary Finnish fluency set from Maria Barrett
+(config `FI_blank_7choice`; other languages follow once their review
+completes). Each item shows up to two preceding sentences of a Finnish
+passage, blanks the next text unit, and offers seven candidate fills; the
+professional post-edit is correct (chance = 1/7). Each item appears once, in
+one of seven rotations. Both tasks take their five demonstrations from the
+dataset's separate `fewshot` split (`first_n`), so they run **5-shot** —
+pass `--num_fewshot 5` or omit the flag; `--num_fewshot 0` silently drops the
+demonstrations. The mcf variant scores the option letters after the full
+instruction prompt. The cloze variant scores each fill as a continuation of
+the preceding passage (no instruction, no option list); its headline metric
+is `acc_norm` because the fills differ in length. 11 test items have no
+preceding sentence, so their cloze context is just the demonstrations.
+
 Note bpb is deliberately **unconditional**. A source-conditioned variant
 (`English: {source}\nFinnish:` + BPB of each continuation) was implemented
 and evaluated, and the signal inverts: given the source, the raw MT is the
@@ -93,11 +109,13 @@ source-conditioned formulation as a literalness probe.
 - `lingsoft_pemt_fi_mcf_5shot` — both mcf tasks, size-weighted mean.
 - `lingsoft_pemt_fi_bpb` — both bpb tasks, size-weighted mean.
 - `lingsoft_pemt_morphology` (tag) — the morphology mcf task.
+- `lingsoft_pemt_blank` (tag) — both blank tasks.
 
 ### Metrics
 
 - `acc` (all tasks): rate of preferring the human post-edit (morphology mcf:
-  rate of picking the professional form, per rotation record).
+  rate of picking the professional form, per rotation record; blank tasks:
+  rate of picking the professional fill, chance 1/7).
 - `pair_acc` (mcf): fraction of pairs answered correctly in **both** A/B
   orders — the position-bias-corrected number. A model that always emits the
   same letter scores 0.5 `acc` but 0.0 `pair_acc`; unbiased random guessing
@@ -110,6 +128,8 @@ source-conditioned formulation as a literalness probe.
 - `acc_bytes` (bpb): byte-length-normalized comparison = bits-per-byte
   ranking; headline metric. `acc_norm` (character-normalized) is reported
   alongside.
+- `acc_norm` (blank cf): character-length-normalized comparison of the seven
+  fills; headline metric for the cloze variant.
 
 ### How to run
 
@@ -119,6 +139,9 @@ lm_eval --model hf \
     --tasks lingsoft_pemt_fi_mcf_5shot,lingsoft_pemt_fi_bpb \
     --batch_size auto
 ```
+
+The blank tasks are 5-shot by default; run them with `--tasks lingsoft_pemt_blank`
+(or the two task names) and either omit `--num_fewshot` or pass `5`.
 
 ### Reference results (July 2026)
 

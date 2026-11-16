@@ -1,0 +1,13 @@
+include: _lingsoft_pemt_fi_blank_template_yaml
+task: lingsoft_pemt_fi_blank_cf
+doc_to_text: >-
+  {{ prompt.split('Passage:\n', 1)[1].split('[BLANK]', 1)[0].rstrip() }}
+doc_to_choice: "{{ candidate_texts }}"
+target_delimiter: "\n"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true

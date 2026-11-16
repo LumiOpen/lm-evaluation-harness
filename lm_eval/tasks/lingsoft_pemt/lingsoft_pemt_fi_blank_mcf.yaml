@@ -1,0 +1,9 @@
+include: _lingsoft_pemt_fi_blank_template_yaml
+task: lingsoft_pemt_fi_blank_mcf
+doc_to_text: "{{ prompt }}"
+doc_to_choice: "{{ choices }}"
+target_delimiter: ""
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
