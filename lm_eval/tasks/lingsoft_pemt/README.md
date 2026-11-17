@@ -31,7 +31,7 @@ diagnostic, and a seven-choice Finnish fluency fill-in-the-blank set:
 | `lingsoft_pemt_fi_bpb_shared` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | shared | 527 |
 | `lingsoft_pemt_fi_bpb_broad` | _bpb_, 0-shot, unconditional | Finnish fluency/naturalness by likelihood | broad | 4,072 |
 | `lingsoft_pemt_fi_morphology_mcf` | 4-choice mcf, 0-shot, logprob over `" A"`–`" D"` | Finnish inflection choice in context | test | 400 (100 items × 4 rotations) |
-| `lingsoft_pemt_fi_blank_mcf` | 7-choice mcf, 5-shot, logprob over `" A"`–`" G"` | Finnish fluency: which fill reads most naturally | test | 223 |
+| `lingsoft_pemt_fi_blank_pairwise` | 7-choice as A/B pairs, 5-shot, logprob over `" A"`/`" B"` | Finnish fluency: which fill reads most naturally | test | 9,366 (223 items × 42 ordered pairs) |
 | `lingsoft_pemt_fi_blank_cf` | 7-choice cloze, 5-shot, logprob of each fill | Finnish fluency: which fill reads most naturally | test | 223 |
 
 (mcf has 2× the rows of bpb because every pair appears in both A/B orders.)
@@ -65,19 +65,30 @@ template. The items were prescreened by an assistant but have **not** been
 natively adjudicated for a unique valid answer, so treat this as a development
 diagnostic.
 
-**blank mcf / cf** — a preliminary Finnish fluency set from Maria Barrett
-(config `FI_blank_7choice`; other languages follow once their review
+**blank pairwise / cf** — a preliminary Finnish fluency set from Maria
+Barrett (config `FI_blank_7choice`; other languages follow once their review
 completes). Each item shows up to two preceding sentences of a Finnish
-passage, blanks the next text unit, and offers seven candidate fills; the
-professional post-edit is correct (chance = 1/7). Each item appears once, in
-one of seven rotations. Both tasks take their five demonstrations from the
-dataset's separate `fewshot` split (`first_n`), so they run **5-shot** —
-pass `--num_fewshot 5` or omit the flag; `--num_fewshot 0` silently drops the
-demonstrations. The mcf variant scores the option letters after the full
-instruction prompt. The cloze variant scores each fill as a continuation of
-the preceding passage (no instruction, no option list); its headline metric
-is `acc_norm` because the fills differ in length. 11 test items have no
-preceding sentence, so their cloze context is just the demonstrations.
+passage, blanks the next text unit, and offers seven candidate fills: the
+professional post-edit (gold) and six distractors, each the gold with one
+edit. Both tasks take their five demonstrations from the dataset's separate
+`fewshot` split (`first_n`), so they run **5-shot** — pass `--num_fewshot 5`
+or omit the flag; `--num_fewshot 0` silently drops the demonstrations.
+
+The pairwise variant never shows all seven fills at once. Each prompt shows
+the passage and exactly two candidates labelled A and B; all 21 pairs are
+asked in both orders, so each item becomes 42 prompts. The demonstrations are
+the few-shot items reduced to the gold against one distractor, with the gold
+alternating between A and B. Nothing is generated: a prompt's preference is
+log p(`" A"`) − log p(`" B"`), the two orders of a pair are averaged (which
+cancels position bias), and the candidate with the higher averaged preference
+wins the pair. The headline metric `item_copeland_acc` counts each
+candidate's wins over its six pairs and scores an item correct when the gold
+has the most wins (ties split; chance 1/7).
+
+The cloze variant scores each fill as a continuation of the preceding passage
+(no instruction, no option list); its headline metric is `acc_norm` because
+the fills differ in length. 11 test items have no preceding sentence, so their
+cloze context is just the demonstrations.
 
 Note bpb is deliberately **unconditional**. A source-conditioned variant
 (`English: {source}\nFinnish:` + BPB of each continuation) was implemented
@@ -109,13 +120,15 @@ source-conditioned formulation as a literalness probe.
 - `lingsoft_pemt_fi_mcf_5shot` — both mcf tasks, size-weighted mean.
 - `lingsoft_pemt_fi_bpb` — both bpb tasks, size-weighted mean.
 - `lingsoft_pemt_morphology` (tag) — the morphology mcf task.
-- `lingsoft_pemt_blank` (tag) — both blank tasks.
+- `lingsoft_pemt_blank` (tag) — both blank tasks (`lingsoft_pemt_blank_pairwise`
+  tags the pairwise task alone).
 
 ### Metrics
 
-- `acc` (all tasks): rate of preferring the human post-edit (morphology mcf:
-  rate of picking the professional form, per rotation record; blank tasks:
-  rate of picking the professional fill, chance 1/7).
+- `acc` (all tasks except blank pairwise): rate of preferring the human
+  post-edit (morphology mcf: rate of picking the professional form, per
+  rotation record; blank cf: rate of picking the professional fill, chance
+  1/7).
 - `pair_acc` (mcf): fraction of pairs answered correctly in **both** A/B
   orders — the position-bias-corrected number. A model that always emits the
   same letter scores 0.5 `acc` but 0.0 `pair_acc`; unbiased random guessing
@@ -130,6 +143,19 @@ source-conditioned formulation as a literalness probe.
   alongside.
 - `acc_norm` (blank cf): character-length-normalized comparison of the seven
   fills; headline metric for the cloze variant.
+- Blank pairwise (all computed in `utils_pairwise.py`; "debiased" means the
+  two orders of a pair are averaged):
+  - `item_copeland_acc`: headline; gold has the most debiased pairwise wins
+    among the seven candidates (ties split, chance 1/7).
+  - `item_beats_all`: gold wins every one of its six debiased pairs.
+  - `gold_pair_acc_debiased`: gold-vs-distractor pairs won after averaging
+    both orders (chance 0.5).
+  - `gold_pair_acc`: gold-vs-distractor pairs won in **both** orders (chance
+    0.25).
+  - `gold_acc`: per-prompt rate of picking the gold where it is shown (chance
+    0.5).
+  - `first_choice_rate`: share of prompts answered `" A"`; 0.5 means no
+    position bias.
 
 ### How to run
 
@@ -142,6 +168,9 @@ lm_eval --model hf \
 
 The blank tasks are 5-shot by default; run them with `--tasks lingsoft_pemt_blank`
 (or the two task names) and either omit `--num_fewshot` or pass `5`.
+
+Reference blank pairwise `item_copeland_acc` (Maria Barrett): Qwen3.5-9B-Base
+0.36 · Qwen3.5-9B 0.48 · Qwen3.5-35B-A3B-Base 0.54 · Qwen3.5-35B-A3B 0.49.
 
 ### Reference results (July 2026)
 

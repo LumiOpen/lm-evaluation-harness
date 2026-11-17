@@ -1,8 +1,22 @@
-include: _lingsoft_pemt_fi_blank_template_yaml
 task: lingsoft_pemt_fi_blank_cf
+dataset_path: LumiOpen/lingsoft-pemt-evals
+dataset_name: FI_blank_7choice
+dataset_kwargs:
+  revision: 1ce3b857820ee34c9e42573980a0c4308677ffce
+test_split: test
+fewshot_split: fewshot
+fewshot_config:
+  sampler: first_n
+num_fewshot: 5
+tag:
+  - lingsoft_pemt
+  - lingsoft_pemt_fi
+  - lingsoft_pemt_blank
+output_type: multiple_choice
 doc_to_text: >-
   {{ prompt.split('Passage:\n', 1)[1].split('[BLANK]', 1)[0].rstrip() }}
 doc_to_choice: "{{ candidate_texts }}"
+doc_to_target: "{{ gold }}"
 target_delimiter: "\n"
 metric_list:
   - metric: acc
@@ -11,3 +25,7 @@ metric_list:
   - metric: acc_norm
     aggregation: mean
     higher_is_better: true
+metadata:
+  version: 1.0
+  test_sha256: 582cc5d87ba11394f8a56357987df4c64a6fc3895c85c3fae1a02487e570f1aa
+  fewshot_sha256: 275a01a1ccfa34df30a759e23a3efe9b6c585787b8ff89b7f478352e690a2c2e
