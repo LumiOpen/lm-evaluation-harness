@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Italian (it)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_it
+process_docs: !function utils.process_docs_it
+metadata:
+  version: 2.0
+  target_lang: it
+  target_lang_name: Italian

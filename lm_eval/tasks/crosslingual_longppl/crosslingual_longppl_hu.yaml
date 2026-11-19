@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Hungarian (hu)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_hu
+process_docs: !function utils.process_docs_hu
+metadata:
+  version: 2.0
+  target_lang: hu
+  target_lang_name: Hungarian

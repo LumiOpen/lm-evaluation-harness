@@ -1,0 +1,8 @@
+# Cross-Lingual LongPPL - Polish (pl)
+include: _crosslingual_longppl_base.yaml
+task: crosslingual_longppl_pl
+process_docs: !function utils.process_docs_pl
+metadata:
+  version: 2.0
+  target_lang: pl
+  target_lang_name: Polish
